@@ -1,0 +1,6 @@
+.Typewriter {
+  display: inline;
+}
+.Typewriter__cursor {
+  font-weight: 200;
+}
