@@ -108,7 +108,7 @@ const Home = () => {
           display="flex"
           flexDirection="column"
           py="4rem"
-          alignItem="start"
+          align="start"
           fontSize={{ base: '2xl', md: '4xl', lg: '5xl' }}
         >
           <Text
@@ -182,7 +182,7 @@ const Home = () => {
           display="flex"
           flexDirection="column"
           py="4rem"
-          alignItem="start"
+          align="start"
           fontSize={{ base: '2xl', md: '4xl', lg: '5xl' }}
         >
           <Text fontSize={['16px', '20px', '24px']}>OUR PRODUCTS</Text>

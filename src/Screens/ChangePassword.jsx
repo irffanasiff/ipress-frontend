@@ -23,7 +23,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Actions/userAction';
 
-const Login = ({ close, reset }) => {
+const ChangePassword = ({ close }) => {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const {
@@ -45,9 +45,9 @@ const Login = ({ close, reset }) => {
       if (close) close();
     }
   }, [navigate, redirect, userInfo, close, error, toast]);
-  const onSubmit = ({ email, password }) => {
+  const onSubmit = data => {
     console.log('submitted');
-    dispatch(login(email, password));
+    console.log(data);
   };
 
   return (
@@ -71,7 +71,7 @@ const Login = ({ close, reset }) => {
           w="fit-content"
           maxW={{ base: '15rem', md: '20rem' }}
         >
-          Login to your account
+          Change Password
         </Heading>
         <Text
           maxW={{ base: '18rem', md: '25rem' }}
@@ -81,11 +81,12 @@ const Login = ({ close, reset }) => {
           color={'ipress.300'}
         >
           For more than 20 years, VistaPrint has helped small business owners.
-          Forgot your Password?{' '}
+          Don't Have an Account?{' '}
           <Box
             as="button"
             onClick={e => {
               e.preventDefault();
+              if (close) close();
             }}
           >
             <Text
@@ -93,17 +94,7 @@ const Login = ({ close, reset }) => {
               textColor={'ipress.500'}
               _hover={{ textDecoration: 'underline' }}
             >
-              <Link
-                to="/reset-password"
-                onClick={e => {
-                  if (close) {
-                    e.preventDefault();
-                    reset(3);
-                  }
-                }}
-              >
-                Reset
-              </Link>
+              <Link to="/signup">Sign in</Link>
             </Text>
           </Box>
         </Text>
@@ -118,35 +109,49 @@ const Login = ({ close, reset }) => {
         )}
         <VStack w="full">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl w="full" isRequired isInvalid={errors.email}>
-              <Input
-                fontSize="xl"
-                variant="custom"
-                borderBottom={'1px solid gray'}
-                type={'text'}
-                px="0.5rem"
-                h={{ base: '3rem', md: '3.6rem' }}
-                size={{ base: 'sm', md: 'lg' }}
-                placeholder="Email"
-                _placeholder={{ color: 'gray.400' }}
-                {...register('email', {
-                  required: 'Please enter registered email',
-                  pattern: {
-                    value:
-                      /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: 'Enter a valid email',
-                  },
-                })}
-              />
-              {errors.email && (
-                <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+            <FormControl w="full" isRequired isInvalid={errors.new}>
+              <Tooltip
+                hasArrow
+                w={{ base: '16rem', md: '16rem' }}
+                label="Minimum 4 Characters"
+                arrowSize={8}
+                placement="top"
+                closeOnClick={false}
+                color="black"
+                fontWeight={'200'}
+                bg="gray.200"
+              >
+                <InputGroup>
+                  <Input
+                    fontSize="xl"
+                    variant="custom"
+                    borderBottom={'1px solid gray'}
+                    px="0.5rem"
+                    h={{ base: '3rem', md: '3.6rem' }}
+                    size={{ base: 'sm', md: 'lg' }}
+                    placeholder="New Password"
+                    _placeholder={{ color: 'gray.400' }}
+                    type={showPassword ? 'text' : 'password'}
+                    {...register('new', {
+                      required: 'Please enter new Password',
+                      minLength: { value: 4, message: 'Minimum 4 Characters' },
+                      /* pattern: {
+                          value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
+                          message: 'Use a strong password',
+                        }, */
+                    })}
+                  />
+                </InputGroup>
+              </Tooltip>
+              {errors.new && (
+                <FormErrorMessage>{errors.new.message}</FormErrorMessage>
               )}
             </FormControl>
             <FormControl
               pt={'1rem'}
               w={{ base: 'full', md: '20rem' }}
               isRequired
-              isInvalid={errors.password}
+              isInvalid={errors.confirm}
             >
               <Tooltip
                 hasArrow
@@ -167,22 +172,22 @@ const Login = ({ close, reset }) => {
                     px="0.5rem"
                     h={{ base: '3rem', md: '3.6rem' }}
                     size={{ base: 'sm', md: 'lg' }}
-                    placeholder="Password"
+                    placeholder="Confirm Password"
                     _placeholder={{ color: 'gray.400' }}
                     type={showPassword ? 'text' : 'password'}
-                    {...register('password', {
-                      required: 'Please enter Password',
+                    {...register('confirm', {
+                      required: 'Please confirm Password',
                       minLength: { value: 4, message: 'Minimum 4 Characters' },
                       /* pattern: {
-                        value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
-                        message: 'Use a strong password',
-                      }, */
+                          value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
+                          message: 'Use a strong password',
+                        }, */
                     })}
                   />
                 </InputGroup>
               </Tooltip>
-              {errors.password && (
-                <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+              {errors.confirm && (
+                <FormErrorMessage>{errors.confirm.message}</FormErrorMessage>
               )}
             </FormControl>
             <Box
@@ -207,7 +212,7 @@ const Login = ({ close, reset }) => {
                   borderColor: 'ipress.500',
                 }}
               >
-                Login
+                RESET PASSWORD
               </Button>
             </Box>
           </form>
@@ -216,4 +221,4 @@ const Login = ({ close, reset }) => {
     </Container>
   );
 };
-export { Login };
+export { ChangePassword };

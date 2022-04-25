@@ -134,7 +134,8 @@ const Footer = () => {
                 textAlign="start"
               >
                 <Text>
-                  Instagram Frame <Text>Boards</Text>{' '}
+                  Instagram Frame
+                  <br /> <span>Boards</span>{' '}
                 </Text>
               </Box>
             </VStack>{' '}

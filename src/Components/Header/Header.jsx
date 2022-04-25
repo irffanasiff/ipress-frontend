@@ -23,18 +23,29 @@ import {
   Container,
   Heading,
   Center,
+  MenuItem,
+  MenuList,
+  MenuButton,
+  Menu,
 } from '@chakra-ui/react';
 import { CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { BsMinecart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { Cart, Login } from '../../Screens';
+import { Cart, Login, ChangePassword } from '../../Screens';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../Actions/userAction';
+
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const [drawerContent, setDrawerContent] = useState();
+  const dispatch = useDispatch();
+  const userLogin = useSelector(state => state.userLogin);
+  const userDetails = useSelector(state => state.userDetails);
+  const { userInfo } = userLogin;
   const {
     isOpen: isDrawerOpen,
     onOpen: onDrawerOpen,
@@ -43,7 +54,11 @@ export default function WithSubnavigation() {
   const btnRef = useRef();
   const onLoginClickHandler = () => {
     onDrawerOpen();
-    setDrawerContent(1);
+    if (userInfo) setDrawerContent(3);
+    else setDrawerContent(1);
+  };
+  const logoutHandeler = () => {
+    dispatch(logout());
   };
   const onCartClickHandler = () => {
     onDrawerOpen();
@@ -58,7 +73,6 @@ export default function WithSubnavigation() {
       flexDirection={'column'}
       p="0"
     >
-      <Box w="99vw" mx="auto" h="3rem" bg="gray.100" />
       <Container maxW="7xl" mx="auto">
         <Flex minH={'60px'} py={{ base: 2 }} px={{ base: 4 }} align={'center'}>
           <Flex
@@ -116,18 +130,38 @@ export default function WithSubnavigation() {
               <AiOutlineSearch size={32} />
               <Text display={{ base: 'none', md: 'block' }}>Search</Text>
             </Box>
-            <Box
-              as="button"
-              onClick={onLoginClickHandler}
-              display="flex"
-              flexDirection={'row'}
-              alignItems="center"
-              gap="1rem"
-              fontSize={'md'}
-              fontWeight={600}
-            >
-              <AiOutlineUser size={32} />
-            </Box>
+            {userInfo ? (
+              <Box key="user_dropdown">
+                <Menu isLazy m="auto">
+                  <MenuButton
+                    fontWeight={600}
+                    p={'5px 15px'}
+                    borderRadius={'8px'}
+                    border={`2px solid gray`}
+                  >
+                    {userDetails.user.name}
+                  </MenuButton>
+                  <MenuList>
+                    <Link to="/profile">
+                      <MenuItem>Profile</MenuItem>
+                    </Link>
+                    <MenuItem onClick={logoutHandeler}>Logout</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+            ) : (
+              <Box
+                as="button"
+                onClick={onLoginClickHandler}
+                display="flex"
+                flexDirection={'row'}
+                alignItems="center"
+                fontSize={'md'}
+                fontWeight={600}
+              >
+                <AiOutlineUser size={32} /> Login
+              </Box>
+            )}
             <Drawer
               isOpen={isDrawerOpen}
               placement="right"
@@ -139,7 +173,19 @@ export default function WithSubnavigation() {
               <DrawerContent>
                 <DrawerCloseButton />
                 <DrawerBody bg="white">
-                  {drawerContent === 1 ? <Login /> : <Cart />}
+                  {drawerContent === 1 ? (
+                    <Login close={onDrawerClose} reset={setDrawerContent} />
+                  ) : drawerContent === 2 ? (
+                    <Cart />
+                  ) : drawerContent === 3 ? (
+                    <ChangePassword close={onDrawerClose} />
+                  ) : (
+                    <Container>
+                      <Box>Profile</Box>
+                      <Box>Profile</Box>
+                      <Box>Profile</Box>
+                    </Container>
+                  )}
                 </DrawerBody>
               </DrawerContent>
             </Drawer>

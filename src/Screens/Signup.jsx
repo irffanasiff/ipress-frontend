@@ -15,10 +15,13 @@ import {
   Tooltip,
   Input,
   InputGroup,
+  Spinner,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { register as userRegister } from '../Actions/userAction';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,15 +33,28 @@ const Signup = () => {
     setError,
     formState: { errors, isSubmitting },
   } = useForm();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const newUser = useSelector(state => state.userRegister);
+  const savedUser = localStorage.getItem('userInfo');
+  const { loading, error, userInfo } = newUser;
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  const onSubmit = () => {
-    console.log('Submitted');
+  useEffect(() => {
+    if (savedUser) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, savedUser]);
+  const onSubmit = ({ name, email, password }) => {
+    console.log('submit');
+    dispatch(userRegister(name, email, password));
   };
 
   return (
     <Container
-          w="fit-content"
-          py='4rem'
+      w="fit-content"
+      py="4rem"
       minH={{ base: '80vh', lg: '82vh' }}
       display="flex"
       alignItems={'center'}
@@ -74,10 +90,25 @@ const Signup = () => {
               textColor={'ipress.500'}
               _hover={{ textDecoration: 'underline' }}
             >
-              <Link to='/login'>Login</Link>
+              <Link to="/login">Login</Link>
             </Text>
           </Box>
         </Text>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
+        {loading && (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        )}
         <VStack w="full">
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl w="full" isRequired mb="1rem">
@@ -92,7 +123,7 @@ const Signup = () => {
                 placeholder="Full Name"
                 {...register('name', {
                   required: 'Please enter Password',
-                  minLength: { value: 4, message: 'Too Short' },
+                  minLength: { value: 2, message: 'Too Short' },
                 })}
               />
               {errors.name && (
@@ -152,11 +183,11 @@ const Signup = () => {
                     type={showPassword ? 'text' : 'password'}
                     {...register('password', {
                       required: 'Please enter Password',
-                      minLength: { value: 8, message: 'Minimum 8 Characters' },
-                      pattern: {
+                      minLength: { value: 5, message: 'Minimum 5 Characters' },
+                      /* pattern: {
                         value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
                         message: 'Use a strong password',
-                      },
+                      }, */
                     })}
                   />
                 </InputGroup>
@@ -178,27 +209,25 @@ const Signup = () => {
             >
               {showPassword ? <Text>Hide</Text> : <Text>Show</Text>}
             </Box>
-            <Box
+
+            <Button
               my="2rem"
-              as="button"
               width="fit-content"
               mx="auto"
               alignSelf={'center'}
+              type="submit"
+              variant="custom-black"
+              _hover={{
+                color: 'ipress.500',
+                borderColor: 'ipress.500',
+              }}
             >
-              <Button
-                variant="custom-black"
-                _hover={{
-                  color: 'ipress.500',
-                  borderColor: 'ipress.500',
-                }}
-              >
-                Signup
-              </Button>
-            </Box>
+              Signup
+            </Button>
           </form>
         </VStack>
       </VStack>
     </Container>
   );
 };
-export {Signup};
+export { Signup };
