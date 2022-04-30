@@ -13,18 +13,19 @@ import {
   Stack,
   Input,
   FormErrorMessage,
+  Flex,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Rating from '../Components/Product/Rating';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProductDetails } from '../Actions/productAction';
+import { listProductDetails, saveProducts } from '../Actions/productAction';
 import { useNavigate, generatePath } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
 
 const isAdmin = true;
-const useNavigateParams = () => {
+/* const useNavigateParams = () => {
   const navigate = useNavigate();
 
   return (url, params) => {
@@ -34,22 +35,29 @@ const useNavigateParams = () => {
     });
     navigate(path);
   };
-};
+}; */
 
-const product = {
-  image:
-    'https://i.pinimg.com/736x/0e/fe/72/0efe728db4b33f979300967d7723c756.jpg',
-  name: 'Flyers',
-  details:
-    'Give your customers flyers with all the details they need to know about your business. Explore fully customisable templates, or upload your own design',
-  fields: [
-    { name: 'productOrientation', placeholder: 'Product Orientation' },
-    { name: 'size', placeholder: 'Size' },
-    { name: 'paperThickness', placeholder: 'Paper thickness' },
-    { name: 'quantity', placeholder: 'Quantity' },
-  ],
-  browseDesign: true,
-  uploadDesign: true,
+const product = id => {
+  let productInfo = {
+    image:
+      'https://i.pinimg.com/736x/0e/fe/72/0efe728db4b33f979300967d7723c756.jpg',
+    name: id,
+    details: `Get custom ${id} with all the details you need. Explore fully customisable templates, or upload your own design`,
+    fields: [
+      {
+        name: 'product_orientation',
+        placeholder: 'Product Orientation (landscape or portrait)',
+        type: 'text',
+      },
+      { name: 'length', placeholder: 'Length (in inches)', grow: 1 },
+      { name: 'breadth', placeholder: 'Breadth (in inches)', grow: 1 },
+      { name: 'paper_thickness', placeholder: 'Paper thickness(in mm)' },
+      { name: 'quantity', placeholder: 'Quantity' },
+    ],
+    browseDesign: true,
+    uploadDesign: true,
+  };
+  return productInfo;
 };
 const data = [
   {
@@ -85,14 +93,15 @@ const data = [
       'Praesentium ipsa ipsam non aut repellat dolorem itaque illo nisi odio cum!',
   },
 ];
-const ProductDetails = () => {
-  const [qty, setQty] = useState(0);
-  const navigate = useNavigateParams();
-
+const ProductDetails = ({ setUrl }) => {
   const { id } = useParams();
-
+  const uploadImg = useRef();
+  const [action, setAction] = useState();
+  const [qty, setQty] = useState(0);
+  //const navigate = useNavigateParams();
+  const productInfo = product(id);
   const dispatch = useDispatch();
-  //const { loading, product, error } = useSelector(state => state.productDetail);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -101,16 +110,45 @@ const ProductDetails = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  useEffect(() => {
-    dispatch(listProductDetails(id));
-  }, [dispatch, id]);
-
-  const addToCartHandler = () => {
+  /* const addToCartHandler = () => {
     navigate(`/cart/${id}`, `qty=${qty}`);
-  };
+  }; */
 
-  const onSubmit = data => {
-    console.log(data);
+  const handleImg = e => {
+    let img = URL.createObjectURL(e.target.files[0]);
+    setUrl(img);
+    navigate(`/designs/${id}/editor`);
+  };
+  const onSubmit = ({
+    quantity,
+    paper_thickness,
+    product_orientation,
+    length,
+    breadth,
+  }) => {
+    if (action === 'upload') {
+      uploadImg.current.click();
+    } else if (action === 'browse') {
+      navigate(`/designs/${id}`);
+    }
+    const product = {
+      name: productInfo.name,
+      fields: [
+        {
+          quantity,
+          paper_thickness,
+          product_orientation,
+          size: length + '_' + breadth,
+        },
+      ],
+      browseDesign: false,
+      uploadDesign: false,
+    };
+    action === 'upload'
+      ? (product.uploadDesign = true)
+      : (product.browseDesign = true);
+    dispatch(saveProducts(product));
+    console.log(action);
   };
 
   return (
@@ -125,23 +163,28 @@ const ProductDetails = () => {
         justifyContent={'space-between'}
       >
         <VStack alignItems={'start'} maxW={{ base: '70vw', md: '35rem' }}>
-          <Heading fontWeight={'400'}>{product.name}</Heading>
-          <Text>{product.details}</Text>
-          <VStack w="full" p={{ base: '1rem', md: '2rem' }}>
-            {product.fields.map((field, index) => (
-              <FormControl w="full" isRequired mb="1rem">
+          <Heading fontWeight={'400'}>{productInfo.name}</Heading>
+          <Text>{productInfo.details}</Text>
+          <Flex flexWrap={'wrap'} w="full" p={{ base: '1rem', md: '2rem' }}>
+            {productInfo.fields.map((field, index) => (
+              <FormControl
+                flexGrow={field.grow || 1}
+                isRequired
+                mb="1rem"
+                key={index}
+                w={{ base: 'full', md: field.grow ? '50%' : 'full' }}
+              >
                 <Input
                   fontSize="xl"
                   variant="custom"
                   borderBottom={'1px solid gray'}
-                  type={'text'}
+                  type={field.type || 'number'}
                   px="0.5rem"
                   h={{ base: '3rem', md: '3.6rem' }}
                   size={{ base: 'sm', md: 'lg' }}
                   placeholder={field.placeholder}
                   {...register(`${field.name}`, {
-                    required: 'Please enter Password',
-                    minLength: { value: 4, message: 'Too Short' },
+                    required: `Please enter ${field.placeholder}`,
                   })}
                 />
                 {errors.name && (
@@ -149,26 +192,46 @@ const ProductDetails = () => {
                 )}
               </FormControl>
             ))}
-          </VStack>
+          </Flex>
           <Stack
             direction={{ base: 'column', md: 'row' }}
             justify={'space-around'}
             w="full"
           >
-            {product.browseDesign && (
-              <Button type="submit" variant={'custom-black'}>
+            {productInfo.browseDesign && (
+              <Button
+                type="submit"
+                variant={'custom-black'}
+                onClick={() => setAction('browse')}
+              >
                 Browse Design
               </Button>
             )}
-            {product.uploadDesign && (
-              <Button variant={'custom-black'} color="red" borderColor={'red'}>
-                Upload Design
-              </Button>
+            {productInfo.uploadDesign && (
+              <>
+                <Button
+                  variant={'custom-black'}
+                  color="red"
+                  borderColor={'red'}
+                  type="submit"
+                  onClick={() => {
+                    setAction('upload');
+                  }}
+                >
+                  Upload Design
+                </Button>
+                <input
+                  type="file"
+                  style={{ display: 'none' }}
+                  ref={uploadImg}
+                  onChange={e => handleImg(e)}
+                />
+              </>
             )}
           </Stack>
         </VStack>
         <Center mx="auto">
-          <Image src={product.image} w={{ base: '18rem', md: '25rem' }} />
+          <Image src={productInfo.image} w={{ base: '18rem', md: '25rem' }} />
         </Center>
       </Stack>
       <Faq data={data} />

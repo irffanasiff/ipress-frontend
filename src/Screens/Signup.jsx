@@ -23,7 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { register as userRegister } from '../Actions/userAction';
 
-const Signup = () => {
+const Signup = ({ close }) => {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
 
@@ -37,15 +37,17 @@ const Signup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const newUser = useSelector(state => state.userRegister);
+  const userLogin = useSelector(state => state.userLogin);
   const savedUser = localStorage.getItem('userInfo');
   const { loading, error, userInfo } = newUser;
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = location.search ? location.search.split('=')[1] : '';
 
   useEffect(() => {
-    if (savedUser) {
-      navigate(redirect);
+    if (userLogin.userInfo) {
+      navigate(`/${redirect}`);
+      if (close) close();
     }
-  }, [navigate, redirect, savedUser]);
+  }, [navigate, redirect, close, userLogin.userInfo]);
   const onSubmit = ({ name, email, password }) => {
     console.log('submit');
     dispatch(userRegister(name, email, password));

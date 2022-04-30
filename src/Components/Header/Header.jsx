@@ -228,7 +228,7 @@ const DesktopNav = () => {
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
-                p={{ base: 2, lg: 4 }}
+                p={{ base: 2 }}
                 href={navItem.href ?? '#'}
                 fontSize={{ md: 'sm', lg: 'lg' }}
                 fontWeight={500}
@@ -475,7 +475,7 @@ const NAV_ITEMS = [
       {
         label: 'Fleyers',
         subLabel: 'Find your dream design job',
-        href: '/product/flyers',
+        href: '/product/Flyers',
       },
     ],
   },

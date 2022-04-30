@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import { ChakraProvider, Heading, Center } from '@chakra-ui/react';
 import Header from './Components/Header/Header';
@@ -16,6 +16,8 @@ import {
   ChangePassword,
 } from './Screens';
 import theme from './theme';
+import { Designs } from './Screens/Designs';
+import { Editor } from './Screens/Editor';
 
 export const newTheme = {
   ...theme,
@@ -23,6 +25,7 @@ export const newTheme = {
   colors: { ...theme.colors, primary: '#ffffff' },
 };
 function App() {
+  const [imgURL, setImgURL] = useState();
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
   const userDetails = useSelector(state => state.userDetails);
@@ -48,9 +51,20 @@ function App() {
           <Route path="/variants" element={<Variants />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/designs/:type"
+            element={<Designs setUrl={setImgURL} />}
+          />
+          <Route
+            path="/designs/:type/editor"
+            element={<Editor imgURL={imgURL} />}
+          />
           <Route path="/reset-password" element={<ChangePassword />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/cart/:id" element={<Cart />} />
+          <Route
+            path="/product/:id"
+            element={<ProductDetails setUrl={setImgURL} />}
+          />
+          <Route path="/cart" element={<Cart />} />
 
           <Route
             path="*"

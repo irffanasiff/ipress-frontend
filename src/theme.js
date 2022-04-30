@@ -41,7 +41,7 @@ const theme = extendTheme({
           fontSize: 'xl',
           textTransform: 'uppercase',
           rounded: 'full',
-          p: '2.5rem',
+          p: '1.5rem',
         },
       },
     },

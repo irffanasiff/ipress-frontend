@@ -94,7 +94,11 @@ const Login = ({ close, reset }) => {
               _hover={{ textDecoration: 'underline' }}
             >
               <Link
-                to="/reset-password"
+                to={
+                  redirect
+                    ? `/reset-password?redirect=${redirect}`
+                    : '/reset-password'
+                }
                 onClick={e => {
                   if (close) {
                     e.preventDefault();

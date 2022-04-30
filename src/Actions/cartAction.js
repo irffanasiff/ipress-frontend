@@ -4,31 +4,107 @@ import {
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
+  CART_LIST_REQUEST,
+  CART_LIST_SUCCESS,
+  CART_LIST_FAIL,
 } from '../Constants/cartConstants.js';
+import {
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_SAVED_CLEAR,
+} from '../Constants/productConstants.js';
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
-  dispatch({
-    type: CART_ADD_ITEM,
-    payload: {
-      product: data._id,
-      name: data.name,
-      image: data.image,
-      price: data.price,
-      countInStock: data.countInStock,
-      qty,
-    },
-  });
-  
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+// create product and add it to cart-items in store and local storage
+export const addToCart = product => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      'http://localhost:5000/api/products',
+      { ...product, price: 500 },
+      config
+    );
+    // on success clear saved product
+    dispatch({
+      type: PRODUCT_SAVED_CLEAR,
+      payload: data,
+    });
+    dispatch({
+      type: CART_ADD_ITEM,
+      payload: { ...data },
+    });
+    localStorage.removeItem('SAVED_PRODUCT');
+    localStorage.removeItem('EDITED_ITEM');
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(getState().cart.cartItems)
+    );
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const listCartItems = id => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    dispatch({ type: CART_LIST_REQUEST });
+    const { data } = await axios.get(
+      'http://localhost:5000/api/products',
+      config
+    );
+    dispatch({ type: CART_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: CART_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };
 
-export const removeFromCart = id => (dispatch, getState) => {
+export const removeFromCart = id => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+  await axios.delete(`http://localhost:5000/api/products/${id}`, config);
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: id,
   });
-
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 

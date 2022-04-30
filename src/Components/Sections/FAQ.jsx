@@ -29,7 +29,7 @@ const Faq = ({ data }) => {
       <Accordion allowMultiple mx="auto" maxW="3xl">
         {data &&
           data.map((faq, index) => (
-            <AccordionItem my="1rem" border="0">
+            <AccordionItem my="1rem" border="0" key={index}>
               {({ isExpanded }) => (
                 <>
                   <h2>
@@ -53,7 +53,7 @@ const Faq = ({ data }) => {
                   <AccordionPanel
                     fontSize={{ base: 'xs', md: 'md' }}
                     fontWeight={'300'}
-                    fontColor="black"
+                    color="black"
                     pb={4}
                   >
                     {faq.answer}
