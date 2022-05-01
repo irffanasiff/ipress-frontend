@@ -18,6 +18,10 @@ import {
 import theme from './theme';
 import { Designs } from './Screens/Designs';
 import { Editor } from './Screens/Editor';
+import { Shipping } from './Screens/Shipping';
+import { Payment } from './Screens/Payment';
+import { PlaceOrder } from './Screens/PlaceOrder';
+import { listCartItems } from './Actions/cartAction';
 
 export const newTheme = {
   ...theme,
@@ -29,6 +33,9 @@ function App() {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
   const userDetails = useSelector(state => state.userDetails);
+
+  const cart = useSelector(state => state.cart);
+  const { cartItems, loading } = cart;
   const { user, error } = userDetails;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,8 +47,10 @@ function App() {
       }
     } else if (error === 'Token expired') {
       dispatch(logout());
+    } else if (user.name && !cartItems && !loading) {
+      dispatch(listCartItems());
     }
-  }, [dispatch, user, userInfo, error]);
+  }, [dispatch, user, userInfo, error, loading, cartItems]);
   return (
     <ChakraProvider theme={newTheme}>
       <BrowserRouter>
@@ -65,6 +74,9 @@ function App() {
             element={<ProductDetails setUrl={setImgURL} />}
           />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/placeorder" element={<PlaceOrder />} />
 
           <Route
             path="*"

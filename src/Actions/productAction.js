@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { CART_CLEAR_ITEMS } from '../Constants/cartConstants';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -7,6 +8,9 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   SAVE_PRODUCT,
+  ORDER_CREATE_REQUEST,
+  ORDER_CREATE_SUCCESS,
+  ORDER_CREATE_FAIL,
 } from '../Constants/productConstants';
 // a product action is created:
 // // product action
@@ -40,4 +44,46 @@ export const listProductDetails = id => async dispatch => {
 export const saveProducts = data => async dispatch => {
   dispatch({ type: SAVE_PRODUCT, payload: data });
   localStorage.setItem('SAVED_PRODUCT', JSON.stringify(data));
+};
+
+export const orderProducts = order => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_CREATE_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      'http://localhost:5000/api/orders',
+      { ...order },
+      config
+    );
+    console.log(data);
+    // on success clear cart product
+
+    dispatch({
+      type: ORDER_CREATE_SUCCESS,
+    });
+    dispatch({
+      type: CART_CLEAR_ITEMS,
+    });
+    localStorage.removeItem('cartItems');
+  } catch (error) {
+    dispatch({
+      type: ORDER_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };

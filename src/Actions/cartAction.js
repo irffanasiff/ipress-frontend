@@ -78,6 +78,10 @@ export const listCartItems = id => async (dispatch, getState) => {
       config
     );
     dispatch({ type: CART_LIST_SUCCESS, payload: data });
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(getState().cart.cartItems)
+    );
   } catch (error) {
     dispatch({
       type: CART_LIST_FAIL,

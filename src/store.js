@@ -14,6 +14,7 @@ import {
 } from './Reducer/userReducers';
 import { cartReducer } from './Reducer/cartReducers';
 import { imagesGetReducer } from './Reducer/imageReducer';
+import { orderReducer } from './Reducer/orderReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateReducer,
   images: imagesGetReducer,
+  order: orderReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -48,6 +50,7 @@ const initialState = {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
     paymentMethod: paymentMethodFromStorage,
+    shippingPrice: '500',
   },
   userLogin: { userInfo: userInfoFromStorage },
 };
