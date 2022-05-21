@@ -181,12 +181,16 @@ const Home = () => {
           align="start"
           fontSize={{ base: '2xl', md: '4xl', lg: '5xl' }}
         >
-          <Text fontSize={['16px', '20px', '24px']}>OUR PRODUCTS</Text>
+          <Text
+            fontSize={['16px', '20px', '24px']}
+            textAlign={{ base: 'center', sm: 'left' }}
+          >
+            OUR PRODUCTS
+          </Text>
           <Wrap
-            my="2rem"
+            m="2rem 0"
             maxW={{ base: '14rem', sm: '4xl' }}
-            mx="auto"
-            justify={{ base: 'space-evenly', md: 'space-between' }}
+            justify={{ base: 'space-evenly', md: 'space-evenly' }}
             alignContent={'center'}
             align="center"
             alignItems={'center'}

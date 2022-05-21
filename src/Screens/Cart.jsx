@@ -50,11 +50,11 @@ const Cart = () => {
   };
 
   return (
-    <Container maxW="6xl" w={'90%'}>
+    <Container maxW="6xl" w={'90%'} minH={'90%'} my={'20px'}>
       <Heading mx="auto" my={5}>
-        Shoping Cart
+        Cart
       </Heading>
-      <HStack justify={'space-between'}>
+      <VStack justify={'space-between'} bgColor={'gray.100'} h={'full'}>
         {!cartItems ? (
           loading ? (
             <Spinner
@@ -70,32 +70,42 @@ const Cart = () => {
         ) : cartItems.length === 0 ? (
           <Text>Your card is empty</Text>
         ) : (
-          <VStack align={'flex-start'} w={'100%'}>
+          <VStack align={'flex-start'} alignSelf={'stretch'}>
             {cartItems.map((item, key) => (
               <HStack
+                w={'full'}
                 p="1rem"
-                justify={'space-between'}
-                gap={3}
-                maxW={'500px'}
-                alignSelf={'stretch'}
+                gap={[3, 4, 5, 6]}
+                justifyContent={'space-evenly'}
               >
                 <VStack>
-                  <Image
-                    rounded="lg"
-                    width="120px"
-                    height="120px"
-                    fit="cover"
-                    draggable="false"
-                    loading="lazy"
-                    src={item.design.image}
-                  />
+                  <Box width="100px" height="100px">
+                    <Image
+                      rounded="lg"
+                      height="full"
+                      fit="cover"
+                      draggable="false"
+                      loading="lazy"
+                      src={item.design.image}
+                    />
+                  </Box>
                   <Text>
                     {item.fields[0].size.split('_')[0]} x{' '}
                     {item.fields[0].size.split('_')[1]}
                   </Text>
                 </VStack>
-                <Text>{item.name}</Text>
-                {/* <FormControl w="6rem" as="span" value={qty}>
+                <VStack
+                  alignItems={'flex-start'}
+                  gap={1}
+                  alignSelf={'flex-start'}
+                >
+                  <Text
+                    fontSize={['14px', '16px', '20px', '22px']}
+                    fontWeight={'bold'}
+                  >
+                    {item.name}
+                  </Text>
+                  {/* <FormControl w="6rem" as="span" value={qty}>
                   <Select
                     placeholder={item.fields ? item.fields.quantity : ''}
                     onChange={e => console.log(e.target)}
@@ -107,9 +117,25 @@ const Cart = () => {
                     ))}
                   </Select>
                 </FormControl> */}
-                <Text>Quantity: {item.fields[0].quantity}</Text>
-                <Text>Price: ${item.price}</Text>
-                <Button onClick={() => removeFromCartHandler(item._id)}>
+                  <HStack
+                    minW={['150px', '200px']}
+                    justifyContent="space-between"
+                  >
+                    <Text>Quantity: </Text>{' '}
+                    <Text> {item.fields[0].quantity}</Text>{' '}
+                  </HStack>
+                  <HStack
+                    minW={['150px', '200px']}
+                    justifyContent="space-between"
+                  >
+                    <Text>Item Total: </Text>{' '}
+                    <Text fontWeight={'bold'}> ${item.price}</Text>{' '}
+                  </HStack>
+                </VStack>
+                <Button
+                  variant={'custom-black'}
+                  onClick={() => removeFromCartHandler(item._id)}
+                >
                   Remove
                 </Button>
               </HStack>
@@ -117,26 +143,21 @@ const Cart = () => {
           </VStack>
         )}
         <HStack
-          justify={'space-between'}
+          borderTop="1px solid gray"
+          w={'100%'}
+          justify={'space-evenly'}
           p={'1rem'}
           color={'green.900'}
           fontWeight={'bold'}
           fontSize={['1rem', '1.5rem', '1.5rem']}
         >
           <Text>
-            Total{' '}
-            <Tag verticalAlign={'middle'} p={'6px 10px'}>
-              {!cartItems
-                ? ''
-                : cartItems.reduce(
-                    (acc, item) => acc + item.fields[0].quantity,
-                    0
-                  )}
-            </Tag>
-          </Text>
-          <Text>
-            Subtotal{' '}
-            <Tag verticalAlign={'middle'} p={'6px 10px'}>
+            Product Total{' '}
+            <Tag
+              verticalAlign={'middle'}
+              p={'6px 10px'}
+              fontSize={['17px', '18px', '19px']}
+            >
               $
               {!cartItems
                 ? ''
@@ -147,13 +168,14 @@ const Cart = () => {
             </Tag>
           </Text>
           <Button
+            variant={'custom-black'}
             isDisabled={!cartItems ? '' : cartItems.length === 0}
             onClick={checkoutHandler}
           >
-            Proceed to checkout
+            checkout
           </Button>
         </HStack>
-      </HStack>
+      </VStack>
     </Container>
   );
 };

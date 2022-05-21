@@ -28,6 +28,9 @@ const theme = extendTheme({
         background: '#ffffff',
         color: '#222222',
       },
+      _placeholder: {
+        color: 'gray',
+      },
     },
   },
   components: {
