@@ -72,7 +72,6 @@ export const OrderSummary = ({
       script.async = true;
       script.onload = () => setSdkReady(true);
       document.body.appendChild(script);
-      console.log('added');
     };
 
     if (!window.paypal && paymentMethod === 'PayPal') {

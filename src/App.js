@@ -14,6 +14,7 @@ import {
   Cart,
   ProductDetails,
   ChangePassword,
+  UserProfile,
 } from './Screens';
 import theme from './theme';
 import { Designs } from './Screens/Designs';
@@ -77,7 +78,7 @@ function App() {
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
-
+          <Route path="/profile" element={<UserProfile />} />
           <Route
             path="*"
             element={

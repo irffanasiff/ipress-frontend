@@ -77,6 +77,7 @@ const Cart = () => {
                 p="1rem"
                 gap={[3, 4, 5, 6]}
                 justifyContent={'space-evenly'}
+                key={key}
               >
                 <VStack>
                   <Box width="100px" height="100px">

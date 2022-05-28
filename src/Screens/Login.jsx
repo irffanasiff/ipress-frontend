@@ -43,6 +43,14 @@ const Login = ({ close, reset }) => {
     if (userInfo) {
       navigate(`/${redirect}`);
       if (close) close();
+    } else if (error) {
+      toast({
+        title: 'Error',
+        description: error,
+        status: 'error',
+        duration: 2000,
+        position: 'top',
+      });
     }
   }, [navigate, redirect, userInfo, close, error, toast]);
   const onSubmit = ({ email, password }) => {
@@ -155,7 +163,7 @@ const Login = ({ close, reset }) => {
               <Tooltip
                 hasArrow
                 w={{ base: '16rem', md: '16rem' }}
-                label="Minimum 4 Characters"
+                label="Minimum 8 Characters"
                 arrowSize={8}
                 placement="top"
                 closeOnClick={false}

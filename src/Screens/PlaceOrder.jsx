@@ -26,9 +26,7 @@ export const PlaceOrder = () => {
   const cart = useSelector(state => state.cart);
   const { userInfo } = useSelector(state => state.userLogin);
   const { address, city, zipCode, country } = cart.shippingAddress;
-  /* const { loading, success, order, error } = useSelector(
-    state => state.orderCreate
-  ); */
+  const order = useSelector(state => state.order);
   const { loading, error } = cart;
   const { cartItems } = cart;
   if (!cart.shippingAddress.address) {
@@ -89,11 +87,10 @@ export const PlaceOrder = () => {
   };
 
   useEffect(() => {
-    /* if (success) {
-      navigate(`/order/${order._id}`);
-    } */
-    //eslint-disable-next-line
-  }, [navigate]);
+    if (order && order.success) {
+      navigate(`/`);
+    }
+  }, [navigate, order]);
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -195,9 +192,7 @@ export const PlaceOrder = () => {
                   </HStack>
                 ))
               ) : (
-                <Heading fontSize="xl" fontWeight={'400'}>
-                  EMPTY CART
-                </Heading>
+                <Heading fontWeight={'400'}>EMPTY CART</Heading>
               )}
             </Stack>
           </Stack>

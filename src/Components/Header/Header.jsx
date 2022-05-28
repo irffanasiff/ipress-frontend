@@ -139,7 +139,9 @@ export default function WithSubnavigation() {
                     borderRadius={'8px'}
                     border={`2px solid gray`}
                   >
-                    {userDetails.user.name}
+                    {userDetails.user.name
+                      ? userDetails.user.name.split(' ')[0]
+                      : ''}
                   </MenuButton>
                   <MenuList>
                     <Link to="/profile">
