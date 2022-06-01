@@ -10,6 +10,12 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_RESET_PASSWORD,
+  USER_RESET_PASSWORD_FAIL,
+  USER_RESET_PASSWORD_SUCCESS,
+  USER_SEND_RESETLINK,
+  USER_SEND_RESETLINK_FAIL,
+  USER_SEND_RESETLINK_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_RESET,
@@ -159,3 +165,56 @@ export const updateUserProfile = user => async (dispatch, getState) => {
     });
   }
 };
+
+export const sendResetLink = email => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_SEND_RESETLINK,
+    });
+    const { data } = await axios.post(`http://localhost:5000/api/user/link`, {
+      email,
+    });
+    console.log(data);
+    await dispatch({
+      type: USER_SEND_RESETLINK_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    console.log(message);
+    dispatch({
+      type: USER_SEND_RESETLINK_FAIL,
+      payload: message,
+    });
+  }
+};
+export const changePassword =
+  (password, token) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_RESET_PASSWORD,
+      });
+      const { data } = await axios.post(`http://localhost:5000/api/user/password`, {
+        password,
+        token,
+      });
+      console.log(data);
+      await dispatch({
+        type: USER_RESET_PASSWORD_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      console.log(message);
+      dispatch({
+        type: USER_RESET_PASSWORD_FAIL,
+        payload: message,
+      });
+    }
+  };

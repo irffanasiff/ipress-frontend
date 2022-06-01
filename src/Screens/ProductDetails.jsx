@@ -24,7 +24,6 @@ import { useNavigate, generatePath } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
 
-const isAdmin = true;
 /* const useNavigateParams = () => {
   const navigate = useNavigate();
 
@@ -36,12 +35,20 @@ const isAdmin = true;
     navigate(path);
   };
 }; */
-
+const productWithImages = [
+  'Banners',
+  'Business Cards',
+  'Brochures',
+  'Notebook',
+  'Stickers',
+  'Flyers',
+  'Posters',
+];
 const product = id => {
   let productInfo = {
     image:
       'https://i.pinimg.com/736x/0e/fe/72/0efe728db4b33f979300967d7723c756.jpg',
-    name: id,
+    name: id.split('-').join(' '),
     details: `Get custom ${id} with all the details you need. Explore fully customisable templates, or upload your own design`,
     fields: [
       {
@@ -54,7 +61,7 @@ const product = id => {
       { name: 'paper_thickness', placeholder: 'Paper thickness(in mm)' },
       { name: 'quantity', placeholder: 'Quantity' },
     ],
-    browseDesign: true,
+    browseDesign: productWithImages.includes(id.split('-').join(' ')),
     uploadDesign: true,
   };
   return productInfo;

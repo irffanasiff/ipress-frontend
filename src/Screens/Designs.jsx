@@ -20,7 +20,8 @@ import { focusOn } from '@cloudinary/url-gen/qualifiers/gravity';
 import { FocusOn } from '@cloudinary/url-gen/qualifiers/focusOn'; */
 
 export const Designs = ({ setUrl }) => {
-  const { type } = useParams();
+  let { type } = useParams();
+  type = type.charAt(0).toUpperCase() + type.slice(1);
   const navigate = useNavigate(); // navigate to editor on clicking poster
   const dispatch = useDispatch();
   const { imageData, loading, error } = useSelector(state => state.images);
@@ -29,7 +30,7 @@ export const Designs = ({ setUrl }) => {
       console.log('images');
       dispatch(getImages(type));
     } else if (imageData[type].length === 0) {
-      navigate('/');
+      navigate(`/product/${type}`);
     }
   }, [imageData, type, dispatch, navigate]);
   const handleClick = e => {

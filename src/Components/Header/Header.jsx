@@ -33,7 +33,7 @@ import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { BsMinecart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { Cart, Login, ChangePassword } from '../../Screens';
+import { Cart, Login, ChangePassword, Signup } from '../../Screens';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,7 +52,7 @@ export default function WithSubnavigation() {
     onClose: onDrawerClose,
   } = useDisclosure();
   const btnRef = useRef();
-  const onLoginClickHandler = () => {
+  const onSignupClickHandler = () => {
     onDrawerOpen();
     if (userInfo) setDrawerContent(3);
     else setDrawerContent(1);
@@ -154,14 +154,14 @@ export default function WithSubnavigation() {
             ) : (
               <Box
                 as="button"
-                onClick={onLoginClickHandler}
+                onClick={onSignupClickHandler}
                 display="flex"
                 flexDirection={'row'}
                 alignItems="center"
                 fontSize={'md'}
                 fontWeight={600}
               >
-                <AiOutlineUser size={32} /> Login
+                <AiOutlineUser size={32} /> Signup
               </Box>
             )}
             <Drawer
@@ -176,11 +176,13 @@ export default function WithSubnavigation() {
                 <DrawerCloseButton />
                 <DrawerBody bg="white">
                   {drawerContent === 1 ? (
-                    <Login close={onDrawerClose} reset={setDrawerContent} />
+                    <Signup close={onDrawerClose} reset={setDrawerContent} />
                   ) : drawerContent === 2 ? (
                     <Cart />
                   ) : drawerContent === 3 ? (
                     <ChangePassword close={onDrawerClose} />
+                  ) : drawerContent === 4 ? (
+                    <Login close={onDrawerClose} reset={setDrawerContent} />
                   ) : (
                     <Container>
                       <Box>Profile</Box>
@@ -239,6 +241,7 @@ const DesktopNav = () => {
                   textDecoration: 'none',
                   color: 'red.400',
                 }}
+                cursor={'pointer'}
               >
                 {navItem.label}
               </Box>
@@ -370,7 +373,7 @@ const NAV_ITEMS = [
     label: 'Large Formats',
     children: [
       {
-        label: 'Banners',
+        label: 'Flex Banners',
         subLabel: 'Trending Design to inspire you',
         href: '/product/Banners',
       },
@@ -382,27 +385,82 @@ const NAV_ITEMS = [
       {
         label: 'Dummy Cheques',
         subLabel: 'Up-and-coming Designers',
-        href: '/product/dummyCheques',
+        href: '/product/Dummy-Cheques',
       },
       {
         label: 'Roll Up Stands',
         subLabel: 'Up-and-coming Designers',
-        href: '/product/rollUpStands',
+        href: '/product/Roll-Up-Stands',
       },
       {
         label: 'Instagram Frames',
         subLabel: 'Up-and-coming Designers',
-        href: '/product/instagramFrames',
+        href: '/product/Instagram-Frames',
+      },
+      {
+        label: 'Backdrops',
+        subLabel: 'Up-and-coming Designers',
+        href: '/product/Backdrops',
+      },
+      {
+        label: 'Car Branding',
+        subLabel: 'Up-and-coming Designers',
+        href: '/product/Car-Branding',
+      },
+      {
+        label: 'Window Graphics',
+        subLabel: 'Up-and-coming Designers',
+        href: '/product/Window-Graphics',
       },
     ],
   },
   {
-    label: 'Trade Shows',
+    label: 'Clothes Branding',
     children: [
       {
-        label: 'Booth Display',
+        label: 'Tshirts',
         subLabel: 'Find your dream design job',
-        href: '/product/boothDisplay',
+        href: '/product/Tshirts',
+      },
+      {
+        label: 'Throw Pillows',
+        subLabel: 'Find your dream design job',
+        href: '/product/Throw-Pillows',
+      },
+      {
+        label: 'Jersey',
+        subLabel: 'Find your dream design job',
+        href: '/product/Jersey',
+      },
+      {
+        label: 'Jean Patch Work',
+        subLabel: 'Find your dream design job',
+        href: '/product/Jean-Patch',
+      },
+      {
+        label: 'Caps',
+        subLabel: 'Find your dream design job',
+        href: '/product/Caps',
+      },
+      {
+        label: 'Kaftan',
+        subLabel: 'Find your dream design job',
+        href: '/product/Kaftan',
+      },
+      {
+        label: 'Baby Beeps',
+        subLabel: 'Find your dream design job',
+        href: '/product/Baby-Beeps',
+      },
+      {
+        label: 'Seat Covers',
+        subLabel: 'Find your dream design job',
+        href: '/product/Seat-Covers',
+      },
+      {
+        label: 'Towels',
+        subLabel: 'Find your dream design job',
+        href: '/product/Towels',
       },
     ],
   },
@@ -410,74 +468,159 @@ const NAV_ITEMS = [
     label: 'Cards',
     children: [
       {
-        label: 'Business Card',
+        label: 'Business Cards',
         subLabel: 'Find your dream design job',
-        href: '/product/businessCard',
+        href: '/product/Business-Cards',
       },
       {
-        label: 'Greeting Card',
+        label: 'Greeting Cards',
         subLabel: 'Find your dream design job',
-        href: '/product/greetingCard',
+        href: '/product/Greeting-Cards',
       },
       {
         label: 'ID Card',
         subLabel: 'Find your dream design job',
-        href: '/product/idCard',
+        href: '/product/Id-Cards',
+      },
+      {
+        label: 'Wedding IV',
+        subLabel: 'Find your dream design job',
+        href: '/product/Wedding',
+      },
+      {
+        label: 'Scratch Card',
+        subLabel: 'Find your dream design job',
+        href: '/product/Scratch-Card',
+      },
+      {
+        label: 'Bookmarks',
+        subLabel: 'Find your dream design job',
+        href: '/product/Bookmarks',
+      },
+      {
+        label: 'Event Badge',
+        subLabel: 'Find your dream design job',
+        href: '/product/Event-Badge',
+      },
+      {
+        label: 'Membership Cards',
+        subLabel: 'Find your dream design job',
+        href: '/product/Membership-Card',
+      },
+      {
+        label: 'Lanyards',
+        subLabel: 'Find your dream design job',
+        href: '/product/Lanyards',
+      },
+      {
+        label: 'Laoel Pin',
+        subLabel: 'Find your dream design job',
+        href: '/product/Laoel-Pin',
       },
     ],
   },
   {
-    label: 'Branding',
+    label: 'Custom/Promotional Gifts',
     children: [
       {
-        label: 'Water Bottel',
+        label: 'Mouse Pads',
         subLabel: 'Find your dream design job',
-        href: '/product/waterBottel',
-      },
-      {
-        label: 'Pens',
-        subLabel: 'Find your dream design job',
-        href: '/product/pens',
-      },
-      {
-        label: 'Car Branding',
-        subLabel: 'Find your dream design job',
-        href: '/product/carBranding',
+        href: '/product/Mouse-Pads',
       },
       {
         label: 'Key Rings',
         subLabel: 'Find your dream design job',
-        href: '/product/keyRings',
+        href: '/product/Key-Rings',
       },
       {
         label: 'Mugs',
         subLabel: 'Find your dream design job',
-        href: '/product/mugs',
+        href: '/product/Mugs',
       },
       {
         label: 'Flash Drives',
         subLabel: 'Find your dream design job',
-        href: '/product/flashDrives',
+        href: '/product/Flash-Drives',
       },
       {
-        label: 'T-shirts',
+        label: 'Promotional Items',
         subLabel: 'Find your dream design job',
-        href: '/product/tShirts',
+        href: '/product/Promotional-Items',
+      },
+      {
+        label: 'Corporate Gifts',
+        subLabel: 'Find your dream design job',
+        href: '/product/Corporate-Gifts',
+      },
+      {
+        label: 'Bags',
+        subLabel: 'Find your dream design job',
+        href: '/product/Bags',
       },
     ],
   },
   {
-    label: 'Broachers & Flyers',
+    label: 'Booklets',
     children: [
       {
-        label: 'Broachers',
+        label: 'Brochures',
         subLabel: 'Find your dream design job',
-        href: '/product/broachers',
+        href: '/product/Brochures',
       },
       {
-        label: 'Fleyers',
+        label: 'Flyers',
         subLabel: 'Find your dream design job',
         href: '/product/Flyers',
+      },
+      {
+        label: 'Posters',
+        subLabel: 'Find your dream design job',
+        href: '/product/Posters',
+      },
+      {
+        label: 'Calender',
+        subLabel: 'Find your dream design job',
+        href: '/product/Calender',
+      },
+      {
+        label: 'Magazines',
+        subLabel: 'Find your dream design job',
+        href: '/product/Magazines',
+      },
+      {
+        label: 'Diary',
+        subLabel: 'Find your dream design job',
+        href: '/product/Diary',
+      },
+      {
+        label: 'Receipts',
+        subLabel: 'Find your dream design job',
+        href: '/product/Receipts',
+      },
+      {
+        label: 'Company Profile',
+        subLabel: 'Find your dream design job',
+        href: '/product/Company-Profile',
+      },
+      {
+        label: 'Prospectus',
+        subLabel: 'Find your dream design job',
+        href: '/product/Prospectus',
+      },
+      {
+        label: 'Tickets/Vouchers',
+        subLabel: 'Find your dream design job',
+        href: '/product/Tickets',
+      },
+      {
+        label: 'Books',
+        subLabel: 'Find your dream design job',
+        href: '/product/Books',
+      },
+      {
+        label: 'Jotter',
+        subLabel: 'Find your dream design job',
+        href: '/product/Jotter',
       },
     ],
   },
@@ -485,19 +628,34 @@ const NAV_ITEMS = [
     label: 'Stationery',
     children: [
       {
-        label: 'Notebook',
+        label: 'Notepads',
         subLabel: 'Find your dream design job',
-        href: '/product/notebook',
+        href: '/product/Notepads',
       },
       {
         label: 'Pens',
         subLabel: 'Find your dream design job',
-        href: '/product/pens',
+        href: '/product/Pens',
       },
       {
         label: 'Envelope',
         subLabel: 'Find your dream design job',
-        href: '/product/envelope',
+        href: '/product/Envelope',
+      },
+      {
+        label: 'Certificates',
+        subLabel: 'Find your dream design job',
+        href: '/product/Certificates',
+      },
+      {
+        label: 'Folders',
+        subLabel: 'Find your dream design job',
+        href: '/product/Folders',
+      },
+      {
+        label: 'Letterheads',
+        subLabel: 'Find your dream design job',
+        href: '/product/Letterheads',
       },
     ],
   },
@@ -505,20 +663,98 @@ const NAV_ITEMS = [
     label: 'Label & Stickers',
     children: [
       {
-        label: 'Stickers',
+        label: 'Paper Stickers',
         subLabel: 'Find your dream design job',
-        href: '/product/stickers',
+        href: '/product/Paper-Stickers',
       },
       {
         label: 'Clothing Labels',
         subLabel: 'Find your dream design job',
-        href: '/product/clothingLabels',
+        href: '/product/Clothing-Labels',
       },
       {
-        label: 'Mouse Pads',
+        label: 'White Stickers',
         subLabel: 'Find your dream design job',
-        href: '/product/mousePads',
+        href: '/product/White-Stickers',
+      },
+      {
+        label: 'Transparent Sticker',
+        subLabel: 'Find your dream design job',
+        href: '/product/Transparent-Sticker',
       },
     ],
+  },
+  {
+    label: 'Awards',
+    children: [
+      {
+        label: 'Wooden Plaque',
+        subLabel: 'Find your dream design job',
+        href: '/product/Wooden-Plaque',
+      },
+      {
+        label: 'Acrylic',
+        subLabel: 'Find your dream design job',
+        href: '/product/Acrylic',
+      },
+      {
+        label: 'Crystal',
+        subLabel: 'Find your dream design job',
+        href: '/product/Crystal',
+      },
+      {
+        label: 'Mettalic',
+        subLabel: 'Find your dream design job',
+        href: '/product/Mettalic',
+      },
+    ],
+  },
+  {
+    label: 'Graphic Design',
+    children: [
+      {
+        label: 'New Design',
+        subLabel: 'Find your dream design job',
+        href: '/product/New-Design',
+      },
+      {
+        label: 'Editing',
+        subLabel: 'Find your dream design job',
+        href: '/product/Editing',
+      },
+      {
+        label: 'Logo Creation',
+        subLabel: 'Find your dream design job',
+        href: '/product/Logo-Creation',
+      },
+    ],
+  },
+  {
+    label: 'Store',
+    children: [
+      {
+        label: 'Branded Tshirts',
+        subLabel: 'Find your dream design job',
+        href: '/product/Branded-Tshirts',
+      },
+      {
+        label: 'Plain Tshirts',
+        subLabel: 'Find your dream design job',
+        href: '/product/Plain-Tshirts',
+      },
+      {
+        label: 'Gifts',
+        subLabel: 'Find your dream design job',
+        href: '/product/Gifts',
+      },
+      {
+        label: 'Machines',
+        subLabel: 'Find your dream design job',
+        href: '/product/Machines',
+      },
+    ],
+  },
+  {
+    label: 'Customer Reviews',
   },
 ];

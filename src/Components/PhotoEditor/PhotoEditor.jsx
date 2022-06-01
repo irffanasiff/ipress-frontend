@@ -102,6 +102,7 @@ function Photoeditor({ passImg, imgURL }) {
     if (obj.type === 'image') {
       obj.filters[0].rotation = value;
       obj.applyFilters();
+      obj.setCoords(true);
     } else if (selectedObj === 'shape') obj.set({ fill: value });
     canvas.requestRenderAll();
   };

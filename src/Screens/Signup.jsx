@@ -23,7 +23,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { register as userRegister } from '../Actions/userAction';
 
-const Signup = ({ close }) => {
+const Signup = ({ close, reset }) => {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
 
@@ -92,7 +92,17 @@ const Signup = ({ close }) => {
               textColor={'ipress.500'}
               _hover={{ textDecoration: 'underline' }}
             >
-              <Link to="/login">Login</Link>
+              <Link
+                to="/login"
+                onClick={e => {
+                  if (close) {
+                    e.preventDefault();
+                    reset(4);
+                  }
+                }}
+              >
+                Login
+              </Link>
             </Text>
           </Box>
         </Text>
