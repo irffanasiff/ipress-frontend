@@ -34,7 +34,7 @@ export const login = (email, password) => async dispatch => {
       },
     };
     const { data } = await axios.post(
-      'http://localhost:5000/api/user/login',
+      'http://ipress-server.herokuapp.com/api/user/login',
       { email, password },
       config
     );
@@ -69,7 +69,7 @@ export const register = (name, email, password) => async dispatch => {
       },
     };
     const { data } = await axios.post(
-      'http://localhost:5000/api/user',
+      'http://ipress-server.herokuapp.com/api/user',
       { name, email, password },
       config
     );
@@ -103,7 +103,7 @@ export const getUserDetails = id => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/${id}`,
+      `http://ipress-server.herokuapp.com/api/user/${id}`,
       config
     );
 
@@ -142,7 +142,7 @@ export const updateUserProfile = user => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `http://localhost:5000/api/user/profile`,
+      `http://ipress-server.herokuapp.com/api/user/profile`,
       user,
       config
     );
@@ -171,9 +171,12 @@ export const sendResetLink = email => async (dispatch, getState) => {
     dispatch({
       type: USER_SEND_RESETLINK,
     });
-    const { data } = await axios.post(`http://localhost:5000/api/user/link`, {
-      email,
-    });
+    const { data } = await axios.post(
+      `http://ipress-server.herokuapp.com/api/user/link`,
+      {
+        email,
+      }
+    );
     console.log(data);
     await dispatch({
       type: USER_SEND_RESETLINK_SUCCESS,
@@ -197,10 +200,13 @@ export const changePassword =
       dispatch({
         type: USER_RESET_PASSWORD,
       });
-      const { data } = await axios.post(`http://localhost:5000/api/user/password`, {
-        password,
-        token,
-      });
+      const { data } = await axios.post(
+        `http://ipress-server.herokuapp.com/api/user/password`,
+        {
+          password,
+          token,
+        }
+      );
       console.log(data);
       await dispatch({
         type: USER_RESET_PASSWORD_SUCCESS,

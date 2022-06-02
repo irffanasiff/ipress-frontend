@@ -12,7 +12,7 @@ export const getImages = type => async (dispatch, getState) => {
       type: IMAGES_FETCH_REQUEST,
     });
     const { data } = await axios.get(
-      `http://localhost:5000/api/images?folder=${type}`
+      `http://ipress-server.herokuapp.com/api/images?folder=${type}`
     );
     const { images } = getState();
     let payload = {};

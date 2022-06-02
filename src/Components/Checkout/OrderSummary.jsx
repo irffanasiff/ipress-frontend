@@ -64,7 +64,7 @@ export const OrderSummary = ({
 
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(
-        'http://localhost:5000/api/config/paypal'
+        'http://ipress-server.herokuapp.com/api/config/paypal'
       );
       const script = document.createElement('script');
       script.type = 'text/javascript';

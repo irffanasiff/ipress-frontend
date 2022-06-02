@@ -27,7 +27,7 @@ export const listProductDetails = id => async dispatch => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/${id}`
+      `http://ipress-server.herokuapp.com/api/products/${id}`
     );
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -63,7 +63,7 @@ export const orderProducts = order => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(
-      'http://localhost:5000/api/orders',
+      'http://ipress-server.herokuapp.com/api/orders',
       { ...order },
       config
     );
@@ -106,7 +106,7 @@ export const listProducts = data => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      'http://localhost:5000/api/orders',
+      'http://ipress-server.herokuapp.com/api/orders',
       config
     );
     console.log(data);
