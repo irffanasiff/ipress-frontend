@@ -34,7 +34,7 @@ export const login = (email, password) => async dispatch => {
       },
     };
     const { data } = await axios.post(
-      'http://ipress-server.herokuapp.com/api/user/login',
+      'https://ipress-server.herokuapp.com/api/user/login',
       { email, password },
       config
     );
@@ -69,7 +69,7 @@ export const register = (name, email, password) => async dispatch => {
       },
     };
     const { data } = await axios.post(
-      'http://ipress-server.herokuapp.com/api/user',
+      'https://ipress-server.herokuapp.com/api/user',
       { name, email, password },
       config
     );
@@ -103,7 +103,7 @@ export const getUserDetails = id => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      `http://ipress-server.herokuapp.com/api/user/${id}`,
+      `https://ipress-server.herokuapp.com/api/user/${id}`,
       config
     );
 
@@ -142,7 +142,7 @@ export const updateUserProfile = user => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `http://ipress-server.herokuapp.com/api/user/profile`,
+      `https://ipress-server.herokuapp.com/api/user/profile`,
       user,
       config
     );
@@ -172,7 +172,7 @@ export const sendResetLink = email => async (dispatch, getState) => {
       type: USER_SEND_RESETLINK,
     });
     const { data } = await axios.post(
-      `http://ipress-server.herokuapp.com/api/user/link`,
+      `https://ipress-server.herokuapp.com/api/user/link`,
       {
         email,
       }
@@ -201,7 +201,7 @@ export const changePassword =
         type: USER_RESET_PASSWORD,
       });
       const { data } = await axios.post(
-        `http://ipress-server.herokuapp.com/api/user/password`,
+        `https://ipress-server.herokuapp.com/api/user/password`,
         {
           password,
           token,

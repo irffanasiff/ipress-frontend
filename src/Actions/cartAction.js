@@ -32,7 +32,7 @@ export const addToCart = product => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(
-      'http://ipress-server.herokuapp.com/api/products',
+      'https://ipress-server.herokuapp.com/api/products',
       { ...product, price: 500 },
       config
     );
@@ -74,7 +74,7 @@ export const listCartItems = id => async (dispatch, getState) => {
     };
     dispatch({ type: CART_LIST_REQUEST });
     const { data } = await axios.get(
-      'http://ipress-server.herokuapp.com/api/products',
+      'https://ipress-server.herokuapp.com/api/products',
       config
     );
     dispatch({ type: CART_LIST_SUCCESS, payload: data });
@@ -105,7 +105,7 @@ export const removeFromCart = id => async (dispatch, getState) => {
     },
   };
   await axios.delete(
-    `http://ipress-server.herokuapp.com/api/products/${id}`,
+    `https://ipress-server.herokuapp.com/api/products/${id}`,
     config
   );
   dispatch({
