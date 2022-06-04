@@ -335,7 +335,9 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: 'none',
         }}
       >
-        <Text fontWeight={500}>{label}</Text>
+        <Text fontWeight={500} cursor={'pointer'}>
+          {label}
+        </Text>
         {children && (
           <Icon
             as={ChevronDownIcon}
@@ -358,9 +360,9 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map(child => (
-              <Box key={child.label} py={2} href={child.href}>
+              <NavLink to={child.href} key={child.label} py={2}>
                 {child.label}
-              </Box>
+              </NavLink>
             ))}
         </Stack>
       </Collapse>

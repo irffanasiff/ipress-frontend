@@ -3,7 +3,7 @@ import '@fontsource/space-grotesk';
 import '@fontsource/karla';
 
 const config = {
-  initialColorMode: 'dark',
+  initialColorMode: 'light',
   useSystemColorMode: false,
 };
 const theme = extendTheme({
