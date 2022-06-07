@@ -27,6 +27,11 @@ import {
   MenuList,
   MenuButton,
   Menu,
+  Input,
+  UnorderedList,
+  ListItem,
+  VStack,
+  useOutsideClick,
 } from '@chakra-ui/react';
 import { CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
@@ -42,6 +47,9 @@ import { logout } from '../../Actions/userAction';
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const [drawerContent, setDrawerContent] = useState();
+  const [searchInput, setSearchInput] = useState('');
+  const [searchVisible, setSearchVisible] = useState(false);
+  const ref = useRef();
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const userDetails = useSelector(state => state.userDetails);
@@ -52,6 +60,10 @@ export default function WithSubnavigation() {
     onClose: onDrawerClose,
   } = useDisclosure();
   const btnRef = useRef();
+  useOutsideClick({
+    ref: ref,
+    handler: () => setSearchInput(''),
+  });
   const onSignupClickHandler = () => {
     onDrawerOpen();
     if (userInfo) setDrawerContent(3);
@@ -64,7 +76,18 @@ export default function WithSubnavigation() {
     onDrawerOpen();
     setDrawerContent(2);
   };
-
+  const renderList = word => {
+    let items = [];
+    NAV_ITEMS.forEach(item => {
+      let label;
+      if (item.children)
+        label = item.children.filter(child => {
+          return child.label.toLowerCase().includes(word.toLowerCase());
+        });
+      if (label) items = [...items, ...label];
+    });
+    return items;
+  };
   return (
     <Container
       maxW="9xl"
@@ -78,7 +101,7 @@ export default function WithSubnavigation() {
           <Flex
             flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
-            display={{ base: 'flex', md: 'none' }}
+            display={{ base: 'flex', lg: 'none' }}
           >
             <IconButton
               onClick={onToggle}
@@ -94,7 +117,7 @@ export default function WithSubnavigation() {
             />
           </Flex>
           <Flex
-            display={{ base: 'none', md: 'flex' }}
+            display={{ base: 'none', lg: 'flex' }}
             flex={{ base: 1 }}
             justify={{ base: 'center', md: 'start' }}
           >
@@ -117,27 +140,100 @@ export default function WithSubnavigation() {
               as="button"
               display="flex"
               flexDirection={'row'}
+              justifyContent={'flex-end'}
               alignItems="center"
               gap="1rem"
-              w={{ base: '2rem', md: '8rem' }}
+              w={{ base: '30vw', sm: '40vw' }}
               fontSize={'md'}
               fontWeight={600}
               href={'#'}
               _hover={{
                 textDecoration: 'underline',
               }}
+              position={'relative'}
             >
-              <AiOutlineSearch size={32} />
-              <Text display={{ base: 'none', md: 'block' }}>Search</Text>
+              <Box display={{ md: 'none' }}>
+                <AiOutlineSearch
+                  size={32}
+                  onClick={() => setSearchVisible(!searchVisible)}
+                />
+              </Box>
+
+              <Input
+                display={{ md: 'none' }}
+                width={searchVisible ? '90%' : '0%'}
+                maxW={'200px'}
+                opacity={searchVisible ? '1' : '0'}
+                transition={'all 0.5s linear'}
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+              />
+              <Box display={{ base: 'none', md: 'block' }}>
+                <AiOutlineSearch size={32} />
+              </Box>
+              <Input
+                display={{ base: 'none', md: 'block' }}
+                width={'90%'}
+                maxW={'200px'}
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                onFocus={e => {
+                  if (!searchVisible) setSearchVisible(true);
+                }}
+              />
+              {searchInput ? (
+                <VStack
+                  ref={ref}
+                  position={'absolute'}
+                  top={'100%'}
+                  bgColor={'white'}
+                  right={['-20%', '0']}
+                  boxShadow={'md'}
+                  display={searchVisible ? 'flex' : 'none'}
+                  width={searchVisible ? '90%' : '0%'}
+                  minW={searchVisible ? '150px' : '0'}
+                  maxH={'400px'}
+                  overflowY={'auto'}
+                  maxW={'200px'}
+                  alignItems={'stretch'}
+                  borderRadius={'8px'}
+                >
+                  {renderList(searchInput).map((item, index) => {
+                    return (
+                      <NavLink
+                        key={index}
+                        to={item.href}
+                        onClick={() => setSearchInput('')}
+                      >
+                        <Text
+                          p={2}
+                          px={3}
+                          w={'full'}
+                          textAlign={'left'}
+                          _hover={{ bg: 'gray.200' }}
+                          color={'#646464'}
+                          fontSize={{ base: 'sm', md: 'md' }}
+                        >
+                          {item.label}
+                        </Text>
+                      </NavLink>
+                    );
+                  })}
+                </VStack>
+              ) : (
+                ''
+              )}
             </Box>
             {userInfo ? (
               <Box key="user_dropdown">
                 <Menu isLazy m="auto">
                   <MenuButton
                     fontWeight={600}
+                    m={'auto'}
                     p={'5px 15px'}
                     borderRadius={'8px'}
-                    border={`2px solid gray`}
+                    border={`1px solid gray`}
+                    fontSize={{ base: 'sm', md: 'md' }}
                   >
                     {userDetails.user.name
                       ? userDetails.user.name.split(' ')[0]
@@ -215,7 +311,7 @@ export default function WithSubnavigation() {
           <MobileNav />
         </Collapse>
       </Container>
-      <Center display={{ base: 'none', md: 'flex' }} mx="auto">
+      <Center display={['none', 'none', 'none', 'flex']} mx="auto">
         <DesktopNav />
       </Center>
     </Container>
@@ -313,7 +409,7 @@ const MobileNav = () => {
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
       p={4}
-      display={{ md: 'none' }}
+      display={{ lg: 'none' }}
     >
       {NAV_ITEMS.map(navItem => (
         <MobileNavItem key={navItem.label} {...navItem} />

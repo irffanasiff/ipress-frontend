@@ -15,12 +15,11 @@ import {
   FormErrorMessage,
   Flex,
 } from '@chakra-ui/react';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Rating from '../Components/Product/Rating';
-import { useDispatch, useSelector } from 'react-redux';
-import { listProductDetails, saveProducts } from '../Actions/productAction';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { saveProducts } from '../Actions/productAction';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
 
@@ -53,7 +52,7 @@ const product = id => {
     fields: [
       {
         name: 'product_orientation',
-        placeholder: 'Product Orientation (landscape or portrait)',
+        placeholder: 'Product Orientation',
         type: 'text',
       },
       { name: 'length', placeholder: 'Length (in inches)', grow: 1 },
@@ -175,11 +174,13 @@ const ProductDetails = ({ setUrl }) => {
           <Flex flexWrap={'wrap'} w="full" p={{ base: '1rem', md: '2rem' }}>
             {productInfo.fields.map((field, index) => (
               <FormControl
+                isInvalid={errors.name}
                 flexGrow={field.grow || 1}
                 isRequired
                 mb="1rem"
+                mx={2}
                 key={index}
-                w={{ base: 'full', md: field.grow ? '50%' : 'full' }}
+                w={{ base: 'full', md: field.grow ? '40%' : 'full' }}
               >
                 <Input
                   fontSize="xl"
