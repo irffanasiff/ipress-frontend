@@ -3,7 +3,6 @@ import {
   HStack,
   Image,
   Text,
-  useColorModeValue as mode,
   VStack,
   Button,
   Modal,
@@ -77,7 +76,7 @@ export const OrderInfo = ({ item }) => {
                       minW={['150px', '200px']}
                       justifyContent="space-between"
                     >
-                      <Text>product Total: </Text>{' '}
+                      <Text>Product Price: </Text>{' '}
                       <Text fontWeight={'bold'}> ${product.price}</Text>{' '}
                     </HStack>
                   </VStack>

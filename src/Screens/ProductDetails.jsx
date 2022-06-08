@@ -1,12 +1,9 @@
 import {
   Button,
-  Select,
   FormControl,
-  Container,
   Heading,
   HStack,
   Image,
-  Tag,
   Text,
   VStack,
   Center,
@@ -14,13 +11,15 @@ import {
   Input,
   FormErrorMessage,
   Flex,
+  RadioGroup,
+  Radio,
 } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { saveProducts } from '../Actions/productAction';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
 
 /* const useNavigateParams = () => {
@@ -53,7 +52,7 @@ const product = id => {
       {
         name: 'product_orientation',
         placeholder: 'Product Orientation',
-        type: 'text',
+        type: 'radio',
       },
       { name: 'length', placeholder: 'Length (in inches)', grow: 1 },
       { name: 'breadth', placeholder: 'Breadth (in inches)', grow: 1 },
@@ -103,7 +102,6 @@ const ProductDetails = ({ setUrl }) => {
   const { id } = useParams();
   const uploadImg = useRef();
   const [action, setAction] = useState();
-  const [qty, setQty] = useState(0);
   //const navigate = useNavigateParams();
   const productInfo = product(id);
   const dispatch = useDispatch();
@@ -112,10 +110,9 @@ const ProductDetails = ({ setUrl }) => {
   const {
     handleSubmit,
     register,
-    setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    control,
   } = useForm();
-
   /* const addToCartHandler = () => {
     navigate(`/cart/${id}`, `qty=${qty}`);
   }; */
@@ -154,7 +151,6 @@ const ProductDetails = ({ setUrl }) => {
       ? (product.uploadDesign = true)
       : (product.browseDesign = true);
     dispatch(saveProducts(product));
-    console.log(action);
   };
 
   return (
@@ -182,19 +178,42 @@ const ProductDetails = ({ setUrl }) => {
                 key={index}
                 w={{ base: 'full', md: field.grow ? '40%' : 'full' }}
               >
-                <Input
-                  fontSize="xl"
-                  variant="custom"
-                  borderBottom={'1px solid gray'}
-                  type={field.type || 'number'}
-                  px="0.5rem"
-                  h={{ base: '3rem', md: '3.6rem' }}
-                  size={{ base: 'sm', md: 'lg' }}
-                  placeholder={field.placeholder}
-                  {...register(`${field.name}`, {
-                    required: `Please enter ${field.placeholder}`,
-                  })}
-                />
+                {field.type === 'radio' ? (
+                  <Controller
+                    name={field.name}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <RadioGroup
+                        onChange={data => onChange(data)}
+                        value={value}
+                      >
+                        <HStack gap={6} fontSize="xl">
+                          <Radio value="landscape">
+                            <Text fontSize={'xl'}>Landscape </Text>
+                          </Radio>
+                          <Radio value="portrait">
+                            <Text fontSize={'xl'}>Portrait </Text>
+                          </Radio>
+                        </HStack>
+                      </RadioGroup>
+                    )}
+                  />
+                ) : (
+                  <Input
+                    fontSize="xl"
+                    variant="custom"
+                    borderBottom={'1px solid gray'}
+                    type={field.type || 'number'}
+                    px="0.5rem"
+                    h={{ base: '3rem', md: '3.6rem' }}
+                    size={{ base: 'sm', md: 'lg' }}
+                    placeholder={field.placeholder}
+                    {...register(`${field.name}`, {
+                      required: `Please enter ${field.placeholder}`,
+                    })}
+                  />
+                )}
+
                 {errors.name && (
                   <FormErrorMessage>{errors.name.message}</FormErrorMessage>
                 )}

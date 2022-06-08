@@ -7,10 +7,9 @@ import {
   Image,
   Spinner,
   Text,
-  useColorModeValue as mode,
   VStack,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { listProducts } from '../Actions/productAction';
@@ -22,11 +21,9 @@ const UserProfile = () => {
   const { userInfo } = useSelector(state => state.userLogin);
   const { user, error } = useSelector(state => state.userDetails);
   const { shippingAddress } = useSelector(state => state.cart);
-  const {
-    loading: ordersLoading,
-    products,
-    error: ordersError,
-  } = useSelector(state => state.productList);
+  const { loading: ordersLoading, products } = useSelector(
+    state => state.productList
+  );
 
   const { address, city, zipCode, country } = shippingAddress || {};
   const dispatch = useDispatch();
@@ -45,7 +42,7 @@ const UserProfile = () => {
     <VStack
       spacing={{ base: '4rem', lg: '2rem' }}
       p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
-      maxW="7xl"
+      maxW="8xl"
       mx="auto"
       direction={{ base: 'column-reverse', lg: 'row' }}
       alignItems={'flex-start'}
@@ -73,7 +70,9 @@ const UserProfile = () => {
             </VStack>
             <VStack alignItems={'flex-start'}>
               <Text fontSize={'2xl'}>Address :</Text>
-              <Text>{`${address}, ${city}(${zipCode}), ${country}`}</Text>
+              <Text>{`${address || ''}, ${city || ''}(${zipCode || ''}), ${
+                country || ''
+              }`}</Text>
             </VStack>
 
             <Flex

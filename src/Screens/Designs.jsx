@@ -27,8 +27,7 @@ export const Designs = ({ setUrl }) => {
   const { imageData, loading, error } = useSelector(state => state.images);
   useEffect(() => {
     if (!imageData || !imageData[type]) {
-      console.log('images');
-      dispatch(getImages(type));
+      dispatch(getImages(type.split('-').join(' ')));
     } else if (imageData[type].length === 0) {
       navigate(`/product/${type}`);
     }
@@ -56,7 +55,7 @@ export const Designs = ({ setUrl }) => {
     <VStack
       spacing={{ base: '4rem', lg: '2rem' }}
       p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
-      maxW="7xl"
+      maxW="8xl"
       mx="auto"
       direction={{ base: 'column-reverse', lg: 'row' }}
       alignItems={{ base: 'center', lg: 'flex-start' }}

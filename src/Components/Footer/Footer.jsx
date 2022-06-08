@@ -1,6 +1,5 @@
 import { Box, Container, Heading, Stack, Text, VStack } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const { pathname } = useLocation();

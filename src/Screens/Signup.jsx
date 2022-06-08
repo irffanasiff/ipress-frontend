@@ -1,14 +1,11 @@
 import {
   Box,
-  Center,
   Button,
-  useToast,
   Text,
   Heading,
   FormControl,
   Alert,
   AlertIcon,
-  AlertTitle,
   FormErrorMessage,
   VStack,
   Container,
@@ -25,21 +22,18 @@ import { register as userRegister } from '../Actions/userAction';
 
 const Signup = ({ close, reset }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const toast = useToast();
 
   const {
     handleSubmit,
     register,
-    setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const newUser = useSelector(state => state.userRegister);
   const userLogin = useSelector(state => state.userLogin);
-  const savedUser = localStorage.getItem('userInfo');
-  const { loading, error, userInfo } = newUser;
+  const { loading, error } = newUser;
   const redirect = location.search ? location.search.split('=')[1] : '';
 
   useEffect(() => {

@@ -95,7 +95,7 @@ export const PlaceOrder = () => {
     <>
       <CheckoutSteps step1 step2 step3 step4 />
       <Box
-        maxW={{ base: '3xl', lg: '7xl' }}
+        maxW={{ base: '3xl', lg: '8xl' }}
         mx="auto"
         px={{ base: '4', md: '8', lg: '12' }}
         py={{ base: '6', md: '8', lg: '12' }}

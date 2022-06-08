@@ -1,14 +1,10 @@
 import {
   Box,
-  Center,
   Button,
   useToast,
   Text,
   Heading,
   FormControl,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   FormErrorMessage,
   VStack,
   Container,
@@ -29,8 +25,7 @@ const Login = ({ close, reset }) => {
   const {
     handleSubmit,
     register,
-    setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
   const location = useLocation();

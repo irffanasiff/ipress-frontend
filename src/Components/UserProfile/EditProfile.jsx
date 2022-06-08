@@ -8,7 +8,6 @@ import {
   ModalCloseButton,
   useDisclosure,
   FormControl,
-  FormLabel,
   Input,
   FormErrorMessage,
   InputGroup,
@@ -18,21 +17,19 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../../Actions/userAction';
 
 export const EditProfile = () => {
   const [updated, setUpdated] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, error } = useSelector(state => state.userDetails);
   const dispatch = useDispatch();
   const toast = useToast();
   const {
     handleSubmit,
     register,
-    setError,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
   useEffect(() => {
     // make a separate react hook that gives error and then send toast based on that

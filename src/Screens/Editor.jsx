@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { Heading, VStack } from '@chakra-ui/react';
 import Photoeditor from '../Components/PhotoEditor/PhotoEditor';
 
@@ -25,7 +24,7 @@ export const Editor = ({ imgURL }) => {
     <VStack
       spacing={{ base: '4rem', lg: '2rem' }}
       p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
-      maxW="7xl"
+      maxW="8xl"
       mx="auto"
       direction={{ base: 'column-reverse', lg: 'row' }}
       alignItems={{ base: 'center', lg: 'flex-start' }}

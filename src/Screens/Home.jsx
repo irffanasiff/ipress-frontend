@@ -1,41 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Container,
   Heading,
   Wrap,
   Box,
   Stack,
-  Skeleton,
-  SkeletonText,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
   Text,
-  HStack,
   WrapItem,
   Button,
   VStack,
   Image,
-  scaleFadeConfig,
   Center,
 } from '@chakra-ui/react';
-import ProductCard from '../Components/Product/ProductCard';
-import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
-import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../Actions/productAction';
-import ProductLoader from '../Components/Loader/ProductLoader';
 import Print from '../Images/print.webp';
 import HeroCard from '../Components/HOC/HeroCard.HOC';
 import Testimonials from '../Components/Sections/Testimonial/Index';
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const productList = useSelector(state => state.productList);
-  const { loading, error, products } = productList;
-
   return (
     <Container paddingInline={'0'} maxW={'full'}>
       <VStack spacing={{ base: '4rem', md: '6rem' }}>
@@ -76,7 +58,7 @@ const Home = () => {
             _hover={{
               transform: 'scale(1.05)',
             }}
-            maxW={'7xl'}
+            maxW={'8xl'}
             src={Print}
             alt="print"
             // w={{ base: '100%', xl: '60%' }}

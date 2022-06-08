@@ -1,14 +1,10 @@
 import {
   Box,
   Button,
-  Center,
   Container,
-  Flex,
-  FormControl,
   Heading,
   HStack,
   Image,
-  Select,
   Spinner,
   Tag,
   Text,
@@ -16,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   addToCart,
   listCartItems,

@@ -3,7 +3,6 @@ import {
   Flex,
   Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
   Icon,
@@ -13,8 +12,6 @@ import {
   useColorModeValue,
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
@@ -28,8 +25,6 @@ import {
   MenuButton,
   Menu,
   Input,
-  UnorderedList,
-  ListItem,
   VStack,
   useOutsideClick,
 } from '@chakra-ui/react';
@@ -96,7 +91,7 @@ export default function WithSubnavigation() {
       flexDirection={'column'}
       p="0"
     >
-      <Container maxW="7xl" mx="auto">
+      <Container maxW="8xl" mx="auto">
         <Flex minH={'60px'} py={{ base: 2 }} px={{ base: 4 }} align={'center'}>
           <Flex
             flex={{ base: 1, md: 'auto' }}
@@ -322,7 +317,7 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
-    <Stack direction={'row'} spacing={{ base: 2, lg: 6 }}>
+    <Stack direction={'row'} spacing={{ base: 2, lg: 3 }}>
       {NAV_ITEMS.map(navItem => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -330,9 +325,10 @@ const DesktopNav = () => {
               <Box
                 p={{ base: 2 }}
                 href={navItem.href ?? '#'}
-                fontSize={{ md: 'sm', lg: 'lg' }}
+                fontSize={{ md: 'sm', lg: 'sm', xl: 'md' }}
                 fontWeight={500}
                 color={'gray.600'}
+                textAlign={'center'}
                 _hover={{
                   textDecoration: 'none',
                   color: 'red.400',
@@ -382,10 +378,11 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
               transition={'all .3s ease'}
               _groupHover={'red.300'}
               fontWeight={500}
+              fontSize={'sm'}
             >
               {label}
             </Text>
-            <Text fontSize={'sm'}>{subLabel}</Text>
+            <Text fontSize={'xs'}>{subLabel}</Text>
           </Box>
           <Flex
             transition={'all .3s ease'}

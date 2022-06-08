@@ -20,9 +20,8 @@ export const Shipping = () => {
   const {
     handleSubmit,
     register,
-    setError,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();

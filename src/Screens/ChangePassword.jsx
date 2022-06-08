@@ -1,14 +1,10 @@
 import {
   Box,
-  Center,
   Button,
   useToast,
   Text,
   Heading,
   FormControl,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   FormErrorMessage,
   VStack,
   Container,
@@ -19,33 +15,29 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePassword, login, sendResetLink } from '../Actions/userAction';
+import { changePassword, sendResetLink } from '../Actions/userAction';
 
 const ChangePassword = ({ close }) => {
   let { search } = useLocation();
   let token = search.split('=')[1];
   const [showPassword, setShowPassword] = useState(false);
-  const [errorList, setErrorList] = useState('Not loaded');
   const [linkSend, setLinkSend] = useState(false);
   const toast = useToast();
   const {
     handleSubmit,
     register,
-    setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userLogin;
-  const {
-    loading: passwordLoading,
-    success,
-    error: passwordError,
-  } = useSelector(state => state.passwordReset);
+  const { success, error: passwordError } = useSelector(
+    state => state.passwordReset
+  );
   const redirect = location.search ? location.search.split('=')[1] : '';
 
   useEffect(() => {
