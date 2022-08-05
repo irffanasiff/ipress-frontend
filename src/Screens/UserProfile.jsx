@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -53,13 +54,13 @@ const UserProfile = () => {
       <Flex direction={['column']} w={'full'}>
         {user && user.name ? (
           <VStack px={'5rem'} alignItems={'flex-start'}>
-            <Box
+            <Avatar
               w={['100px', '120px', '150px', '180px']}
               h={['100px', '120px', '150px', '180px']}
               bg={'gray.300'}
               borderRadius="50%"
               textAlign={'left'}
-            ></Box>
+            />
             <VStack alignItems={'flex-start'}>
               <Text fontSize={'2xl'}>Name :</Text>
               <Text>{user.name.toUpperCase()}</Text>

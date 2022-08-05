@@ -23,6 +23,7 @@ import { Shipping } from './Screens/Shipping';
 import { Payment } from './Screens/Payment';
 import { PlaceOrder } from './Screens/PlaceOrder';
 import { listCartItems } from './Actions/cartAction';
+import { AdminHome } from './Screens/AdminHome';
 
 export const newTheme = {
   ...theme,
@@ -55,9 +56,13 @@ function App() {
   return (
     <ChakraProvider theme={newTheme}>
       <BrowserRouter>
-        <Header />
+        {userInfo && userInfo.isAdmin ? '' : <Header />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/*"
+            element={userInfo && userInfo.isAdmin ? <AdminHome /> : <Home />}
+          />
+          <Route path="/admin" element={<AdminHome />} />
           <Route path="/variants" element={<Variants />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
