@@ -1,28 +1,44 @@
-import { Center, VStack, Image, Text } from '@chakra-ui/react';
+import { Center, VStack, Image, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 const HeroCard = ({ img, title }) => {
   return (
     <VStack spacing="1rem" alignItems={'start'} p="1rem">
       <Center
-        w={{ base: '12rem', md: '15rem' }}
-        h={{ base: '15rem', md: '18rem' }}
+        h={{ base: '12rem', md: '15rem' }}
+        w={{ base: '15rem', md: '18rem' }}
         overflow={'hidden'}
+        position={'relative'}
+        role={'group'}
       >
         <Image
-          w={{ base: '12rem', md: '15rem' }}
-          h={{ base: '15rem', md: '18rem' }}
+          h={{ base: '12rem', md: '15rem' }}
+          w={{ base: '15rem', md: '18rem' }}
           objectFit={'cover'}
           transition="all 0.3s ease-in-out"
-          _hover={{
-            transform: 'scale(1.15)',
+          _groupHover={{
+            transform: 'scale(0.95)',
           }}
           src={img}
         />
+        <Flex
+          alignItems={'center'}
+          justifyContent={'center'}
+          fontWeight="700"
+          fontSize={{ base: 'xl', md: '3xl' }}
+          color={'white'}
+          position={'absolute'}
+          w={'100%'}
+          h={'100%'}
+          bg={'rgba(0,0,0, 0.25)'}
+          _hover={{
+            bg: 'rgba(0,0,0, 0)',
+            color: 'rgba(0,0,0, 0)',
+          }}
+        >
+          <Text>{title}</Text>
+        </Flex>
       </Center>
-      <Text fontWeight="400" fontSize={{ base: 'lg', md: 'xl' }}>
-        {title}
-      </Text>
     </VStack>
   );
 };

@@ -1,3 +1,5 @@
+import Marquee from 'react-fast-marquee';
+import Logo from '../../Images/logo.webp';
 import {
   Box,
   Flex,
@@ -27,9 +29,11 @@ import {
   Input,
   VStack,
   useOutsideClick,
+  Image,
 } from '@chakra-ui/react';
 import { CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
+import { RiCustomerService2Line, RiUserLocationLine } from 'react-icons/ri';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { BsMinecart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -84,15 +88,50 @@ export default function WithSubnavigation() {
     return items;
   };
   return (
-    <Container
-      maxW="9xl"
-      display="flex"
-      gap="1rem"
-      flexDirection={'column'}
-      p="0"
-    >
-      <Container maxW="8xl" mx="auto">
-        <Flex minH={'60px'} py={{ base: 2 }} px={{ base: 4 }} align={'center'}>
+    <Container maxW="9xl" display="flex" flexDirection={'column'} p="0">
+      <Center maxW="8xl" w="100%" mx="auto" bgColor="#00509E" py={{ base: 4 }}>
+        {' '}
+        {/* TOP 1: MARQUEE */}
+        <Marquee
+          style={{
+            width: '70%',
+          }}
+          speed={80}
+          gradient={false}
+        >
+          <Text color="white" mx={'auto'}>
+            Fast delivery options available.{' '}
+          </Text>
+          <Text color="white">
+            Sign up to our mailing list to receive exclusive discounts.
+          </Text>
+        </Marquee>
+      </Center>
+      <Container maxW="8xl" mx="auto" px={10} py={2}>
+        <Flex alignItems={'center'} w={'52%'} justifyContent={'space-between'}>
+          <Flex>
+            <RiCustomerService2Line size={30} color={'#00509E'} />{' '}
+            <Text mx={4}> 0813 894 1946 </Text>
+          </Flex>
+          <Flex>
+            <RiUserLocationLine size={30} color={'#00509E'} />
+            <Text mx={4}> View our locations </Text>
+          </Flex>
+          <NavLink to="/">
+            <Image src={Logo} alt="print" w={'90px'} h={'90px'} />{' '}
+          </NavLink>
+        </Flex>
+      </Container>
+      <Container maxW="8xl" mx="auto" px={0}>
+        <Flex
+          minH={'60px'}
+          py={{ base: 2 }}
+          px={{ base: 4, sm: 8, lg: 10 }}
+          align={'center'}
+          bgColor="#DFB373"
+          justify={'space-between'}
+        >
+          {/* Toggle button for small screen */}
           <Flex
             flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
@@ -111,119 +150,90 @@ export default function WithSubnavigation() {
               aria-label={'Toggle Navigation'}
             />
           </Flex>
-          <Flex
-            display={{ base: 'none', lg: 'flex' }}
-            flex={{ base: 1 }}
-            justify={{ base: 'center', md: 'start' }}
-          >
-            <Heading
-              fontWeight={'300'}
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              color={useColorModeValue('gray.800', 'white')}
-            >
-              <Link to="/">ipress</Link>
-            </Heading>
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10}></Flex>
-          </Flex>
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}
-          >
-            <Box
-              as="button"
-              display="flex"
-              flexDirection={'row'}
-              justifyContent={'flex-end'}
-              alignItems="center"
-              gap="1rem"
-              w={{ base: '30vw', sm: '40vw' }}
-              fontSize={'md'}
-              fontWeight={600}
-              href={'#'}
-              _hover={{
-                textDecoration: 'underline',
-              }}
-              position={'relative'}
-            >
-              <Box display={{ md: 'none' }}>
-                <AiOutlineSearch
-                  size={32}
-                  onClick={() => setSearchVisible(!searchVisible)}
-                />
-              </Box>
 
-              <Input
-                display={{ md: 'none' }}
-                width={searchVisible ? '90%' : '0%'}
-                maxW={'200px'}
-                opacity={searchVisible ? '1' : '0'}
-                transition={'all 0.5s linear'}
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-              />
-              <Box display={{ base: 'none', md: 'block' }}>
-                <AiOutlineSearch size={32} />
-              </Box>
-              <Input
-                display={{ base: 'none', md: 'block' }}
-                width={'90%'}
-                maxW={'200px'}
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-                onFocus={e => {
-                  if (!searchVisible) setSearchVisible(true);
-                }}
-              />
-              {searchInput ? (
-                <VStack
-                  ref={ref}
-                  position={'absolute'}
-                  top={'100%'}
-                  bgColor={'white'}
-                  right={['-20%', '0']}
-                  boxShadow={'md'}
-                  display={searchVisible ? 'flex' : 'none'}
-                  width={searchVisible ? '90%' : '0%'}
-                  minW={searchVisible ? '150px' : '0'}
-                  maxH={'400px'}
-                  overflowY={'auto'}
-                  maxW={'200px'}
-                  alignItems={'stretch'}
-                  borderRadius={'8px'}
-                >
-                  {renderList(searchInput).map((item, index) => {
-                    return (
-                      <NavLink
-                        key={index}
-                        to={item.href}
-                        onClick={() => setSearchInput('')}
-                      >
-                        <Text
-                          p={2}
-                          px={3}
-                          w={'full'}
-                          textAlign={'left'}
-                          _hover={{ bg: 'gray.200' }}
-                          color={'#646464'}
-                          fontSize={{ base: 'sm', md: 'md' }}
-                        >
-                          {item.label}
-                        </Text>
-                      </NavLink>
-                    );
-                  })}
-                </VStack>
-              ) : (
-                ''
-              )}
+          <Box
+            display="flex"
+            flexDirection={'row'}
+            alignItems="center"
+            w={{ base: '30vw', sm: '40vw' }}
+            fontSize={'md'}
+            fontWeight={500}
+            position={'relative'}
+          >
+            <Input
+              bgColor={'white'}
+              outline={'1px solid #00509E'}
+              borderRadius={'0'}
+              width={'100%'}
+              maxW={'200px'}
+              value={searchInput}
+              placeholder={'Search...'}
+              onChange={e => setSearchInput(e.target.value)}
+              onFocus={e => {
+                if (!searchVisible) setSearchVisible(true);
+              }}
+            />
+
+            <Box
+              bgColor={'#00509E'}
+              color={'white'}
+              outline={'1px solid #00509E'}
+              px={2}
+              py={'1'}
+              alignSelf={'stretch'}
+            >
+              <AiOutlineSearch size={32} />
             </Box>
+
+            {searchInput ? (
+              <VStack
+                ref={ref}
+                position={'absolute'}
+                top={'100%'}
+                bgColor={'white'}
+                left={0}
+                boxShadow={'md'}
+                display={searchVisible ? 'flex' : 'none'}
+                width={searchVisible ? '100%' : '0%'}
+                minW={searchVisible ? '150px' : '0'}
+                maxH={'400px'}
+                overflowY={'auto'}
+                maxW={'200px'}
+                alignItems={'stretch'}
+                borderRadius={'8px'}
+              >
+                {renderList(searchInput).map((item, index) => {
+                  return (
+                    <NavLink
+                      key={index}
+                      to={item.href}
+                      onClick={() => setSearchInput('')}
+                    >
+                      <Text
+                        p={2}
+                        px={3}
+                        w={'full'}
+                        textAlign={'left'}
+                        _hover={{ bg: 'gray.200' }}
+                        color={'black'}
+                        fontSize={{ base: 'sm', md: 'md' }}
+                      >
+                        {item.label}
+                      </Text>
+                    </NavLink>
+                  );
+                })}
+              </VStack>
+            ) : (
+              ''
+            )}
+          </Box>
+          <Center gap={4}>
             {userInfo ? (
               <Box key="user_dropdown">
                 <Menu isLazy m="auto">
                   <MenuButton
-                    fontWeight={600}
+                    fontWeight={500}
                     m={'auto'}
                     p={'5px 15px'}
                     borderRadius={'8px'}
@@ -250,11 +260,12 @@ export default function WithSubnavigation() {
                 flexDirection={'row'}
                 alignItems="center"
                 fontSize={'md'}
-                fontWeight={600}
+                fontWeight={500}
               >
                 <AiOutlineUser size={32} /> Signup
               </Box>
             )}
+
             <Drawer
               isOpen={isDrawerOpen}
               placement="right"
@@ -292,21 +303,28 @@ export default function WithSubnavigation() {
               alignItems="center"
               gap="1rem"
               fontSize={'md'}
-              fontWeight={600}
+              fontWeight={500}
               href={'#'}
               _hover={{
                 textDecoration: 'underline',
               }}
             >
-              <BsMinecart size={32} />
+              <BsMinecart size={32} /> Cart
             </Box>
-          </Stack>
+          </Center>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
           <MobileNav />
         </Collapse>
       </Container>
-      <Center display={['none', 'none', 'none', 'flex']} mx="auto">
+      <Center
+        maxW="8xl"
+        display={['none', 'none', 'none', 'flex']}
+        w={'100%'}
+        mx="auto"
+        px={10}
+        py={4}
+      >
         <DesktopNav />
       </Center>
     </Container>
@@ -317,17 +335,17 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
-    <Stack direction={'row'} spacing={{ base: 2, lg: 3 }}>
+    <Stack direction={'row'} justifyContent={'space-between'} w={'100%'}>
       {NAV_ITEMS.map(navItem => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Box
-                p={{ base: 2 }}
-                href={navItem.href ?? '#'}
+              <Center
+                as={Link}
+                to={navItem.href ?? '#'}
                 fontSize={{ md: 'sm', lg: 'sm', xl: 'md' }}
                 fontWeight={500}
-                color={'gray.600'}
+                color={'black'}
                 textAlign={'center'}
                 _hover={{
                   textDecoration: 'none',
@@ -336,13 +354,13 @@ const DesktopNav = () => {
                 cursor={'pointer'}
               >
                 {navItem.label}
-              </Box>
+              </Center>
             </PopoverTrigger>
 
             {navItem.children && (
               <PopoverContent
-                border={0}
-                boxShadow={'xl'}
+                border={'1px solid #00509E'}
+                boxShadow={'2xl'}
                 bg={popoverContentBgColor}
                 p={4}
                 rounded={'xl'}
@@ -466,9 +484,10 @@ const MobileNavItem = ({ label, children, href }) => {
 const NAV_ITEMS = [
   {
     label: 'Large Formats',
+    href: '/product/Banners',
     children: [
       {
-        label: 'Flex Banners',
+        label: 'Flex Banner/Event Backdrops',
         subLabel: 'Trending Design to inspire you',
         href: '/product/Banners',
       },
@@ -488,19 +507,14 @@ const NAV_ITEMS = [
         href: '/product/Roll-Up-Stands',
       },
       {
-        label: 'Instagram Frames',
+        label: 'Instagram Frame Boards',
         subLabel: 'Up-and-coming Designers',
-        href: '/product/Instagram-Frames',
+        href: '/product/Instagram-Frame-Boards',
       },
       {
-        label: 'Backdrops',
+        label: 'Car/Bike/Tricycle Branding',
         subLabel: 'Up-and-coming Designers',
-        href: '/product/Backdrops',
-      },
-      {
-        label: 'Car Branding',
-        subLabel: 'Up-and-coming Designers',
-        href: '/product/Car-Branding',
+        href: '/product/Car-Bike-Tricycle-Branding',
       },
       {
         label: 'Window Graphics',
@@ -518,39 +532,9 @@ const NAV_ITEMS = [
         href: '/product/Tshirts',
       },
       {
-        label: 'Throw Pillows',
-        subLabel: 'Find your dream design job',
-        href: '/product/Throw-Pillows',
-      },
-      {
-        label: 'Jersey',
-        subLabel: 'Find your dream design job',
-        href: '/product/Jersey',
-      },
-      {
-        label: 'Jean Patch Work',
-        subLabel: 'Find your dream design job',
-        href: '/product/Jean-Patch',
-      },
-      {
         label: 'Caps',
         subLabel: 'Find your dream design job',
         href: '/product/Caps',
-      },
-      {
-        label: 'Kaftan',
-        subLabel: 'Find your dream design job',
-        href: '/product/Kaftan',
-      },
-      {
-        label: 'Baby Beeps',
-        subLabel: 'Find your dream design job',
-        href: '/product/Baby-Beeps',
-      },
-      {
-        label: 'Seat Covers',
-        subLabel: 'Find your dream design job',
-        href: '/product/Seat-Covers',
       },
       {
         label: 'Towels',
@@ -578,7 +562,7 @@ const NAV_ITEMS = [
         href: '/product/Id-Cards',
       },
       {
-        label: 'Wedding IV',
+        label: 'Wedding Invitations',
         subLabel: 'Find your dream design job',
         href: '/product/Wedding',
       },
@@ -598,19 +582,14 @@ const NAV_ITEMS = [
         href: '/product/Event-Badge',
       },
       {
-        label: 'Membership Cards',
-        subLabel: 'Find your dream design job',
-        href: '/product/Membership-Card',
-      },
-      {
         label: 'Lanyards',
         subLabel: 'Find your dream design job',
         href: '/product/Lanyards',
       },
       {
-        label: 'Laoel Pin',
+        label: 'Lapel Pin',
         subLabel: 'Find your dream design job',
-        href: '/product/Laoel-Pin',
+        href: '/product/Lapel-Pin',
       },
     ],
   },
@@ -633,17 +612,7 @@ const NAV_ITEMS = [
         href: '/product/Mugs',
       },
       {
-        label: 'Flash Drives',
-        subLabel: 'Find your dream design job',
-        href: '/product/Flash-Drives',
-      },
-      {
-        label: 'Promotional Items',
-        subLabel: 'Find your dream design job',
-        href: '/product/Promotional-Items',
-      },
-      {
-        label: 'Corporate Gifts',
+        label: 'Corporate Gifts/Promotional Items',
         subLabel: 'Find your dream design job',
         href: '/product/Corporate-Gifts',
       },
@@ -663,7 +632,7 @@ const NAV_ITEMS = [
         href: '/product/Brochures',
       },
       {
-        label: 'Flyers',
+        label: 'Flyers/Leaflets',
         subLabel: 'Find your dream design job',
         href: '/product/Flyers',
       },
@@ -683,29 +652,9 @@ const NAV_ITEMS = [
         href: '/product/Magazines',
       },
       {
-        label: 'Diary',
-        subLabel: 'Find your dream design job',
-        href: '/product/Diary',
-      },
-      {
-        label: 'Receipts',
-        subLabel: 'Find your dream design job',
-        href: '/product/Receipts',
-      },
-      {
         label: 'Company Profile',
         subLabel: 'Find your dream design job',
         href: '/product/Company-Profile',
-      },
-      {
-        label: 'Prospectus',
-        subLabel: 'Find your dream design job',
-        href: '/product/Prospectus',
-      },
-      {
-        label: 'Tickets/Vouchers',
-        subLabel: 'Find your dream design job',
-        href: '/product/Tickets',
       },
       {
         label: 'Books',
@@ -723,16 +672,6 @@ const NAV_ITEMS = [
     label: 'Stationery',
     children: [
       {
-        label: 'Notepads',
-        subLabel: 'Find your dream design job',
-        href: '/product/Notepads',
-      },
-      {
-        label: 'Pens',
-        subLabel: 'Find your dream design job',
-        href: '/product/Pens',
-      },
-      {
         label: 'Envelope',
         subLabel: 'Find your dream design job',
         href: '/product/Envelope',
@@ -741,11 +680,6 @@ const NAV_ITEMS = [
         label: 'Certificates',
         subLabel: 'Find your dream design job',
         href: '/product/Certificates',
-      },
-      {
-        label: 'Folders',
-        subLabel: 'Find your dream design job',
-        href: '/product/Folders',
       },
       {
         label: 'Letterheads',
@@ -763,19 +697,9 @@ const NAV_ITEMS = [
         href: '/product/Paper-Stickers',
       },
       {
-        label: 'Clothing Labels',
+        label: 'Transparent Stickers',
         subLabel: 'Find your dream design job',
-        href: '/product/Clothing-Labels',
-      },
-      {
-        label: 'White Stickers',
-        subLabel: 'Find your dream design job',
-        href: '/product/White-Stickers',
-      },
-      {
-        label: 'Transparent Sticker',
-        subLabel: 'Find your dream design job',
-        href: '/product/Transparent-Sticker',
+        href: '/product/Transparent-Stickers',
       },
     ],
   },
@@ -801,51 +725,6 @@ const NAV_ITEMS = [
         label: 'Mettalic',
         subLabel: 'Find your dream design job',
         href: '/product/Mettalic',
-      },
-    ],
-  },
-  {
-    label: 'Graphic Design',
-    children: [
-      {
-        label: 'New Design',
-        subLabel: 'Find your dream design job',
-        href: '/product/New-Design',
-      },
-      {
-        label: 'Editing',
-        subLabel: 'Find your dream design job',
-        href: '/product/Editing',
-      },
-      {
-        label: 'Logo Creation',
-        subLabel: 'Find your dream design job',
-        href: '/product/Logo-Creation',
-      },
-    ],
-  },
-  {
-    label: 'Store',
-    children: [
-      {
-        label: 'Branded Tshirts',
-        subLabel: 'Find your dream design job',
-        href: '/product/Branded-Tshirts',
-      },
-      {
-        label: 'Plain Tshirts',
-        subLabel: 'Find your dream design job',
-        href: '/product/Plain-Tshirts',
-      },
-      {
-        label: 'Gifts',
-        subLabel: 'Find your dream design job',
-        href: '/product/Gifts',
-      },
-      {
-        label: 'Machines',
-        subLabel: 'Find your dream design job',
-        href: '/product/Machines',
       },
     ],
   },
