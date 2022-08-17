@@ -1,4 +1,30 @@
-import { Box, Container, Heading, Stack, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Input,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { BsPaypal, BsTelephonePlusFill } from 'react-icons/bs';
+import { GrMail, GrYoutube } from 'react-icons/gr';
+import { FaFacebookF } from 'react-icons/fa';
+import { RiLinkedinFill, RiTwitterFill } from 'react-icons/ri';
+import {
+  Visa,
+  UnionPay,
+  Paypal,
+  Amex,
+  Discover,
+  DinersClub,
+  Jcb,
+  Mastercard,
+} from 'react-pay-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
@@ -19,203 +45,336 @@ const Footer = () => {
     }
   };
   return (
-    <Container maxW="full" bg="ipress.600" color="gray.300">
-      <Container
-        maxW="6xl"
-        pt={{ base: '4rem', md: '12rem' }}
-        px={'2rem'}
-        display={'flex'}
-        flexDirection="column"
-        fap="2rem"
+    <>
+      <Flex
+        maxW={'8xl'}
+        mx={'auto'}
+        w={'100%'}
+        h={'100vh'}
+        maxH={{ base: '600px', md: '500px' }}
+        position={'relative'}
+        direction={{ base: 'column', md: 'row' }}
       >
-        <Stack
-          spacing={{ base: '2.5rem', md: 'auto' }}
-          direction={{ base: 'column-reverse', md: 'row' }}
+        <Flex
+          w={{ base: '100%', md: '50%' }}
+          h={{ base: 'auto', md: '100%' }}
+          bg={'#FFE892'}
+          direction={'column'}
+          p={'5%'}
+          gap={'20px'}
         >
-          <Stack
-            spacing={{ base: '2.5rem', md: '3rem', lg: '5rem' }}
-            direction={{ base: 'column', md: 'row' }}
+          <Heading
+            fontSize={['xl', '3xl', '5xl']}
+            color={'#00509E'}
+            fontWeight={500}
+            textAlign={'center'}
           >
-            <VStack fontSize={{ base: 'sm', md: 'md' }} alignItems={'start'}>
-              <Heading
-                mb={{ base: '0.5rem', md: '1rem' }}
-                fontSize={{ base: 'xl', md: '2xl' }}
-                fontWeight={'400'}
-                color="white"
-              >
-                We are here
-              </Heading>
-              <Text maxW="15rem">
-                Akshya Nagar 1st Block 1st Cross, Rammurthy nagar,
-                Bangalore-560016
-              </Text>
-              <Text>info@ipress.in</Text>
-              <Text>020 8125 3074</Text>
-            </VStack>
-            <VStack fontSize={{ base: 'sm', md: 'md' }} alignItems={'start'}>
-              <Heading
-                mb={{ base: '0.5rem', md: '1rem' }}
-                fontSize={{ base: 'xl', md: '2xl' }}
-                fontWeight={'400'}
-                color="white"
-              >
-                Services
-              </Heading>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('/service/dryCleaning');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Billboards</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('/service/bedding');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Banners</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('service/household');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Rollup Stands</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('service/shirts');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Dummy Cheques</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('service/laundry');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Laundry</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('service/ironing');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-                textAlign="start"
-              >
-                <Text>
-                  Instagram Frame
-                  <br /> <span>Boards</span>{' '}
-                </Text>
-              </Box>
-            </VStack>{' '}
-            <VStack fontSize={{ base: 'sm', md: 'md' }} alignItems={'start'}>
-              <Heading
-                mb={{ base: '0.5rem', md: '1rem' }}
-                fontSize={{ base: 'xl', md: '2xl' }}
-                fontWeight={'400'}
-                color="white"
-              >
-                Navigate
-              </Heading>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('about');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>About</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('areas');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Profile</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('pricing');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Cart</Text>
-              </Box>
-              <Box
-                as="button"
-                onClick={() => {
-                  navigate('t&c');
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                <Text>Terms and Conditions</Text>
-              </Box>
-            </VStack>
-          </Stack>
-        </Stack>{' '}
-        <Stack
-          mt={{ base: '6rem', md: '7rem' }}
-          mb="0.5rem"
-          w="full"
-          fontSize={{ base: 'sm', md: 'md' }}
-          flexDir={{ base: 'column', md: 'row' }}
-          justifyContent="space-between"
-          alignItems={{ base: 'start', md: 'center' }}
+            Join Our Mailing List
+          </Heading>
+          <Heading
+            fontSize={['12px', '1rem', '1.2rem']}
+            fontWeight={400}
+            textAlign={'center'}
+          >
+            Be the first to know about about our sales, events and exclusive
+            offers.
+          </Heading>
+          <Box position={'relative'}>
+            <Text
+              as={'label'}
+              htmlFor={'email'}
+              fontSize={['10px', '12px', '14px', 'xl']}
+              color={'#00509E'}
+            >
+              Enter your email address*
+            </Text>
+            <Input
+              name={'email'}
+              borderRadius={'30px'}
+              required
+              h={{ base: '30px', sm: '40px', md: '60px' }}
+              fontSize={{ base: '12px', md: '16px' }}
+              p={4}
+              bg={'#E5EBFA'}
+              color={'#00509E'}
+              placeholder={'e.g., name@example.com'}
+              _placeholder={{
+                color: 'rgba(29, 103, 205, 0.6)',
+                fontSize: '14px',
+              }}
+            />
+            <Button
+              position={'absolute'}
+              border={'1px solid #00509E'}
+              color={'#1D67CD'}
+              _hover={{ bg: '#1D67CD', color: 'white' }}
+              top={{ base: '28px', md: '45%', lg: '40%' }}
+              right={'7px'}
+              borderRadius={'20px'}
+              zIndex={999}
+              fontSize={{ base: '10px', sm: '14px', lg: '16px' }}
+              h={{ base: 7, sm: 8, lg: 10 }}
+            >
+              Subscribe
+            </Button>
+          </Box>
+        </Flex>
+        <Flex
+          w={{ base: '100%', md: '50%' }}
+          h={'100%'}
+          bg={'#00509E'}
+          p={{ base: '3%', md: '5%' }}
         >
-          <Text>© 2022 SpinWash</Text>
-          <Text>
-            <a href="https://twitter.com/demonicirfan" target="_blank">
-              Designed and Developed by Irfan Asif
-            </a>
-          </Text>
-        </Stack>
-      </Container>
-    </Container>
+          <Box
+            w={'80%'}
+            p={'30px 50px'}
+            bg={'white'}
+            h={{ base: '70%', md: 'fit-content' }}
+            mx={'auto'}
+            mt={['2rem', '2rem', '0']}
+            textAlign={'center'}
+            borderRadius={'5px'}
+          >
+            <Heading
+              fontSize={['xl', '3xl', '5xl']}
+              color={'#00509E'}
+              fontWeight={500}
+              borderBottom={'1px solid #00509E'}
+              pb={4}
+            >
+              Need Help?
+            </Heading>
+            <Text mt={5} fontSize={['12px', '1rem', '1.2rem']}>
+              Got a question? We are here to help make your projects come to
+              life.
+            </Text>
+          </Box>
+        </Flex>
+        <Flex
+          direction={'column'}
+          position={'absolute'}
+          top={{ base: '95%', md: '85%' }}
+          w={'90%'}
+          left={'5%'}
+          bg={'#C8D9EA'}
+        >
+          <Container
+            maxW="8xl"
+            display={'flex'}
+            flexDirection="column"
+            p={{ base: '2rem', sm: '1rem', md: '2rem' }}
+          >
+            <Stack
+              spacing={{ base: '2.5rem', md: 'auto' }}
+              direction={{ base: 'column-reverse', md: 'row' }}
+            >
+              <Stack
+                w={'100%'}
+                justifyContent={{ base: 'space-evenly' }}
+                spacing={{ base: '1rem', sm: '0.5rem' }}
+                direction={{ base: 'column', sm: 'row' }}
+              >
+                <VStack
+                  w={{ sm: '40%', md: 'auto' }}
+                  mr={{ sm: '20px', md: '0' }}
+                  fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
+                  alignItems={'start'}
+                >
+                  <Heading
+                    mb={{ base: '0.5rem', md: '1rem' }}
+                    fontSize={['16px', '18px', '24px']}
+                    fontWeight={'400'}
+                    color="#00509E"
+                  >
+                    iPress Locations
+                  </Heading>
+                  <Text maxW="20rem">
+                    iPress Locations Mercyland Land Junction Opposite NNPC
+                    Filling Station, East West Road, Nkpolu- Rumuigbo, Port
+                    Harcourt, Rivers State
+                  </Text>
+                  <Text fontWeight={'bold'} fontSize={{ base: 'sm', md: 'md' }}>
+                    Head Office
+                  </Text>
+                  <Text maxW="20rem">
+                    {' '}
+                    KM16, East-West Road, Before UPTH Junction Alakahia, Port
+                    Harcourt, Rivers State
+                  </Text>
+                  <HStack
+                    fontSize={{ base: 'md', md: 'xl' }}
+                    spacing={[2, 2, 5]}
+                  >
+                    <Icon as={FaFacebookF} />
+                    <Icon as={RiLinkedinFill} />
+                    <Icon as={RiTwitterFill} />
+                    <Icon as={GrYoutube} />
+                  </HStack>
+                </VStack>
+                <VStack
+                  fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
+                  alignItems={'start'}
+                >
+                  <Heading
+                    mb={{ base: '0.5rem', md: '1rem' }}
+                    fontSize={['16px', '18px', '24px']}
+                    fontWeight={'400'}
+                    color="#00509E"
+                  >
+                    Customer Support
+                  </Heading>
+                  <Box
+                    as="button"
+                    onClick={() => {
+                      navigate('/service/dryCleaning');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>Contact Us</Text>
+                  </Box>
+                  <Box
+                    as="button"
+                    onClick={() => {
+                      navigate('/service/bedding');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>FAQ</Text>
+                  </Box>
+                  <Box
+                    as="button"
+                    textAlign={'left'}
+                    onClick={() => {
+                      navigate('service/household');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>Customer Inquiries</Text>
+                  </Box>
+                  <Box
+                    as="button"
+                    mb={'0.5rem'}
+                    onClick={() => {
+                      navigate('service/shirts');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>About Us</Text>
+                  </Box>
+                  <Heading
+                    mt={'1rem !important'}
+                    fontSize={['16px', '18px', '24px']}
+                    fontWeight={'400'}
+                    color="#00509E"
+                  >
+                    Store Policy
+                  </Heading>
+                  <Box
+                    as="button"
+                    onClick={() => {
+                      navigate('service/shirts');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>Terms of Service</Text>
+                  </Box>
+                  <Box
+                    as="button"
+                    onClick={() => {
+                      navigate('service/shirts');
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                  >
+                    <Text>Shipping</Text>
+                  </Box>
+                </VStack>{' '}
+                <VStack
+                  fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
+                  alignItems={'start'}
+                >
+                  <Heading
+                    mb={{ base: '0.5rem', md: '1rem' }}
+                    fontSize={['16px', '18px', '24px']}
+                    fontWeight={'400'}
+                    color="#00509E"
+                  >
+                    Need Help ?
+                  </Heading>
+                  <Flex alignItems={'center'}>
+                    <Icon as={BsTelephonePlusFill} mr={2} />
+                    0813-894-1946
+                  </Flex>
+                  <Flex alignItems={'center'}>
+                    <Icon as={BsTelephonePlusFill} mr={2} />
+                    0708-367-5200
+                  </Flex>
+                  <Flex alignItems={'center'} as="button">
+                    <Icon as={GrMail} mr={2} />
+                    ipressltd@yahoo.com
+                  </Flex>
+                  <VStack
+                    alignItems={'flex-start'}
+                    mt={'3rem !important'}
+                    fontWeight={'600'}
+                  >
+                    <Box>
+                      <Text>Mon - Fri: 8am - 8pm</Text>
+                    </Box>
+                    <Box>
+                      <Text>Saturday: 9am - 7pm</Text>
+                    </Box>
+                    <Box>
+                      <Text>Sunday: 9am - 8pm</Text>
+                    </Box>
+                  </VStack>
+                </VStack>
+              </Stack>
+            </Stack>{' '}
+          </Container>
+          <Container maxW="full" bg="#00509E" color="gray.300">
+            <HStack justifyContent={'right'} mr={'5%'} mt={3} wrap={'wrap'}>
+              <Visa style={{ margin: 10, width: 40 }} />;
+              <UnionPay style={{ margin: 10, width: 40 }} />;
+              <Mastercard style={{ margin: 10, width: 40 }} />;
+              <Jcb style={{ margin: 10, width: 40 }} />;
+              <Amex style={{ margin: 10, width: 40 }} />;
+              <DinersClub style={{ margin: 10, width: 40 }} />;
+              <Discover style={{ margin: 10, width: 40 }} />;
+              <Paypal style={{ margin: 10, width: 40 }} />;
+            </HStack>
+            <Stack
+              mt={{ base: '3rem' }}
+              mb="0.5rem"
+              w="full"
+              fontSize={{ base: 'sm', md: 'md' }}
+              flexDir={{ base: 'column', md: 'row' }}
+              justifyContent="space-between"
+              alignItems={{ base: 'start', md: 'center' }}
+            >
+              <Text>© 2022 Ipress</Text>
+            </Stack>
+          </Container>
+        </Flex>
+      </Flex>
+    </>
   );
 };
 

@@ -17,6 +17,13 @@ const theme = extendTheme({
       500: '#FF3839',
       600: '#222222',
     },
+    main: {
+      100: '',
+      200: '#8AADCF',
+      300: '',
+      400: '#00509E',
+      500: '#C8D9EA',
+    },
   },
   fonts: {
     heading: 'Space Grotesk, sans-serif',
@@ -43,7 +50,7 @@ const theme = extendTheme({
           color: 'black',
           fontSize: 'xl',
           textTransform: 'uppercase',
-          rounded: 'full',
+          rounded: false,
           p: '1.5rem',
         },
       },

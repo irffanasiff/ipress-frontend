@@ -262,6 +262,7 @@ const Home = () => {
             Get Started
           </Heading>
           <Wrap
+            spacing={0}
             m="2rem 0"
             maxW={{ base: '14rem', sm: '100%' }}
             justify={{ base: 'space-evenly' }}
@@ -319,78 +320,6 @@ const Home = () => {
             </WrapItem>
           </Wrap>
         </Box>
-        <Flex w={'100%'} h={'100vh'} position={'relative'}>
-          <Flex
-            w={'50%'}
-            h={'100%'}
-            bg={'#FFE892'}
-            direction={'column'}
-            p={'5%'}
-            gap={'20px'}
-          >
-            <Heading
-              fontSize={['xl', '3xl', '5xl']}
-              color={'#00509E'}
-              fontWeight={500}
-            >
-              Join Our Mailing List
-            </Heading>
-            <Heading fontSize={'20px'} fontWeight={400}>
-              Be the first to know about about our sales, events and exclusive
-              offers.
-            </Heading>
-            <Box position={'relative'}>
-              <Text as={'label'} for={'email'}>
-                Enter your email address
-              </Text>
-              <Input
-                name={'email'}
-                borderRadius={'20px'}
-                required
-                h={'50px'}
-                p={4}
-                bg={'white'}
-              />
-              <Button
-                position={'absolute'}
-                border={'1px solid #00509E'}
-                color={'#00509E'}
-                _hover={{ bg: '#00509E', color: 'white' }}
-                top={'40%'}
-                right={'7px'}
-                borderRadius={'20px'}
-                zIndex={999}
-              >
-                Subscribe
-              </Button>
-            </Box>
-          </Flex>
-          <Flex w={'50%'} h={'100%'} bg={'#00509E'} p={'5%'}>
-            <Box w={'80%'} p={'30px 70px'} bg={'white'} h={'50%'} mx={'auto'}>
-              <Heading
-                fontSize={['xl', '3xl', '5xl']}
-                color={'#00509E'}
-                fontWeight={500}
-                borderBottom={'1px solid #00509E'}
-                pb={4}
-              >
-                Need Help?
-              </Heading>
-              <Text mt={5}>
-                Got a question? We are here to help make your projects come to
-                life.
-              </Text>
-            </Box>
-          </Flex>
-          <Flex
-            position={'absolute'}
-            bottom={'-15%'}
-            w={'90%'}
-            h={'60vh'}
-            left={'5%'}
-            bg={'#C8D9EA'}
-          ></Flex>
-        </Flex>
       </VStack>
     </Container>
   );

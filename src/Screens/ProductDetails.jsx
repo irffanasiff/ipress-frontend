@@ -13,6 +13,9 @@ import {
   Flex,
   RadioGroup,
   Radio,
+  Textarea,
+  Select,
+  FormLabel,
 } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -21,6 +24,7 @@ import { saveProducts } from '../Actions/productAction';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
+import { NAV_ITEMS } from '../Components/Header/NavItems';
 
 /* const useNavigateParams = () => {
   const navigate = useNavigate();
@@ -43,26 +47,46 @@ const productWithImages = [
   'Posters',
 ];
 const product = id => {
-  let productInfo = {
+  let properties = {
     image:
       'https://i.pinimg.com/736x/0e/fe/72/0efe728db4b33f979300967d7723c756.jpg',
-    name: id.split('-').join(' '),
-    details: `Get custom ${id} with all the details you need. Explore fully customisable templates, or upload your own design`,
     fields: [
+      { name: 'First Name' },
+      { name: 'Last Name' },
+      { name: 'Email' },
       {
-        name: 'product_orientation',
-        placeholder: 'Product Orientation',
-        type: 'radio',
+        name: 'Ink Type',
+        type: 'option',
+        value: ['Eco-solvent Ink', 'UV Ink'],
       },
-      { name: 'length', placeholder: 'Length (in inches)', grow: 1 },
-      { name: 'breadth', placeholder: 'Breadth (in inches)', grow: 1 },
-      { name: 'paper_thickness', placeholder: 'Paper thickness(in mm)' },
-      { name: 'quantity', placeholder: 'Quantity' },
+      {
+        name: 'Length',
+        label: 'Length (cm)',
+        placeholder: 'Enter only figures',
+      },
+      { name: 'Width', label: 'Width (cm)', placeholder: 'Enter only figures' },
+      { name: 'Phone' },
+      {
+        name: 'Description',
+        type: 'textarea',
+        placeholder: 'Tell us a little bit about the design you had in mind',
+      },
     ],
-    browseDesign: productWithImages.includes(id.split('-').join(' ')),
     uploadDesign: true,
   };
-  return productInfo;
+  let product;
+  NAV_ITEMS.forEach(item =>
+    item.children
+      ? item.children.forEach(child =>
+          child.href === `/product/${id}` ? (product = child) : ''
+        )
+      : ''
+  );
+  let finalProduct = { ...properties, ...product };
+  finalProduct.fields = product.form
+    ? [...properties.fields, ...product.fields]
+    : [...product.fields];
+  return finalProduct;
 };
 const data = [
   {
@@ -122,13 +146,7 @@ const ProductDetails = ({ setUrl }) => {
     setUrl(img);
     navigate(`/designs/${id}/editor`);
   };
-  const onSubmit = ({
-    quantity,
-    paper_thickness,
-    product_orientation,
-    length,
-    breadth,
-  }) => {
+  const onSubmit = fields => {
     if (action === 'upload') {
       uploadImg.current.click();
     } else if (action === 'browse') {
@@ -136,80 +154,106 @@ const ProductDetails = ({ setUrl }) => {
     }
     const product = {
       name: productInfo.name,
-      fields: [
-        {
-          quantity,
-          paper_thickness,
-          product_orientation,
-          size: length + '_' + breadth,
-        },
-      ],
+      fields,
       browseDesign: false,
       uploadDesign: false,
     };
     action === 'upload'
       ? (product.uploadDesign = true)
       : (product.browseDesign = true);
+    console.log(product);
     dispatch(saveProducts(product));
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Center
+        bg={'#8AADCF'}
+        h={'20vw'}
+        minH={'200px'}
+        color={'#00509E'}
+        flexDirection={'column'}
+      >
+        <Heading fontSize={['3xl', '4xl', '5xl']}>{productInfo.label}</Heading>
+        <Heading fontSize={['lg', 'xl', '2xl']} fontWeight={400} mt={5}>
+          {productInfo.subLabel}
+        </Heading>
+      </Center>
       <Stack
         spacing={{ base: '4rem', lg: '2rem' }}
-        p={{ base: '4rem 1.5rem', md: '6rem 2rem' }}
+        p={{ base: '2rem 1.5rem', md: '3rem 2rem' }}
         maxW="6xl"
         mx="auto"
-        direction={{ base: 'column-reverse', lg: 'row' }}
+        direction={{ base: 'column-reverse', lg: 'row-reverse' }}
         alignItems={{ base: 'center', lg: 'flex-start' }}
         justifyContent={'space-between'}
       >
-        <VStack alignItems={'start'} maxW={{ base: '70vw', md: '35rem' }}>
-          <Heading fontWeight={'400'}>{productInfo.name}</Heading>
-          <Text>{productInfo.details}</Text>
-          <Flex flexWrap={'wrap'} w="full" p={{ base: '1rem', md: '2rem' }}>
+        <VStack
+          alignItems={'start'}
+          maxW={{ base: '70vw', md: '35rem' }}
+          p={{ base: '0 1rem', md: '0 2rem' }}
+        >
+          <Flex flexWrap={'wrap'} w="full" my={'30px !important'}>
             {productInfo.fields.map((field, index) => (
               <FormControl
                 isInvalid={errors.name}
-                flexGrow={field.grow || 1}
                 isRequired
                 mb="1rem"
                 mx={2}
                 key={index}
-                w={{ base: 'full', md: field.grow ? '40%' : 'full' }}
+                w={{
+                  base: 'full',
+                  md:
+                    field.type === 'textarea'
+                      ? '100%'
+                      : field.type
+                      ? '40%'
+                      : '45%',
+                }}
               >
-                {field.type === 'radio' ? (
-                  <Controller
-                    name={field.name}
-                    control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <RadioGroup
-                        onChange={data => onChange(data)}
-                        value={value}
-                      >
-                        <HStack gap={6} fontSize="xl">
-                          <Radio value="landscape">
-                            <Text fontSize={'xl'}>Landscape </Text>
-                          </Radio>
-                          <Radio value="portrait">
-                            <Text fontSize={'xl'}>Portrait </Text>
-                          </Radio>
-                        </HStack>
-                      </RadioGroup>
-                    )}
-                  />
+                {field.label || productInfo.form ? (
+                  <FormLabel>{field.label || field.name}</FormLabel>
                 ) : (
-                  <Input
-                    fontSize="xl"
-                    variant="custom"
-                    borderBottom={'1px solid gray'}
-                    type={field.type || 'number'}
+                  ''
+                )}
+                {field.type === 'option' ? (
+                  <Select
+                    h={{ base: '2.5rem', md: '3rem' }}
+                    outline={'1px solid rgba(0,0,0,0.5)'}
+                    borderRadius={0}
+                    minW={'170px'}
+                    placeholder={field.name}
+                    {...register(`${field.name}`, {
+                      required: `Please enter ${field.placeholder}`,
+                    })}
+                  >
+                    {field.value.map(i => (
+                      <option value={i} key={i}>
+                        {i}
+                      </option>
+                    ))}
+                  </Select>
+                ) : field.type === 'textarea' ? (
+                  <Textarea
+                    fontSize="md"
                     px="0.5rem"
-                    h={{ base: '3rem', md: '3.6rem' }}
-                    size={{ base: 'sm', md: 'lg' }}
+                    minH={'150px'}
                     placeholder={field.placeholder}
                     {...register(`${field.name}`, {
                       required: `Please enter ${field.placeholder}`,
+                    })}
+                  />
+                ) : (
+                  <Input
+                    outline={'1px solid rgba(0,0,0,0.5)'}
+                    fontSize="lg"
+                    type={field.type || 'text'}
+                    px="0.5rem"
+                    h={{ base: '2.5rem', md: '3rem' }}
+                    size={{ base: 'sm', md: 'lg' }}
+                    placeholder={field.placeholder || field.name}
+                    {...register(`${field.name}`, {
+                      required: `Please enter ${field.name}`,
                     })}
                   />
                 )}
@@ -222,10 +266,11 @@ const ProductDetails = ({ setUrl }) => {
           </Flex>
           <Stack
             direction={{ base: 'column', md: 'row' }}
-            justify={'space-around'}
+            justify={'flex-start'}
+            px="0.5rem"
             w="full"
           >
-            {productInfo.browseDesign && (
+            {productInfo.browse && (
               <Button
                 type="submit"
                 variant={'custom-black'}
@@ -234,31 +279,31 @@ const ProductDetails = ({ setUrl }) => {
                 Browse Design
               </Button>
             )}
-            {productInfo.uploadDesign && (
-              <>
-                <Button
-                  variant={'custom-black'}
-                  color="red"
-                  borderColor={'red'}
-                  type="submit"
-                  onClick={() => {
-                    setAction('upload');
-                  }}
-                >
-                  Upload Design
-                </Button>
-                <input
-                  type="file"
-                  style={{ display: 'none' }}
-                  ref={uploadImg}
-                  onChange={e => handleImg(e)}
-                />
-              </>
-            )}
+
+            <>
+              <Button
+                variant={'custom-black'}
+                bg="black"
+                color={'white'}
+                _hover={{ bg: 'white', color: 'black' }}
+                type="submit"
+                onClick={() => {
+                  setAction('upload');
+                }}
+              >
+                Upload Design
+              </Button>
+              <input
+                type="file"
+                style={{ display: 'none' }}
+                ref={uploadImg}
+                onChange={e => handleImg(e)}
+              />
+            </>
           </Stack>
         </VStack>
         <Center mx="auto">
-          <Image src={productInfo.image} w={{ base: '18rem', md: '25rem' }} />
+          <Image src={productInfo.image} w={'full'} />
         </Center>
       </Stack>
       <Faq data={data} />

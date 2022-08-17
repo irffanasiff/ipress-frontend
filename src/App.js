@@ -24,6 +24,8 @@ import { Payment } from './Screens/Payment';
 import { PlaceOrder } from './Screens/PlaceOrder';
 import { listCartItems } from './Actions/cartAction';
 import { AdminHome } from './Screens/AdminHome';
+import { ProductCategory } from './Screens/ProductCategory';
+import { NAV_ITEMS } from './Components/Header/NavItems';
 
 export const newTheme = {
   ...theme,
@@ -78,6 +80,10 @@ function App() {
           <Route
             path="/product/:id"
             element={<ProductDetails setUrl={setImgURL} />}
+          />
+          <Route
+            path="/category/:type"
+            element={<ProductCategory items={NAV_ITEMS} />}
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Shipping />} />
