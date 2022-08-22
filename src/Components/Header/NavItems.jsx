@@ -7,8 +7,27 @@ export const NAV_ITEMS = [
         label: 'Flex Banner/Event Backdrops',
         subLabel: 'Trending Design to inspire you',
         href: '/product/Banners',
-        form: true,
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113460/IPRESS/Mockups/Jersey_Mockup_hz76e0.jpg',
+        ],
+        inquiry: true,
         fields: [
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Length',
+            type: 'number',
+            label: 'Length (cm)',
+          },
+          {
+            name: 'Width',
+            type: 'number',
+            label: 'Width (cm)',
+          },
           {
             name: 'Product Type',
             type: 'option',
@@ -30,8 +49,24 @@ export const NAV_ITEMS = [
         label: 'Billboards',
         subLabel: 'Up-and-coming Designers',
         href: '/product/Billboards',
-        form: true,
+        image: [''],
+        inquiry: true,
         fields: [
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Length',
+            type: 'number',
+            label: 'Length (cm)',
+          },
+          {
+            name: 'Width',
+            type: 'number',
+            label: 'Width (cm)',
+          },
           {
             name: 'Quantity',
             type: 'option',
@@ -43,6 +78,7 @@ export const NAV_ITEMS = [
         label: 'Dummy Cheques',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Dummy-Cheques',
+        image: [''],
         fields: [
           {
             name: 'Ink Type',
@@ -56,19 +92,21 @@ export const NAV_ITEMS = [
           },
           {
             name: 'Length',
+            type: 'number',
             label: 'Enter Length in cm',
           },
           {
             name: 'Width',
+            type: 'number',
             label: 'Enter Width in cm',
           },
-          { name: 'Upload Your Design', type: 'file' },
         ],
       },
       {
         label: 'Roll Up Stands',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Roll-Up-Stands',
+        image: [''],
         fields: [
           {
             name: 'Base Type',
@@ -92,6 +130,7 @@ export const NAV_ITEMS = [
         label: 'Instagram Frame Boards',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Instagram-Frame-Boards',
+        image: [''],
         fields: [
           {
             name: 'Ink Type',
@@ -101,20 +140,39 @@ export const NAV_ITEMS = [
           {
             name: 'Length',
             label: 'Enter Length in cm',
+            type: 'number',
           },
           {
             name: 'Width',
+            type: 'number',
             label: 'Enter Width in cm',
           },
-          { name: 'Upload Your Design', type: 'file' },
         ],
       },
       {
         label: 'Car/Bike/Tricycle Branding',
         subLabel: 'Up-and-coming Designers',
         href: '/product/Car-Bike-Tricycle-Branding',
-        form: true,
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113288/IPRESS/Mockups/Car_Brand_Mockup_hjhay2.jpg',
+        ],
+        inquiry: true,
         fields: [
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Length',
+            type: 'number',
+            label: 'Length (cm)',
+          },
+          {
+            name: 'Width',
+            type: 'number',
+            label: 'Width (cm)',
+          },
           {
             name: 'Quantity',
             type: 'option',
@@ -131,8 +189,26 @@ export const NAV_ITEMS = [
         label: 'Window Graphics',
         subLabel: 'Up-and-coming Designers',
         href: '/product/Window-Graphics',
-        form: true,
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg',
+        ],
+        inquiry: true,
         fields: [
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Length',
+            type: 'number',
+            label: 'Length (cm)',
+          },
+          {
+            name: 'Width',
+            type: 'number',
+            label: 'Width (cm)',
+          },
           {
             name: 'One way vision ?',
             type: 'option',
@@ -150,6 +226,10 @@ export const NAV_ITEMS = [
         label: 'Tshirts',
         subLabel: 'Minimum qty starting at 20pcs',
         href: '/product/Tshirts',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661117439/IPRESS/Mockups/Ipress_T_shirt-min_k6rkxs.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg',
+        ],
         fields: [
           {
             name: 'Print Area',
@@ -178,6 +258,7 @@ export const NAV_ITEMS = [
         label: 'Caps',
         subLabel: 'Find your dream design job',
         href: '/product/Caps',
+        image: [''],
         fields: [
           {
             name: 'Print Area',
@@ -206,6 +287,9 @@ export const NAV_ITEMS = [
         label: 'Towels',
         subLabel: 'Find your dream design job',
         href: '/product/Towels',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114867/IPRESS/Mockups/Towel_Mockup_tlw3bo.jpg',
+        ],
         fields: [
           {
             name: 'Print Area',
@@ -245,6 +329,7 @@ export const NAV_ITEMS = [
         label: 'Business Cards',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Business-Cards',
+        image: [''],
         browse: true,
         fields: [
           {
@@ -289,6 +374,9 @@ export const NAV_ITEMS = [
         label: 'Greeting Cards',
         subLabel: 'Find your dream design job',
         href: '/product/Greeting-Cards',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113354/IPRESS/Mockups/Greeting_Card_Mockup_grxliu.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -347,6 +435,9 @@ export const NAV_ITEMS = [
         label: 'ID Card',
         subLabel: 'Find your dream design job',
         href: '/product/Id-Cards',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113394/IPRESS/Mockups/ID_Card_Mockup_tvpwth.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -370,6 +461,9 @@ export const NAV_ITEMS = [
         label: 'Wedding Invitations',
         subLabel: 'Find your dream design job',
         href: '/product/Wedding',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113408/IPRESS/Mockups/Invitation_Card_Mockup_egmscy.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -424,6 +518,9 @@ export const NAV_ITEMS = [
         label: 'Scratch Card',
         subLabel: 'Find your dream design job',
         href: '/product/Scratch-Card',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114777/IPRESS/Mockups/Scrach_Card_Mockup_qllphm.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -447,6 +544,9 @@ export const NAV_ITEMS = [
         label: 'Bookmarks',
         subLabel: 'Find your dream design job',
         href: '/product/Bookmarks',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113285/IPRESS/Mockups/Bookmark_Mockup_gebggt.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -489,9 +589,12 @@ export const NAV_ITEMS = [
         ],
       },
       {
-        label: 'Event Badge',
+        label: 'Event/Membership Cards',
         subLabel: 'Find your dream design job',
         href: '/product/Event-Badge',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113366/IPRESS/Mockups/Guest_ID_Card_xluwkt.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -537,6 +640,9 @@ export const NAV_ITEMS = [
         label: 'Lanyards',
         subLabel: 'Find your dream design job',
         href: '/product/Lanyards',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113548/IPRESS/Mockups/Lanyard_Mockup_c0wzq5.jpg',
+        ],
         fields: [
           {
             name: 'Finishing',
@@ -564,6 +670,9 @@ export const NAV_ITEMS = [
         label: 'Lapel Pin',
         subLabel: 'Find your dream design job',
         href: '/product/Lapel-Pin',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114571/IPRESS/Mockups/Pin_Button_Mockup_pngjrp.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -614,7 +723,11 @@ export const NAV_ITEMS = [
       {
         label: 'Mouse Pads',
         subLabel: 'Find your dream design job',
-        href: '/product/Mouse-Pads',
+        href: '/product/Mousepad',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114025/IPRESS/Mockups/Mousepad_Mockup_new_adkvoj.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113761/IPRESS/Mockups/Mouse_Pad_qusk94.jpg',
+        ],
         fields: [
           {
             name: 'Quantity',
@@ -627,6 +740,11 @@ export const NAV_ITEMS = [
         label: 'Key Rings',
         subLabel: 'Minimum qty starting at 10pcs',
         href: '/product/Key-Rings',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113282/IPRESS/Mockups/20220703_161528_jxou22.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113510/IPRESS/Mockups/Keychain_xaetmx.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114154/IPRESS/Mockups/New_Keyholder_Image_sfdgao.jpg',
+        ],
         fields: [
           {
             name: 'Keyring Type',
@@ -660,6 +778,10 @@ export const NAV_ITEMS = [
         label: 'Mugs',
         subLabel: 'Find your dream design job',
         href: '/product/Mugs',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114104/IPRESS/Mockups/Mug_five_oerswx.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114057/IPRESS/Mockups/Mug_1_quqowb.jpg',
+        ],
         fields: [
           {
             name: 'Mug Style',
@@ -677,10 +799,13 @@ export const NAV_ITEMS = [
         label: 'Corporate Gifts/Promotional Items',
         subLabel: 'Find your dream design job',
         href: '/product/Corporate-Gifts',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114706/IPRESS/Mockups/Promotional_Items_Mockup_nz1ygn.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113460/IPRESS/Mockups/Jersey_Mockup_hz76e0.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113304/IPRESS/Mockups/Corporate_Gift_Mockup_ebnqke.jpg',
+        ],
+        inquiry: true,
         fields: [
-          { name: 'First Name' },
-          { name: 'Last Name' },
-          { name: 'Email' },
           {
             name: 'Promotional Item',
             type: 'option',
@@ -707,23 +832,17 @@ export const NAV_ITEMS = [
             type: 'option',
             value: [20, 40, 60, 80, 100],
           },
-          { name: 'Phone' },
-          {
-            name: 'Description',
-            type: 'textarea',
-            placeholder:
-              'Tell us a little bit about the design you had in mind',
-          },
         ],
       },
       {
         label: 'Bags',
         subLabel: 'Find your dream design job',
         href: '/product/Bags',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114385/IPRESS/Mockups/Paper_Bag_Mockup_f25xra.jpg',
+        ],
+        inquiry: true,
         fields: [
-          { name: 'First Name' },
-          { name: 'Last Name' },
-          { name: 'Email' },
           {
             name: 'Bag Type',
             type: 'option',
@@ -739,13 +858,6 @@ export const NAV_ITEMS = [
             type: 'option',
             value: [20, 40, 60, 80, 100],
           },
-          { name: 'Phone' },
-          {
-            name: 'Description',
-            type: 'textarea',
-            placeholder:
-              'Tell us a little bit about the design you had in mind',
-          },
         ],
       },
     ],
@@ -758,6 +870,9 @@ export const NAV_ITEMS = [
         label: 'Brochures',
         subLabel: '$50 Minimum qty starting at 100pcs',
         href: '/product/Brochures',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -817,6 +932,9 @@ export const NAV_ITEMS = [
         label: 'Flyers/Leaflets',
         subLabel: 'Find your dream design job',
         href: '/product/Flyers',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113586/IPRESS/Mockups/Leaflet_Mockup_loghso.jpg',
+        ],
         browse: true,
         fields: [
           {
@@ -858,6 +976,7 @@ export const NAV_ITEMS = [
         subLabel: '$50 Minimum qty starting at 100pcs',
         href: '/product/Posters',
         browse: true,
+        image: [''],
         fields: [
           {
             name: 'Poster Size',
@@ -889,6 +1008,7 @@ export const NAV_ITEMS = [
         label: 'Calender',
         subLabel: 'Find your dream design job',
         href: '/product/Calender',
+        image: [''],
         browse: true,
         fields: [
           {
@@ -921,21 +1041,235 @@ export const NAV_ITEMS = [
         label: 'Magazines',
         subLabel: 'Find your dream design job',
         href: '/product/Magazines',
+        image: [''],
+        inquiry: true,
+        fields: [
+          {
+            name: 'Magazine Size ',
+            type: 'option',
+            value: ['A2', 'A3'],
+          },
+          {
+            name: 'Paper Thickness (inner)',
+            type: 'option',
+            value: [
+              'Art Paper (130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+              'Bond Paper (80gsm)',
+            ],
+          },
+          {
+            name: 'Paper Thickness (cover page)',
+            type: 'option',
+            value: [
+              'Art Paper (130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+              'Art Card (250gsm)',
+              'Art Card (280gsm)',
+              'Bond Paper (80gsm)',
+            ],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+          {
+            name: 'Quantity',
+            type: 'option',
+            value: [100, 200, 300, 400, 500],
+          },
+          {
+            name: 'Cover Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+        ],
       },
       {
         label: 'Company Profile',
         subLabel: 'Find your dream design job',
         href: '/product/Company-Profile',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113297/IPRESS/Mockups/Company_Profile_Mockup_ruj0oz.jpg',
+        ],
+        inquiry: true,
+        fields: [
+          {
+            name: 'Paper Type (Cover)',
+            type: 'option',
+            value: [
+              'Art Card 250',
+              'Art Card 280 Art Paper(130gsm)',
+              'Art Paper (135gsm)',
+            ],
+          },
+          {
+            name: 'Paper Type (inner)',
+            type: 'option',
+            value: [
+              'Art Paper (130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+              'Bond Paper (80gsm)',
+            ],
+          },
+          {
+            name: 'Finishing',
+            type: 'option',
+            value: ['Staple Stiching', 'Hot Binding'],
+          },
+          {
+            name: 'Cover Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+        ],
       },
       {
         label: 'Books',
         subLabel: 'Find your dream design job',
         href: '/product/Books',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg',
+        ],
+        browse: true,
+        fields: [
+          {
+            name: 'Paper Type (cover page)',
+            type: 'option',
+            value: [
+              'Art Card 250',
+              'Art Card 280 Art Paper(130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+              'Bond Paper (80gsm)',
+            ],
+          },
+          {
+            name: 'Paper Type (inner)',
+            type: 'option',
+            value: [
+              'Art Paper (130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+              'Bond Paper (80gsm)',
+            ],
+          },
+          {
+            name: 'Book Size',
+            type: 'option',
+            value: ['A3', 'A4', 'A5'],
+          },
+          {
+            name: 'Cover Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+          {
+            name: 'Quantity',
+            type: 'option',
+            value: [25, 50, 75, 100],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+        ],
       },
       {
-        label: 'Jotter',
+        label: 'Jotters',
         subLabel: 'Find your dream design job',
-        href: '/product/Jotter',
+        href: '/product/Jotters',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113481/IPRESS/Mockups/Jotter_Mockup_dzxznt.jpg',
+        ],
+        browse: true,
+        fields: [
+          {
+            name: 'Paper Type (cover page)',
+            type: 'option',
+            value: [
+              'Art Card 250',
+              'Art Card 280 Art Paper(130gsm)',
+              'Art Paper (135gsm)',
+              'Art Card (150gsm)',
+            ],
+          },
+          {
+            name: 'Paper Type (inner)',
+            type: 'option',
+            value: ['Bond Paper (80gsm)'],
+          },
+          {
+            name: 'Jotter Size',
+            type: 'option',
+            value: ['A4', 'A5'],
+          },
+          {
+            name: 'Cover Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+          {
+            name: 'Quantity',
+            type: 'option',
+            value: [25, 50, 75, 100],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+        ],
       },
     ],
   },
@@ -947,16 +1281,95 @@ export const NAV_ITEMS = [
         label: 'Envelope',
         subLabel: 'Find your dream design job',
         href: '/product/Envelope',
+        image: [''],
+        fields: [
+          {
+            name: 'Size',
+            type: 'option',
+            value: ['A5', 'A6'],
+          },
+          {
+            name: 'Envelope paper',
+            type: 'option',
+            value: ['Conqueror Envelopes', 'Plain Envelopes'],
+          },
+        ],
       },
       {
         label: 'Certificates',
         subLabel: 'Find your dream design job',
         href: '/product/Certificates',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113292/IPRESS/Mockups/Certificate_Mockup_u2p1d1.jpg',
+        ],
+        browse: true,
+        fields: [
+          {
+            name: 'Size',
+            type: 'option',
+            value: ['A4', 'A5', 'A6'],
+          },
+          {
+            name: 'Envelope paper',
+            type: 'option',
+            value: ['Conqueror Envelopes', 'Plain Envelopes'],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+          {
+            name: 'Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+        ],
       },
       {
         label: 'Letterheads',
         subLabel: 'Find your dream design job',
         href: '/product/Letterheads',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113629/IPRESS/Mockups/Letterhead_Mockup_okbvbg.jpg',
+        ],
+        fields: [
+          {
+            name: 'Envelope paper',
+            type: 'option',
+            value: ['Conqueror Envelopes', 'Plain Envelopes'],
+          },
+          {
+            name: 'Orientation',
+            type: 'option',
+            value: ['Landscape', 'Portrait'],
+          },
+          {
+            name: 'Lamination',
+            type: 'option',
+            value: [
+              'Gloss',
+              'Matte',
+              '3D Lamination',
+              'Canvas',
+              'Star',
+              'Glitter',
+              'Spot Laminate',
+              'Embossed',
+              'Foil Stamping',
+            ],
+          },
+        ],
       },
     ],
   },
@@ -968,41 +1381,78 @@ export const NAV_ITEMS = [
         label: 'Paper Stickers',
         subLabel: 'Find your dream design job',
         href: '/product/Paper-Stickers',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114640/IPRESS/Mockups/Plain_White_Stickers_Mockup_cqls7k.jpg',
+        ],
+        browse: true,
+        fields: [
+          {
+            name: 'Length',
+            label: 'Enter Length in cm',
+            type: 'number',
+          },
+          {
+            name: 'Width',
+            label: 'Enter Width in cm',
+            type: 'number',
+          },
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Sticker Shape',
+            type: 'option',
+            value: ['Circle', 'Rounded Rectangle', 'Oval', 'Rounded Square'],
+          },
+        ],
       },
       {
         label: 'Transparent Stickers',
         subLabel: 'Find your dream design job',
         href: '/product/Transparent-Stickers',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114949/IPRESS/Mockups/Transparent_Sticker_Mokup_bcccac.jpg',
+        ],
+        browse: true,
+        fields: [
+          {
+            name: 'Length',
+            label: 'Enter Length in cm',
+            type: 'number',
+          },
+          {
+            name: 'Width',
+            label: 'Enter Width in cm',
+            type: 'number',
+          },
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Sticker Shape',
+            type: 'option',
+            value: ['Circle', 'Rounded Rectangle', 'Oval', 'Rounded Square'],
+          },
+        ],
       },
     ],
   },
   {
     label: 'Awards',
     href: '/category/Awards',
-    children: [
-      {
-        label: 'Wooden Plaque',
-        subLabel: 'Find your dream design job',
-        href: '/product/Wooden-Plaque',
-      },
-      {
-        label: 'Acrylic',
-        subLabel: 'Find your dream design job',
-        href: '/product/Acrylic',
-      },
-      {
-        label: 'Crystal',
-        subLabel: 'Find your dream design job',
-        href: '/product/Crystal',
-      },
-      {
-        label: 'Mettalic',
-        subLabel: 'Find your dream design job',
-        href: '/product/Mettalic',
-      },
+    image: [
+      'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114266/IPRESS/Mockups/New_Wooden_Award_Plaque_wodgm5.jpg',
+      'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114212/IPRESS/Mockups/new_metallic_award_plaque_eabbai.jpg',
+      'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113314/IPRESS/Mockups/Crystal_Award_Plaque_ygicko.jpg',
+      'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113283/IPRESS/Mockups/Arcylic_Award_Plaque_n8skfl.jpg',
     ],
   },
   {
     label: 'Customer Reviews',
   },
 ];
+// Voucher card, pillow, pen, Membership ID, Magazine, Hardcover, Diary,

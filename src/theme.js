@@ -50,7 +50,6 @@ const theme = extendTheme({
           color: 'black',
           fontSize: 'xl',
           textTransform: 'uppercase',
-          rounded: false,
           p: '1.5rem',
         },
       },

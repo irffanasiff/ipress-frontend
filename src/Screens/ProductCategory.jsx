@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Heading,
+  Image,
 } from '@chakra-ui/react';
 import { NavLink, useParams } from 'react-router-dom';
 
@@ -13,15 +14,34 @@ const ProductCategory = ({ items }) => {
   const products = items.filter(item => {
     return item.href === `/category/${type}`;
   });
-  const productCard = (product, index, href) => {
+  const productCard = (product, index, href, image, category) => {
+    let url = image.split('q_auto');
+    console.log(category);
+    let transformation =
+      category === 'Large Formats' ? 'q_60,w_650,h_500' : 'q_auto,w_650,h_700';
+
     return (
       <Box
+        key={index}
         h={['50vh', '70vh', '80vh']}
-        bg={'#00509E'}
+        maxH={'600px'}
+        bgImage={
+          'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_40/v1659755515/IPRESS/Mockups/Window_Graphics_Mockup_New_gmlaom.jpg")'
+        }
+        bgRepeat={'no-repeat'}
+        bgSize={'cover'}
+        bgPos={'center'}
         p={{ base: '5%', lg: '3% 5%' }}
       >
         <Flex h={'100%'} direction={index % 2 ? 'row' : 'row-reverse'}>
-          <Box border={'1px solid black'} w={['40%', '50%']}></Box>
+          <Box
+            w={['40%', '50%']}
+            bgColor={'#CECECE'}
+            bgImage={`url('${url[0] + transformation + url[1]}')`}
+            bgRepeat={'no-repeat'}
+            bgSize={'cover'}
+            bgPos={'center'}
+          ></Box>
           <Center
             bg={'white'}
             w={['60%', '50%']}
@@ -65,6 +85,7 @@ const ProductCategory = ({ items }) => {
         bg={'#8AADCF'}
         h={'20vw'}
         minH={'200px'}
+        maxH={'300px'}
         color={'#00509E'}
         flexDirection={'column'}
       >
@@ -75,7 +96,13 @@ const ProductCategory = ({ items }) => {
       </Center>
       <Box pt={'5%'}>
         {products[0].children.map((item, index) =>
-          productCard(item.label, index, item.href)
+          productCard(
+            item.label,
+            index,
+            item.href,
+            item.image[0],
+            products[0].label
+          )
         )}
       </Box>
     </Container>

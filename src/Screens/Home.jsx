@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Heading,
@@ -20,11 +20,27 @@ import { HiLightBulb } from 'react-icons/hi';
 import { FaLocationArrow, FaPencilAlt } from 'react-icons/fa';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import Typewriter from 'typewriter-effect';
-import Print from '../Images/print.webp';
 import HeroCard from '../Components/HOC/HeroCard.HOC';
-import Testimonials from '../Components/Sections/Testimonial/Index';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const targetElement = useRef();
+  const targetElement2 = useRef();
+  const handleScroll = e => {
+    const isVisble =
+      window.innerHeight - targetElement.current.getBoundingClientRect().top;
+    const bottom = targetElement.current.getBoundingClientRect().bottom;
+    if (isVisble >= 0 && bottom > 0) {
+      var x = isVisble;
+      targetElement.current.style.backgroundPosition = parseInt(-x / 15) + 'px';
+      targetElement2.current.style.backgroundPosition =
+        parseInt(-x / 10) + 'px';
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
   return (
     <Container paddingInline={'0'} maxW={'8xl'}>
       <VStack spacing={{ base: '4rem', md: '6rem' }}>
@@ -33,21 +49,30 @@ const Home = () => {
           w={{ base: '100%' }}
           h={'120vh'}
           minH={'300px'}
-          maxH={'1500px'}
-          bgImage={Print}
+          maxH={{ base: '400px', md: '1500px' }}
+          bgImage={
+            "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1660947071/IPRESS/Mockups/Ipress_T_shirt_2_zmzwrd.jpg')"
+          }
           bgRepeat={'no-repeat'}
           bgSize={'cover'}
           bgAttachment={'fixed'}
+          bgPos={'center'}
         >
           <Heading
-            lineHeight={{ base: '3.6rem', md: '6.8rem' }}
+            lineHeight={{ base: '3.6rem', md: '130%' }}
+            pl={'30px'}
             maxW="6xl"
             mx="auto"
             fontSize={{ base: '3.2rem', md: '8xl' }}
-            fontWeight="700"
+            fontWeight="900"
             color={'white'}
           >
-            <Text as="span">Quality Prints Shipped to your </Text>
+            <Text as="span">
+              Quality Prints Shipped to your{' '}
+              <Box h={0} display={{ lg: 'none' }}>
+                <br />
+              </Box>
+            </Text>
             <Typewriter
               className="HomePage-typewriter"
               options={{
@@ -64,23 +89,29 @@ const Home = () => {
         </Center>
         <Flex
           flexWrap={'wrap'}
-          p={[4, 4, 0]}
+          p={[4, 4, 10]}
           width={'100%'}
           justifyContent={['space-between', 'space-evenly']}
         >
           <Flex
             direction={'column'}
-            width={['100%', '100%', '40%']}
-            border={'1px solid black'}
-            h={{ base: '500px', lg: '110vh' }}
-            maxH={'700px'}
+            width={['100%', '100%', '35%']}
+            h={{ base: '500px', md: '600px', lg: '90vh' }}
+            maxH={'900px'}
             gap={6}
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
+            bgImage={
+              'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1659755178/IPRESS/Mockups/Pen_Mockup_an2s6i.jpg")'
+            }
+            bgRepeat={'no-repeat'}
+            bgSize={'cover'}
+            bgPos={'center'}
+            ref={targetElement2}
           >
             <VStack>
-              <Text fontSize={['2xl', '4xl', '5xl']}>
+              <Text fontSize={['2xl', '3xl', '2.5rem', '5xl']}>
                 Custom <br />
                 Stationary/
                 <br />
@@ -88,46 +119,71 @@ const Home = () => {
               </Text>
             </VStack>
             <Text
-              fontSize={['lg', '2xl', '3xl']}
+              fontSize={['lg', 'xl', '1.3rem', '2xl']}
+              p={4}
               color={'gray.600'}
               width={'300px'}
             >
               {' '}
               Chose from our various design options
             </Text>
-            <Button variant={'custom-black'} width={'200px'}>
+            <Button
+              fontWeight={400}
+              fontSize={'xl'}
+              p={'1.5rem'}
+              width={'200px'}
+              bgColor={'white'}
+              color={'#00509E'}
+              _hover={{
+                bgColor: 'transparent',
+                outline: '2px solid #00509E',
+              }}
+            >
               Start Creating
             </Button>
           </Flex>
           <Flex
             mt={[3, 3, 0]}
             direction={'column'}
-            width={['100%', '100%', '55%']}
-            border={'1px solid black'}
-            h={{ base: '500px', lg: '110vh' }}
-            maxH={'700px'}
+            width={['100%', '100%', '60%']}
+            h={{ base: '500px', md: '600px', lg: '90vh' }}
+            maxH={'900px'}
             gap={6}
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
+            bgImage={
+              'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1659755178/IPRESS/Mockups/Pen_Mockup_an2s6i.jpg")'
+            }
+            bgRepeat={'no-repeat'}
+            bgSize={'cover'}
+            ref={targetElement}
+            transition={'all 0.01s linear'}
+            bgPos={'left center'}
           >
             <VStack>
               <Text fontSize={['2xl', '4xl', '5xl']}>
                 Create <br />
-                Professioal
-                <br />
-                Print projects
+                Professioal Print <br />
+                Projects
               </Text>
             </VStack>
-            <Text
-              fontSize={['lg', '2xl', '3xl']}
-              color={'gray.600'}
-              width={'300px'}
-            >
+            <Text fontSize={['lg', '2xl']} color={'gray.600'} width={'330px'}>
               {' '}
               Everything you need to create your custom projects
             </Text>
-            <Button variant={'custom-black'} width={'200px'}>
+            <Button
+              fontWeight={400}
+              fontSize={'xl'}
+              p={'1.5rem'}
+              width={'200px'}
+              bgColor={'white'}
+              color={'#00509E'}
+              _hover={{
+                bgColor: 'transparent',
+                outline: '2px solid #00509E',
+              }}
+            >
               View More
             </Button>
           </Flex>
@@ -141,18 +197,65 @@ const Home = () => {
           </Heading>
           <Grid
             mx={'auto'}
-            h={{ base: '400px', md: '60vw' }}
-            w={{ base: '100%', md: '60%' }}
-            maxH={'600px'}
+            h={{ base: '400px', md: '700px', lg: '800px' }}
+            w={{ base: '100%', md: '80%' }}
             templateRows="repeat(6, 1fr)"
             templateColumns="repeat(10, 1fr)"
             gap={[2, 4]}
           >
-            <GridItem rowSpan={3} colSpan={5} bg="tomato" />
-            <GridItem rowSpan={2} colSpan={2} bg="green" />
-            <GridItem rowSpan={2} colSpan={3} bg="papayawhip" />
-            <GridItem rowSpan={4} colSpan={5} bg="black" />
-            <GridItem rowSpan={3} colSpan={5} bg="red" />
+            <GridItem
+              rowSpan={3}
+              colSpan={5}
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_600/v1659755549/IPRESS/Mockups/Mug_five_mvh4gl.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+            />
+            <GridItem
+              rowSpan={2}
+              colSpan={2}
+              bg="green"
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,h_300/v1659755092/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_xpvr6o.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+            />
+            <GridItem
+              rowSpan={2}
+              colSpan={3}
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500,h_300/v1659755482/IPRESS/Mockups/Car_Brand_Mockup_m0zyd6.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center left'}
+            />
+            <GridItem
+              rowSpan={4}
+              colSpan={5}
+              bg="black"
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,c_fill/c_scale,h_550/v1659755515/IPRESS/Mockups/Window_Graphics_Mockup_New_gmlaom.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+            />
+            <GridItem
+              rowSpan={3}
+              colSpan={5}
+              bg="red"
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_80,ar_5:3,c_fill/c_scale,w_800/v1659755030/IPRESS/Mockups/Notebook_Mockup_um9lih.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+            />
           </Grid>
         </Flex>
         <Flex direction={'column'} w={'full'}>
@@ -272,49 +375,49 @@ const Home = () => {
           >
             <WrapItem>
               <HeroCard
-                title="Banner"
-                img="https://media.istockphoto.com/vectors/luxury-banner-template-vector-id1199863174?k=20&m=1199863174&s=612x612&w=0&h=bp8NUgyoqxBwxoYPSpgJ2HLlLq3xO-ZWQ8dpSeIXoX8="
+                title="Brochures"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/w_400,h_300/v1660947029/IPRESS/Mockups/Trifold_Brochure_Mockup_q4dqvm.jpg"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Poster"
+                title="Dummy Cheques"
                 img="https://img.pikbest.com/01/61/68/65SpIkbEsTywJ.jpg-0.jpg!bw700"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Sticker"
+                title="Menus"
                 img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Sticker"
+                title="Flyers"
                 img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Sticker"
+                title="T-shirt"
                 img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Poster"
+                title="Calenders"
                 img="https://img.pikbest.com/01/61/68/65SpIkbEsTywJ.jpg-0.jpg!bw700"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Sticker"
+                title="Banners"
                 img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
-                title="Sticker"
+                title="Stickers"
                 img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
               />
             </WrapItem>

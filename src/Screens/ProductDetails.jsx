@@ -16,6 +16,7 @@ import {
   Textarea,
   Select,
   FormLabel,
+  Box,
 } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -25,6 +26,8 @@ import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import Faq from '../Components/Sections/FAQ';
 import { NAV_ITEMS } from '../Components/Header/NavItems';
+import { InquiryForm } from '../Components/Product/InquiryForm';
+import { ProductCarousel } from '../Components/Product/ProductCarousel';
 
 /* const useNavigateParams = () => {
   const navigate = useNavigate();
@@ -37,43 +40,7 @@ import { NAV_ITEMS } from '../Components/Header/NavItems';
     navigate(path);
   };
 }; */
-const productWithImages = [
-  'Banners',
-  'Business Cards',
-  'Brochures',
-  'Notebook',
-  'Stickers',
-  'Flyers',
-  'Posters',
-];
 const product = id => {
-  let properties = {
-    image:
-      'https://i.pinimg.com/736x/0e/fe/72/0efe728db4b33f979300967d7723c756.jpg',
-    fields: [
-      { name: 'First Name' },
-      { name: 'Last Name' },
-      { name: 'Email' },
-      {
-        name: 'Ink Type',
-        type: 'option',
-        value: ['Eco-solvent Ink', 'UV Ink'],
-      },
-      {
-        name: 'Length',
-        label: 'Length (cm)',
-        placeholder: 'Enter only figures',
-      },
-      { name: 'Width', label: 'Width (cm)', placeholder: 'Enter only figures' },
-      { name: 'Phone' },
-      {
-        name: 'Description',
-        type: 'textarea',
-        placeholder: 'Tell us a little bit about the design you had in mind',
-      },
-    ],
-    uploadDesign: true,
-  };
   let product;
   NAV_ITEMS.forEach(item =>
     item.children
@@ -82,11 +49,7 @@ const product = id => {
         )
       : ''
   );
-  let finalProduct = { ...properties, ...product };
-  finalProduct.fields = product.form
-    ? [...properties.fields, ...product.fields]
-    : [...product.fields];
-  return finalProduct;
+  return product;
 };
 const data = [
   {
@@ -152,17 +115,20 @@ const ProductDetails = ({ setUrl }) => {
     } else if (action === 'browse') {
       navigate(`/designs/${id}`);
     }
-    const product = {
-      name: productInfo.name,
-      fields,
-      browseDesign: false,
-      uploadDesign: false,
-    };
-    action === 'upload'
-      ? (product.uploadDesign = true)
-      : (product.browseDesign = true);
-    console.log(product);
-    dispatch(saveProducts(product));
+    if (action === 'inquiry') console.log(fields);
+    else {
+      const product = {
+        name: productInfo.name,
+        fields,
+        browseDesign: false,
+        uploadDesign: false,
+      };
+      action === 'upload'
+        ? (product.uploadDesign = true)
+        : (product.browseDesign = true);
+      console.log(product);
+      dispatch(saveProducts(product));
+    }
   };
 
   return (
@@ -170,6 +136,7 @@ const ProductDetails = ({ setUrl }) => {
       <Center
         bg={'#8AADCF'}
         h={'20vw'}
+        maxH={'300px'}
         minH={'200px'}
         color={'#00509E'}
         flexDirection={'column'}
@@ -180,89 +147,112 @@ const ProductDetails = ({ setUrl }) => {
         </Heading>
       </Center>
       <Stack
-        spacing={{ base: '4rem', lg: '2rem' }}
+        spacing={{ base: '4rem', md: '2rem' }}
         p={{ base: '2rem 1.5rem', md: '3rem 2rem' }}
-        maxW="6xl"
+        minH={'50vh'}
+        maxW="8xl"
         mx="auto"
-        direction={{ base: 'column-reverse', lg: 'row-reverse' }}
-        alignItems={{ base: 'center', lg: 'flex-start' }}
+        direction={{ base: 'column-reverse', md: 'row-reverse' }}
+        alignItems={{ base: 'center', md: 'flex-start' }}
         justifyContent={'space-between'}
       >
         <VStack
-          alignItems={'start'}
-          maxW={{ base: '70vw', md: '35rem' }}
-          p={{ base: '0 1rem', md: '0 2rem' }}
+          p={{ base: '0 1rem', md: '0 1.8rem' }}
+          maxW={{ base: '80%', md: '50%' }}
+          spacing={'30px'}
+          alignSelf={'center'}
         >
-          <Flex flexWrap={'wrap'} w="full" my={'30px !important'}>
-            {productInfo.fields.map((field, index) => (
-              <FormControl
-                isInvalid={errors.name}
-                isRequired
-                mb="1rem"
-                mx={2}
-                key={index}
-                w={{
-                  base: 'full',
-                  md:
-                    field.type === 'textarea'
-                      ? '100%'
-                      : field.type
-                      ? '40%'
-                      : '45%',
-                }}
-              >
-                {field.label || productInfo.form ? (
-                  <FormLabel>{field.label || field.name}</FormLabel>
-                ) : (
-                  ''
-                )}
-                {field.type === 'option' ? (
-                  <Select
-                    h={{ base: '2.5rem', md: '3rem' }}
-                    outline={'1px solid rgba(0,0,0,0.5)'}
-                    borderRadius={0}
-                    minW={'170px'}
-                    placeholder={field.name}
-                    {...register(`${field.name}`, {
-                      required: `Please enter ${field.placeholder}`,
-                    })}
-                  >
-                    {field.value.map(i => (
-                      <option value={i} key={i}>
-                        {i}
-                      </option>
-                    ))}
-                  </Select>
-                ) : field.type === 'textarea' ? (
-                  <Textarea
-                    fontSize="md"
-                    px="0.5rem"
-                    minH={'150px'}
-                    placeholder={field.placeholder}
-                    {...register(`${field.name}`, {
-                      required: `Please enter ${field.placeholder}`,
-                    })}
-                  />
-                ) : (
-                  <Input
-                    outline={'1px solid rgba(0,0,0,0.5)'}
-                    fontSize="lg"
-                    type={field.type || 'text'}
-                    px="0.5rem"
-                    h={{ base: '2.5rem', md: '3rem' }}
-                    size={{ base: 'sm', md: 'lg' }}
-                    placeholder={field.placeholder || field.name}
-                    {...register(`${field.name}`, {
-                      required: `Please enter ${field.name}`,
-                    })}
-                  />
-                )}
+          <Flex
+            flexWrap={'wrap'}
+            w="full"
+            justifyContent={'space-evenly'}
+            gap={productInfo.inquiry ? 0 : '15px'}
+          >
+            {productInfo.inquiry ? (
+              <InquiryForm
+                fields={productInfo.fields}
+                errors={errors}
+                register={register}
+              />
+            ) : (
+              productInfo.fields.map((field, index) => (
+                <FormControl
+                  isInvalid={errors.name}
+                  isRequired
+                  mb="1rem"
+                  mx={2}
+                  key={index}
+                  w={{
+                    base: 'full',
+                    md:
+                      field.type === 'textarea'
+                        ? '100%'
+                        : field.type
+                        ? '40%'
+                        : '45%',
+                  }}
+                >
+                  {field.label || productInfo.form ? (
+                    <FormLabel>{field.label || field.name}</FormLabel>
+                  ) : (
+                    ''
+                  )}
+                  {field.type === 'option' ? (
+                    <Select
+                      h={{ base: '2rem', md: '2.5rem' }}
+                      borderRadius={'30px'}
+                      boxShadow={'5px 7px 25px rgba(0,0,0,0.25)'}
+                      minW={'170px'}
+                      _focus={{
+                        outline: '2px solid rgba(0,0,0,0.5)',
+                        boxShadow: 'none',
+                      }}
+                      placeholder={field.name}
+                      {...register(`${field.name}`, {
+                        required: `Please enter ${field.placeholder}`,
+                      })}
+                    >
+                      {field.value.map(i => (
+                        <option value={i} key={i}>
+                          {i}
+                        </option>
+                      ))}
+                    </Select>
+                  ) : field.type === 'textarea' ? (
+                    <Textarea
+                      fontSize="md"
+                      px="0.5rem"
+                      minH={'150px'}
+                      placeholder={field.placeholder}
+                      {...register(`${field.name}`, {
+                        required: `Please enter ${field.placeholder}`,
+                      })}
+                    />
+                  ) : (
+                    <Input
+                      outline={'1px solid rgba(0,0,0,0.5)'}
+                      fontSize="lg"
+                      type={field.type || 'text'}
+                      px="0.5rem"
+                      h={{ base: '2.5rem', md: '3rem' }}
+                      size={{ base: 'sm', md: 'lg' }}
+                      placeholder={field.placeholder || field.name}
+                      _focus={{
+                        outline: '2px solid rgba(0,0,0,0.5)',
+                        boxShadow: 'none',
+                      }}
+                      {...register(`${field.name}`, {
+                        required: `Please enter ${field.name}`,
+                      })}
+                    />
+                  )}
 
-                {errors.name && (
-                  <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-                )}
-              </FormControl>
-            ))}
+                  {errors.name && (
+                    <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+                  )}
+                </FormControl>
+              ))
+            )}
           </Flex>
           <Stack
             direction={{ base: 'column', md: 'row' }}
@@ -273,7 +263,9 @@ const ProductDetails = ({ setUrl }) => {
             {productInfo.browse && (
               <Button
                 type="submit"
+                borderRadius={'30px'}
                 variant={'custom-black'}
+                _hover={{ bg: 'white', color: 'black' }}
                 onClick={() => setAction('browse')}
               >
                 Browse Design
@@ -281,18 +273,37 @@ const ProductDetails = ({ setUrl }) => {
             )}
 
             <>
-              <Button
-                variant={'custom-black'}
-                bg="black"
-                color={'white'}
-                _hover={{ bg: 'white', color: 'black' }}
-                type="submit"
-                onClick={() => {
-                  setAction('upload');
-                }}
-              >
-                Upload Design
-              </Button>
+              {productInfo.inquiry ? (
+                <Button
+                  variant={'custom-black'}
+                  bg="black"
+                  color={'white'}
+                  fontSize={{ base: 'md', md: 'xl' }}
+                  p={{ base: '1rem', md: '1.5rem' }}
+                  rounded={false}
+                  _hover={{ bg: 'whiteAlpha.600', color: 'black' }}
+                  type="submit"
+                  onClick={() => {
+                    setAction('inquiry');
+                  }}
+                >
+                  Send Inquiry
+                </Button>
+              ) : (
+                <Button
+                  variant={'custom-black'}
+                  bg="black"
+                  color={'white'}
+                  borderRadius={'30px'}
+                  _hover={{ bg: 'white', color: 'black' }}
+                  type="submit"
+                  onClick={() => {
+                    setAction('upload');
+                  }}
+                >
+                  Upload Design
+                </Button>
+              )}
               <input
                 type="file"
                 style={{ display: 'none' }}
@@ -302,9 +313,7 @@ const ProductDetails = ({ setUrl }) => {
             </>
           </Stack>
         </VStack>
-        <Center mx="auto">
-          <Image src={productInfo.image} w={'full'} />
-        </Center>
+        <ProductCarousel images={productInfo.image} />
       </Stack>
       <Faq data={data} />
     </form>
