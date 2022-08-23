@@ -83,53 +83,58 @@ const Footer = () => {
             <Text
               as={'label'}
               htmlFor={'email'}
-              fontSize={['10px', '12px', '14px', 'xl']}
+              fontSize={['10px', '12px', '14px']}
               color={'#00509E'}
+              ml={5}
             >
               Enter your email address*
             </Text>
-            <Input
-              name={'email'}
-              borderRadius={'30px'}
-              required
-              h={{ base: '30px', sm: '40px', md: '60px' }}
-              fontSize={{ base: '12px', md: '16px' }}
-              p={4}
+            <HStack
               bg={'#E5EBFA'}
-              color={'#00509E'}
-              placeholder={'e.g., name@example.com'}
-              _placeholder={{
-                color: 'rgba(29, 103, 205, 0.6)',
-                fontSize: '14px',
-              }}
-            />
-            <Button
-              position={'absolute'}
-              border={'1px solid #00509E'}
-              color={'#1D67CD'}
-              _hover={{ bg: '#1D67CD', color: 'white' }}
-              top={{ base: '28px', md: '45%', lg: '40%' }}
-              right={'7px'}
-              borderRadius={'20px'}
-              zIndex={999}
-              fontSize={{ base: '10px', sm: '14px', lg: '16px' }}
-              h={{ base: 7, sm: 8, lg: 10 }}
+              borderRadius={'30px'}
+              px={2}
+              w={{ base: '75%', md: '100%' }}
             >
-              Subscribe
-            </Button>
+              <Input
+                name={'email'}
+                borderRadius={'30px'}
+                required
+                h={{ base: '30px', sm: '40px', md: '50px' }}
+                fontSize={{ base: '12px', md: '16px' }}
+                p={2}
+                bg={'#E5EBFA'}
+                color={'#00509E'}
+                placeholder={'e.g., name@example.com'}
+                _placeholder={{
+                  color: 'rgba(29, 103, 205, 0.6)',
+                  fontSize: '14px',
+                }}
+              />
+              <Button
+                border={'1px solid #00509E'}
+                color={'#1D67CD'}
+                _hover={{ bg: '#1D67CD', color: 'white' }}
+                borderRadius={'20px'}
+                fontSize={{ base: '10px', sm: '14px', lg: '16px' }}
+                h={{ base: 7, sm: 8, lg: 10 }}
+              >
+                Subscribe
+              </Button>
+            </HStack>
           </Box>
         </Flex>
         <Flex
           w={{ base: '100%', md: '50%' }}
           h={'100%'}
           bg={'#00509E'}
-          p={{ base: '3%', md: '5%' }}
+          p={{ base: '3%', md: '5% 3%', lg: '5%' }}
         >
           <Box
             w={'80%'}
-            p={'30px 50px'}
+            maxW={'350px'}
+            p={{ base: '30px 50px' }}
             bg={'white'}
-            h={{ base: '70%', md: 'fit-content' }}
+            h={{ base: '180px', sm: '60%', md: 'fit-content' }}
             mx={'auto'}
             mt={['2rem', '2rem', '0']}
             textAlign={'center'}
@@ -153,7 +158,7 @@ const Footer = () => {
         <Flex
           direction={'column'}
           position={'absolute'}
-          top={{ base: '95%', md: '85%' }}
+          top={{ base: '80%', sm: '85%' }}
           w={'90%'}
           left={'5%'}
           bg={'#C8D9EA'}
@@ -162,7 +167,7 @@ const Footer = () => {
             maxW="8xl"
             display={'flex'}
             flexDirection="column"
-            p={{ base: '2rem', sm: '1rem', md: '2rem' }}
+            p={{ base: '2rem', sm: '1.5rem', md: '2rem' }}
           >
             <Stack
               spacing={{ base: '2.5rem', md: 'auto' }}

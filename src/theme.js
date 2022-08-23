@@ -1,6 +1,21 @@
 import { extendTheme } from '@chakra-ui/react';
 import '@fontsource/space-grotesk';
 import '@fontsource/karla';
+import { Global } from '@emotion/react';
+
+export const Fonts = () => (
+  <Global
+    styles={`@font-face {
+        font-family: 'Futura';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: local("Futura"),
+        url("./fonts/FuturaBT-Medium.ttf") format("truetype");
+      }
+      `}
+  />
+);
 
 const config = {
   initialColorMode: 'light',
@@ -26,8 +41,8 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: 'Space Grotesk, sans-serif',
-    body: 'Karla, sans-serif',
+    heading: 'Futura, sans-serif',
+    body: 'Futura, sans-serif',
   },
   styles: {
     global: {

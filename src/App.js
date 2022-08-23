@@ -16,7 +16,7 @@ import {
   ChangePassword,
   UserProfile,
 } from './Screens';
-import theme from './theme';
+import theme, { Fonts } from './theme';
 import { Designs } from './Screens/Designs';
 import { Editor } from './Screens/Editor';
 import { Shipping } from './Screens/Shipping';
@@ -57,6 +57,7 @@ function App() {
   }, [dispatch, user, userInfo, error, loading, cartItems]);
   return (
     <ChakraProvider theme={newTheme}>
+      <Fonts />
       <BrowserRouter>
         {userInfo && userInfo.isAdmin ? '' : <Header />}
         <Routes>

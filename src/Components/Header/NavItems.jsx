@@ -11,6 +11,7 @@ export const NAV_ITEMS = [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg',
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113460/IPRESS/Mockups/Jersey_Mockup_hz76e0.jpg',
         ],
+        styleImages: ['Non-reflective Flex', 'Canvas Flex', 'Reflective Flex'],
         inquiry: true,
         fields: [
           {
@@ -223,12 +224,18 @@ export const NAV_ITEMS = [
     href: '/category/Clothes-Branding',
     children: [
       {
-        label: 'Tshirts',
+        label: 'T-shirt',
         subLabel: 'Minimum qty starting at 20pcs',
-        href: '/product/Tshirts',
+        href: '/product/T-shirt',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661117439/IPRESS/Mockups/Ipress_T_shirt-min_k6rkxs.jpg',
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg',
+        ],
+        styleImages: [
+          'Vinyl Flex',
+          'Glitter Flex',
+          'Printable Flex',
+          'Hologram',
         ],
         fields: [
           {
@@ -259,6 +266,12 @@ export const NAV_ITEMS = [
         subLabel: 'Find your dream design job',
         href: '/product/Caps',
         image: [''],
+        styleImages: [
+          'Vinyl Flex',
+          'Glitter Flex',
+          'Printable Flex',
+          'Hologram',
+        ],
         fields: [
           {
             name: 'Print Area',
@@ -289,6 +302,12 @@ export const NAV_ITEMS = [
         href: '/product/Towels',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114867/IPRESS/Mockups/Towel_Mockup_tlw3bo.jpg',
+        ],
+        styleImages: [
+          'Vinyl Flex',
+          'Glitter Flex',
+          'Printable Flex',
+          'Hologram',
         ],
         fields: [
           {
@@ -330,6 +349,16 @@ export const NAV_ITEMS = [
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Business-Cards',
         image: [''],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         browse: true,
         fields: [
           {
@@ -348,7 +377,7 @@ export const NAV_ITEMS = [
             ],
           },
           {
-            name: 'Finishing',
+            name: 'Finishing Style',
             type: 'option',
             value: [
               'Gloss',
@@ -376,6 +405,16 @@ export const NAV_ITEMS = [
         href: '/product/Greeting-Cards',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113354/IPRESS/Mockups/Greeting_Card_Mockup_grxliu.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -432,11 +471,21 @@ export const NAV_ITEMS = [
         ],
       },
       {
-        label: 'ID Card',
+        label: 'ID Cards',
         subLabel: 'Find your dream design job',
         href: '/product/Id-Cards',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113394/IPRESS/Mockups/ID_Card_Mockup_tvpwth.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -463,6 +512,15 @@ export const NAV_ITEMS = [
         href: '/product/Wedding',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113408/IPRESS/Mockups/Invitation_Card_Mockup_egmscy.jpg',
+        ],
+        styleImages: [
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -515,7 +573,7 @@ export const NAV_ITEMS = [
         ],
       },
       {
-        label: 'Scratch Card',
+        label: 'Scratch Cards',
         subLabel: 'Find your dream design job',
         href: '/product/Scratch-Card',
         image: [
@@ -546,6 +604,16 @@ export const NAV_ITEMS = [
         href: '/product/Bookmarks',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113285/IPRESS/Mockups/Bookmark_Mockup_gebggt.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -595,6 +663,15 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113366/IPRESS/Mockups/Guest_ID_Card_xluwkt.jpg',
         ],
+        styleImages: [
+          'Canvas',
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         browse: true,
         fields: [
           {
@@ -643,6 +720,13 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113548/IPRESS/Mockups/Lanyard_Mockup_c0wzq5.jpg',
         ],
+        styleImages: [
+          'Printable Flex',
+          'Vinyl Flex',
+          'Glitter Vinyl Flex',
+          'Hologram',
+          'Glow in the dark',
+        ],
         fields: [
           {
             name: 'Finishing',
@@ -672,6 +756,16 @@ export const NAV_ITEMS = [
         href: '/product/Lapel-Pin',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114571/IPRESS/Mockups/Pin_Button_Mockup_pngjrp.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -737,9 +831,9 @@ export const NAV_ITEMS = [
         ],
       },
       {
-        label: 'Key Rings',
+        label: 'Keyrings',
         subLabel: 'Minimum qty starting at 10pcs',
-        href: '/product/Key-Rings',
+        href: '/product/Keyrings',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113282/IPRESS/Mockups/20220703_161528_jxou22.jpg',
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113510/IPRESS/Mockups/Keychain_xaetmx.jpg',
@@ -873,6 +967,16 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg',
         ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         browse: true,
         fields: [
           {
@@ -883,7 +987,7 @@ export const NAV_ITEMS = [
               'C Fold',
               'Z Fold',
               'Gate Fold',
-              'W Fold',
+              'Double Fold',
               'M Fold',
             ],
           },
@@ -935,6 +1039,14 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113586/IPRESS/Mockups/Leaflet_Mockup_loghso.jpg',
         ],
+        styleImages: [
+          'Star Finishing',
+          'Glitter',
+          'Gloss',
+          'Matte',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         browse: true,
         fields: [
           {
@@ -977,6 +1089,7 @@ export const NAV_ITEMS = [
         href: '/product/Posters',
         browse: true,
         image: [''],
+        styleImages: ['Gloss', 'Matte'],
         fields: [
           {
             name: 'Poster Size',
@@ -1005,10 +1118,11 @@ export const NAV_ITEMS = [
         ],
       },
       {
-        label: 'Calender',
+        label: 'Calenders',
         subLabel: 'Find your dream design job',
         href: '/product/Calender',
         image: [''],
+        styleImages: ['Gloss', 'Matte'],
         browse: true,
         fields: [
           {
@@ -1042,6 +1156,16 @@ export const NAV_ITEMS = [
         subLabel: 'Find your dream design job',
         href: '/product/Magazines',
         image: [''],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         inquiry: true,
         fields: [
           {
@@ -1105,6 +1229,16 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113297/IPRESS/Mockups/Company_Profile_Mockup_ruj0oz.jpg',
         ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Canvas',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         inquiry: true,
         fields: [
           {
@@ -1159,6 +1293,16 @@ export const NAV_ITEMS = [
         href: '/product/Books',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Canvas',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -1222,6 +1366,16 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113481/IPRESS/Mockups/Jotter_Mockup_dzxznt.jpg',
         ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Canvas',
+          'Spot Laminate',
+          'Foil Stamping',
+        ],
         browse: true,
         fields: [
           {
@@ -1278,9 +1432,9 @@ export const NAV_ITEMS = [
     href: '/category/Stationery',
     children: [
       {
-        label: 'Envelope',
+        label: 'Envelopes',
         subLabel: 'Find your dream design job',
-        href: '/product/Envelope',
+        href: '/product/Envelopes',
         image: [''],
         fields: [
           {
@@ -1301,6 +1455,16 @@ export const NAV_ITEMS = [
         href: '/product/Certificates',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113292/IPRESS/Mockups/Certificate_Mockup_u2p1d1.jpg',
+        ],
+        styleImages: [
+          'Star Finishing',
+          'Embossed',
+          '3D Lamination',
+          'Gloss',
+          'Matte',
+          'Glitter',
+          'Spot Laminate',
+          'Foil Stamping',
         ],
         browse: true,
         fields: [
@@ -1343,6 +1507,7 @@ export const NAV_ITEMS = [
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113629/IPRESS/Mockups/Letterhead_Mockup_okbvbg.jpg',
         ],
+        styleImages: ['Embossed', 'Spot Laminate', 'Foil Stamping'],
         fields: [
           {
             name: 'Envelope paper',

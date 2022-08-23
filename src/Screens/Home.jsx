@@ -32,15 +32,20 @@ const Home = () => {
       window.innerHeight - targetElement.current.getBoundingClientRect().top;
     const bottom = targetElement.current.getBoundingClientRect().bottom;
     if (isVisble >= 0 && bottom > 0) {
-      var x = isVisble;
+      var x = targetElement.current.getBoundingClientRect().top;
+      var y = targetElement2.current.getBoundingClientRect().top;
       targetElement.current.style.backgroundPosition = parseInt(-x / 15) + 'px';
       targetElement2.current.style.backgroundPosition =
-        parseInt(-x / 10) + 'px';
+        parseInt(-y / 15) + 'px';
     }
   };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    return function cleanupListener() {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+
   return (
     <Container paddingInline={'0'} maxW={'8xl'}>
       <VStack spacing={{ base: '4rem', md: '6rem' }}>
@@ -49,9 +54,10 @@ const Home = () => {
           w={{ base: '100%' }}
           h={'120vh'}
           minH={'300px'}
-          maxH={{ base: '400px', md: '1500px' }}
+          maxH={{ base: '500px', md: '1200px' }}
+          bg="gray.500"
           bgImage={
-            "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1660947071/IPRESS/Mockups/Ipress_T_shirt_2_zmzwrd.jpg')"
+            "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg')"
           }
           bgRepeat={'no-repeat'}
           bgSize={'cover'}
@@ -89,7 +95,7 @@ const Home = () => {
         </Center>
         <Flex
           flexWrap={'wrap'}
-          p={[4, 4, 10]}
+          px={[4, '50px', 10]}
           width={'100%'}
           justifyContent={['space-between', 'space-evenly']}
         >
@@ -102,16 +108,25 @@ const Home = () => {
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
-            bgImage={
-              'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1659755178/IPRESS/Mockups/Pen_Mockup_an2s6i.jpg")'
-            }
-            bgRepeat={'no-repeat'}
-            bgSize={'cover'}
-            bgPos={'center'}
-            ref={targetElement2}
+            position={'relative'}
+            overflow={'hidden'}
           >
-            <VStack>
-              <Text fontSize={['2xl', '3xl', '2.5rem', '5xl']}>
+            <Box
+              zIndex={0}
+              w={{ base: '120%', md: '110%', xl: '130%' }}
+              h={'100%'}
+              position={'absolute'}
+              bg="gray.500"
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+              ref={targetElement2}
+            ></Box>
+            <VStack zIndex={2}>
+              <Text fontSize={['2xl', '3xl', '2rem', '2.5rem']} p={2}>
                 Custom <br />
                 Stationary/
                 <br />
@@ -119,6 +134,7 @@ const Home = () => {
               </Text>
             </VStack>
             <Text
+              zIndex={2}
               fontSize={['lg', 'xl', '1.3rem', '2xl']}
               p={4}
               color={'gray.600'}
@@ -152,23 +168,36 @@ const Home = () => {
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
-            bgImage={
-              'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1659755178/IPRESS/Mockups/Pen_Mockup_an2s6i.jpg")'
-            }
-            bgRepeat={'no-repeat'}
-            bgSize={'cover'}
-            ref={targetElement}
-            transition={'all 0.01s linear'}
-            bgPos={'left center'}
+            position={'relative'}
+            overflow={'hidden'}
           >
-            <VStack>
+            <Box
+              zIndex={0}
+              w={{ base: '120%', md: '110%', xl: '130%' }}
+              h={'100%'}
+              position={'absolute'}
+              bg="gray.500"
+              bgImage={
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")'
+              }
+              bgRepeat={'no-repeat'}
+              bgSize={'cover'}
+              bgPos={'center'}
+              ref={targetElement}
+            ></Box>
+            <VStack zIndex={2}>
               <Text fontSize={['2xl', '4xl', '5xl']}>
                 Create <br />
                 Professioal Print <br />
                 Projects
               </Text>
             </VStack>
-            <Text fontSize={['lg', '2xl']} color={'gray.600'} width={'330px'}>
+            <Text
+              fontSize={['lg', '2xl']}
+              color={'gray.600'}
+              width={'330px'}
+              zIndex={2}
+            >
               {' '}
               Everything you need to create your custom projects
             </Text>
@@ -206,8 +235,9 @@ const Home = () => {
             <GridItem
               rowSpan={3}
               colSpan={5}
+              bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_600/v1659755549/IPRESS/Mockups/Mug_five_mvh4gl.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_600/v1661114104/IPRESS/Mockups/Mug_five_oerswx.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -216,9 +246,9 @@ const Home = () => {
             <GridItem
               rowSpan={2}
               colSpan={2}
-              bg="green"
+              bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,h_300/v1659755092/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_xpvr6o.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_300/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -227,8 +257,9 @@ const Home = () => {
             <GridItem
               rowSpan={2}
               colSpan={3}
+              bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500,h_300/v1659755482/IPRESS/Mockups/Car_Brand_Mockup_m0zyd6.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661113288/IPRESS/Mockups/Car_Brand_Mockup_hjhay2.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -237,9 +268,9 @@ const Home = () => {
             <GridItem
               rowSpan={4}
               colSpan={5}
-              bg="black"
+              bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,c_fill/c_scale,h_550/v1659755515/IPRESS/Mockups/Window_Graphics_Mockup_New_gmlaom.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,c_fill/c_scale,h_550/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -248,9 +279,9 @@ const Home = () => {
             <GridItem
               rowSpan={3}
               colSpan={5}
-              bg="red"
+              bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_80,ar_5:3,c_fill/c_scale,w_800/v1659755030/IPRESS/Mockups/Notebook_Mockup_um9lih.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_80,ar_5:3,c_fill/c_scale,w_800/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -270,7 +301,6 @@ const Home = () => {
             alignItems={'center'}
             textAlign={'center'}
             mx={'auto'}
-            h={{ base: 'auto', lg: '30vw' }}
             w={'100%'}
             templateRows={{
               sm: 'repeat(4, 1fr)',
@@ -285,11 +315,11 @@ const Home = () => {
           >
             <GridItem
               bg="#00509E"
-              minH={'300px'}
+              minH={{ base: '300px', lg: '420px' }}
               color={'white'}
               display={'flex'}
               flexDirection={'column'}
-              gap={'15px'}
+              gap={{ base: '15px', md: '30px' }}
               alignItems={'center'}
               justifyContent={'center'}
             >
@@ -302,10 +332,10 @@ const Home = () => {
             </GridItem>
             <GridItem
               bg="#F0F0F0"
-              minH={'300px'}
+              minH={{ base: '300px', lg: '420px' }}
               display={'flex'}
               flexDirection={'column'}
-              gap={'15px'}
+              gap={{ base: '15px', md: '30px' }}
               alignItems={'center'}
               justifyContent={'center'}
             >
@@ -318,10 +348,10 @@ const Home = () => {
             </GridItem>
             <GridItem
               bg="#00509E"
-              minH={'300px'}
+              minH={{ base: '300px', lg: '420px' }}
               display={'flex'}
               flexDirection={'column'}
-              gap={'15px'}
+              gap={{ base: '15px', md: '30px' }}
               alignItems={'center'}
               justifyContent={'center'}
               color="white"
@@ -335,10 +365,10 @@ const Home = () => {
             </GridItem>
             <GridItem
               bg="#F0F0F0"
-              minH={'300px'}
+              minH={{ base: '300px', lg: '420px' }}
               display={'flex'}
               flexDirection={'column'}
-              gap={'15px'}
+              gap={{ base: '15px', md: '30px' }}
               alignItems={'center'}
               justifyContent={'center'}
             >
@@ -400,7 +430,7 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="T-shirt"
-                img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661117439/IPRESS/Mockups/Ipress_T_shirt-min_k6rkxs.jpg"
               />
             </WrapItem>
             <WrapItem>
@@ -418,7 +448,7 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="Stickers"
-                img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661114640/IPRESS/Mockups/Plain_White_Stickers_Mockup_cqls7k.jpg"
               />
             </WrapItem>
           </Wrap>

@@ -17,6 +17,11 @@ import {
   Select,
   FormLabel,
   Box,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
 } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -28,6 +33,8 @@ import Faq from '../Components/Sections/FAQ';
 import { NAV_ITEMS } from '../Components/Header/NavItems';
 import { InquiryForm } from '../Components/Product/InquiryForm';
 import { ProductCarousel } from '../Components/Product/ProductCarousel';
+import { ProductInformation } from '../Components/Product/ProductInformation';
+import { ProductStyles } from '../Components/Product/ProductStyles';
 
 /* const useNavigateParams = () => {
   const navigate = useNavigate();
@@ -51,39 +58,19 @@ const product = id => {
   );
   return product;
 };
-const data = [
-  {
-    question:
-      'Praesentium ipsa ipsam non aut repellat dolorem itaque illo nisi odio cum!',
-    answer:
-      '. Adipisci dolores soluta ad, harum consequuntur itaque ducimus architecto nemo illum! Natus magnam dolores consequuntur perferendis. Unde eligendi est atque! Error, ad? Tenetur similique quisquam amet officiis hic officia molestiae quos.',
-  },
-  {
-    question:
-      'Rem sed illo quos perferendis itaque provident exercitationem reiciendis, corrupti enim.',
-    answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-  },
-  {
-    question: 'Cumque ea itaque voluptates incidunt.',
-    answer:
-      'Praesentium ipsa ipsam non aut repellat dolorem itaque illo nisi odio cum!',
-  },
-  {
-    question:
-      'Autem in commodi adipisci earum impedit rem laboriosam eligendi accusantium ex modi possimus',
-    answer:
-      '. Adipisci dolores soluta ad, harum consequuntur itaque ducimus architecto nemo illum! Natus magnam dolores consequuntur perferendis. Unde eligendi est atque! Error, ad? Tenetur similique quisquam amet officiis hic officia molestiae quos.',
-  },
-  {
-    question: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    answer:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore cumque totam, culpa nemo quibusdam voluptatem sequi architecto nobis beatae quaerat saepe nesciunt quis numquam similique! Rem, hic. Non, veritatis eius perferendis voluptates porro cum possimus similique aliquid dolores labore dolorum quam vel rem quas, necessitatibus expedita et ut est, blanditiis eaque natus odio atque nostrum commodi expedita minima sint velit! Nihil, placeat quibusdam voluptatum quisquam officiis aut, praesentium debitis quae fugiat obcaecati modi rerum adipisci fuga ea vel minima doloremque quas',
-  },
-  {
-    question: 'Provident exercitationem reiciendis, corrupti enim.',
-    answer:
-      'Praesentium ipsa ipsam non aut repellat dolorem itaque illo nisi odio cum!',
-  },
+const printingStyles = ['Flex Banner/Event Backdrops'];
+const brochureTypes = ['Brochures'];
+const noInfo = [
+  'T-shirt',
+  'Towels',
+  'Caps',
+  'Business Cards',
+  'Lanyards',
+  'Bags',
+  'Corporate Gifts/Promotional Items',
+  'Calenders',
+  'Envelopes',
+  'Awards',
 ];
 const ProductDetails = ({ setUrl }) => {
   const { id } = useParams();
@@ -165,7 +152,7 @@ const ProductDetails = ({ setUrl }) => {
           <Flex
             flexWrap={'wrap'}
             w="full"
-            justifyContent={'space-evenly'}
+            justifyContent={productInfo.inquiry ? 'flex-start' : 'space-evenly'}
             gap={productInfo.inquiry ? 0 : '15px'}
           >
             {productInfo.inquiry ? (
@@ -178,6 +165,7 @@ const ProductDetails = ({ setUrl }) => {
               productInfo.fields.map((field, index) => (
                 <FormControl
                   isInvalid={errors.name}
+                  minW={'170px'}
                   isRequired
                   mb="1rem"
                   mx={2}
@@ -199,10 +187,10 @@ const ProductDetails = ({ setUrl }) => {
                   )}
                   {field.type === 'option' ? (
                     <Select
+                      alignSelf={'center'}
                       h={{ base: '2rem', md: '2.5rem' }}
                       borderRadius={'30px'}
                       boxShadow={'5px 7px 25px rgba(0,0,0,0.25)'}
-                      minW={'170px'}
                       _focus={{
                         outline: '2px solid rgba(0,0,0,0.5)',
                         boxShadow: 'none',
@@ -256,7 +244,7 @@ const ProductDetails = ({ setUrl }) => {
           </Flex>
           <Stack
             direction={{ base: 'column', md: 'row' }}
-            justify={'flex-start'}
+            justify={productInfo.inquiry ? 'flex-start' : 'space-evenly'}
             px="0.5rem"
             w="full"
           >
@@ -315,7 +303,69 @@ const ProductDetails = ({ setUrl }) => {
         </VStack>
         <ProductCarousel images={productInfo.image} />
       </Stack>
-      <Faq data={data} />
+      <Tabs
+        maxW={'8xl'}
+        mx={'auto'}
+        p={{ base: 0, sm: 5 }}
+        bg={'#F5F5F5'}
+        my={5}
+      >
+        <TabList>
+          {noInfo.includes(productInfo.label) ? (
+            ''
+          ) : (
+            <Tab fontSize={['0.8rem', '1rem', '1.2rem']}>
+              Product Information
+            </Tab>
+          )}
+          {!productInfo.styleImages ? (
+            ''
+          ) : (
+            <Tab fontSize={['0.8rem', '1rem', '1.2rem']}>
+              {printingStyles.includes(productInfo.label)
+                ? 'Printing Styles'
+                : 'Finishing Styles'}
+            </Tab>
+          )}
+          {!brochureTypes.includes(productInfo.label) ? (
+            ''
+          ) : (
+            <Tab fontSize={['0.8rem', '1rem', '1.2rem']}>Brochure Types</Tab>
+          )}
+        </TabList>
+        <TabPanels>
+          {noInfo.includes(productInfo.label) ? (
+            ''
+          ) : (
+            <TabPanel>
+              <ProductInformation label={productInfo.label} />
+            </TabPanel>
+          )}
+          {!productInfo.styleImages ? (
+            ''
+          ) : (
+            <TabPanel
+              px={{ base: 0, sm: 4 }}
+              fontSize={['0.8rem', '1rem', '1.2rem']}
+            >
+              <ProductStyles styles={productInfo.styleImages} />
+            </TabPanel>
+          )}
+          {!brochureTypes.includes(productInfo.label) ? (
+            ''
+          ) : (
+            <TabPanel
+              px={{ base: 0, sm: 4 }}
+              fontSize={['0.8rem', '1rem', '1.2rem']}
+            >
+              <ProductStyles
+                styles={productInfo.fields[0].value}
+                brochure={true}
+              />
+            </TabPanel>
+          )}
+        </TabPanels>
+      </Tabs>
     </form>
   );
 };

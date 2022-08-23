@@ -51,7 +51,7 @@ export const InquiryForm = ({ fields, errors, register }) => {
         mb={{ base: '1rem', md: '1.5rem' }}
         w={{
           base: 'full',
-          md: '45%',
+          md: '44%',
         }}
       >
         <FormLabel fontSize={{ base: 'sm', md: 'md' }}>Last Name</FormLabel>

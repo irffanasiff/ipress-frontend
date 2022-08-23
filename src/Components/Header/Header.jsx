@@ -100,7 +100,7 @@ export default function WithSubnavigation() {
           speed={80}
           gradient={false}
         >
-          <Text color="white" mx={'auto'}>
+          <Text color="white" mx={{ base: '100px' }}>
             Fast delivery options available.{' '}
           </Text>
           <Text color="white">
@@ -108,19 +108,38 @@ export default function WithSubnavigation() {
           </Text>
         </Marquee>
       </Center>
-      <Container maxW="8xl" mx="auto" px={10} py={2}>
-        <Flex alignItems={'center'} w={'52%'} justifyContent={'space-between'}>
-          <Flex>
-            <RiCustomerService2Line size={30} color={'#00509E'} />{' '}
-            <Text mx={4}> 0813 894 1946 </Text>
-          </Flex>
-          <Flex>
-            <RiUserLocationLine size={30} color={'#00509E'} />
-            <Text mx={4}> View our locations </Text>
-          </Flex>
+      <Container maxW="8xl" mx="auto" px={{ base: 3, sm: 6, lg: 10 }} py={2}>
+        <Flex
+          alignItems={'center'}
+          w={{ base: '100%', md: '52%' }}
+          justifyContent={'space-between'}
+          fontSize={{ base: 'sm', md: '1rem', xl: '1.2rem' }}
+        >
+          <Center>
+            <Icon
+              as={RiCustomerService2Line}
+              color={'#00509E'}
+              w={{ base: 5, md: 6 }}
+              h={{ base: 5, md: 6 }}
+            ></Icon>
+            <Text mx={{ base: 1, md: 3, lg: 4 }}> 0813 894 1946 </Text>
+          </Center>
+          <Center display={{ base: 'none', md: 'flex' }}>
+            <Icon as={RiUserLocationLine} color={'#00509E'} w={6} h={6}></Icon>
+            <Text mx={{ md: 3, lg: 4 }}> View our locations </Text>
+          </Center>
           <NavLink to="/">
-            <Image src={Logo} alt="print" w={'90px'} h={'90px'} />{' '}
+            <Image
+              src={Logo}
+              alt="print"
+              w={{ base: '60px', md: '90px' }}
+              h={{ base: '60px', md: '90px' }}
+            />{' '}
           </NavLink>
+          <Flex display={{ base: 'flex', md: 'none' }} alignItems={'center'}>
+            <Icon as={RiUserLocationLine} color={'#00509E'} w={5} h={5}></Icon>
+            <Text mx={1}> Our Locations </Text>
+          </Flex>
         </Flex>
       </Container>
       <Container maxW="8xl" mx="auto" px={0}>
@@ -139,6 +158,8 @@ export default function WithSubnavigation() {
             display={{ base: 'flex', lg: 'none' }}
           >
             <IconButton
+              _hover={{ bg: '#bf730c', color: 'white' }}
+              _active={{ bg: '#bf730c', color: 'white' }}
               onClick={onToggle}
               icon={
                 isOpen ? (
@@ -156,17 +177,22 @@ export default function WithSubnavigation() {
             display="flex"
             flexDirection={'row'}
             alignItems="center"
-            w={{ base: '30vw', sm: '40vw' }}
-            fontSize={'md'}
+            w={{ base: '30vw' }}
+            minW={'150px'}
+            mx={2}
+            h={{ base: '25px', md: '35px' }}
+            fontSize={{ base: 'sm', md: 'md' }}
             fontWeight={500}
             position={'relative'}
           >
             <Input
               bgColor={'white'}
+              fontSize={{ base: 'sm', md: 'md' }}
               outline={'1px solid #00509E'}
               borderRadius={'0'}
               width={'100%'}
-              maxW={'200px'}
+              h={'100%'}
+              maxW={'250px'}
               value={searchInput}
               placeholder={'Search...'}
               onChange={e => setSearchInput(e.target.value)}
@@ -175,16 +201,19 @@ export default function WithSubnavigation() {
               }}
             />
 
-            <Box
+            <Center
               bgColor={'#00509E'}
               color={'white'}
               outline={'1px solid #00509E'}
               px={2}
-              py={'1'}
               alignSelf={'stretch'}
             >
-              <AiOutlineSearch size={32} />
-            </Box>
+              <Icon
+                as={AiOutlineSearch}
+                w={{ base: 4, md: 6 }}
+                h={{ base: 4, md: 6 }}
+              ></Icon>
+            </Center>
 
             {searchInput ? (
               <VStack
@@ -229,7 +258,7 @@ export default function WithSubnavigation() {
               ''
             )}
           </Box>
-          <Center gap={4}>
+          <Center gap={{ base: 2, md: 4 }}>
             {userInfo ? (
               <Box key="user_dropdown">
                 <Menu isLazy m="auto">
@@ -263,7 +292,14 @@ export default function WithSubnavigation() {
                 fontSize={'md'}
                 fontWeight={500}
               >
-                <AiOutlineUser size={32} /> Signup
+                <Icon
+                  as={AiOutlineUser}
+                  w={{ base: 6, md: 8 }}
+                  h={{ base: 6, md: 8 }}
+                ></Icon>
+                <Text as="span" display={{ base: 'none', md: 'inline' }}>
+                  Signup
+                </Text>
               </Box>
             )}
 
@@ -302,7 +338,7 @@ export default function WithSubnavigation() {
               display="flex"
               flexDirection={'row'}
               alignItems="center"
-              gap="1rem"
+              gap={2}
               fontSize={'md'}
               fontWeight={500}
               href={'#'}
@@ -310,7 +346,14 @@ export default function WithSubnavigation() {
                 textDecoration: 'underline',
               }}
             >
-              <BsMinecart size={32} /> Cart
+              <Icon
+                as={BsMinecart}
+                w={{ base: 6, md: 8 }}
+                h={{ base: 6, md: 8 }}
+              ></Icon>
+              <Text as="span" display={{ base: 'none', md: 'inline' }}>
+                Cart
+              </Text>
             </Box>
           </Center>
         </Flex>
@@ -422,11 +465,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ lg: 'none' }}
-    >
+    <Stack bg={'white'} p={4} display={{ lg: 'none' }}>
       {NAV_ITEMS.map(navItem => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}

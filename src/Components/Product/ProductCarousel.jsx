@@ -7,6 +7,7 @@ export const ProductCarousel = ({ images }) => {
     children.map((item, index) => {
       return (
         <img
+          key={index}
           src={
             images[index].split('q_auto')[0] +
             'q_40,h_100,w_100' +
