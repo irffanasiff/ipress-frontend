@@ -40,10 +40,10 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    /* window.addEventListener('scroll', handleScroll);
     return function cleanupListener() {
       window.removeEventListener('scroll', handleScroll);
-    };
+    }; */
   }, []);
 
   return (
@@ -407,7 +407,7 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="Brochures"
-                img="https://res.cloudinary.com/dzofnuhqh/image/upload/w_400,h_300/v1660947029/IPRESS/Mockups/Trifold_Brochure_Mockup_q4dqvm.jpg"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_600/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg"
               />
             </WrapItem>
             <WrapItem>
