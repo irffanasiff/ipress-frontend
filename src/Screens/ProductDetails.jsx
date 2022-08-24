@@ -127,9 +127,20 @@ const ProductDetails = ({ setUrl }) => {
         minH={'200px'}
         color={'#00509E'}
         flexDirection={'column'}
+        maxW={'8xl'}
+        mx={'auto'}
       >
-        <Heading fontSize={['3xl', '4xl', '5xl']}>{productInfo.label}</Heading>
-        <Heading fontSize={['lg', 'xl', '2xl']} fontWeight={400} mt={5}>
+        <Heading
+          fontSize={['2xl', '3xl', '4xl', '2.3rem']}
+          textAlign={'center'}
+        >
+          {productInfo.label}
+        </Heading>
+        <Heading
+          fontSize={['md', 'lg', 'xl', '1.5rem']}
+          fontWeight={400}
+          mt={5}
+        >
           {productInfo.subLabel}
         </Heading>
       </Center>

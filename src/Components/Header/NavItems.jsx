@@ -9,7 +9,7 @@ export const NAV_ITEMS = [
         href: '/product/Banners',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg',
-          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113460/IPRESS/Mockups/Jersey_Mockup_hz76e0.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113332/IPRESS/Mockups/Event_Backdrop_Mockup_ndjjvt.jpg',
         ],
         styleImages: ['Non-reflective Flex', 'Canvas Flex', 'Reflective Flex'],
         inquiry: true,

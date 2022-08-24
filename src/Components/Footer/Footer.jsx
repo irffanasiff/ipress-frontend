@@ -182,12 +182,12 @@ const Footer = () => {
                 <VStack
                   w={{ sm: '40%', md: 'auto' }}
                   mr={{ sm: '20px', md: '0' }}
-                  fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
+                  fontSize={{ base: 'xs', md: 'sm', lg: '0.9rem' }}
                   alignItems={'start'}
                 >
                   <Heading
                     mb={{ base: '0.5rem', md: '1rem' }}
-                    fontSize={['16px', '18px', '24px']}
+                    fontSize={['16px', '18px', '22px']}
                     fontWeight={'400'}
                     color="#00509E"
                   >
@@ -256,7 +256,7 @@ const Footer = () => {
                     as="button"
                     textAlign={'left'}
                     onClick={() => {
-                      navigate('service/household');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',

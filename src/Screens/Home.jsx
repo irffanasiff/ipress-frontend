@@ -70,12 +70,13 @@ const Home = () => {
             maxW="6xl"
             mx="auto"
             fontSize={{ base: '3.2rem', md: '8xl' }}
-            fontWeight="900"
+            fontWeight="700"
+            minH={{ base: '180px' }}
             color={'white'}
           >
             <Text as="span">
               Quality Prints Shipped to your{' '}
-              <Box h={0} display={{ lg: 'none' }}>
+              <Box h={0} display={{ base: 'none', md: 'inline', lg: 'none' }}>
                 <br />
               </Box>
             </Text>
@@ -219,7 +220,7 @@ const Home = () => {
         </Flex>
         <Flex direction={'column'} w={'100%'} p={{ base: 3, md: 4, '2xl': 0 }}>
           <Heading
-            fontSize={['2xl', '4xl', '5xl']}
+            fontSize={{ base: '2xl', md: '3xl', lg: '2rem' }}
             mb={{ base: '30px', md: '60px' }}
           >
             Need large formats? Contact us about different options.
@@ -293,7 +294,7 @@ const Home = () => {
           <Heading
             mx={{ base: 3, md: 4, '2xl': 0 }}
             fontSize={['xl', '3xl', '4xl']}
-            mb={{ base: '60px' }}
+            mb={{ base: '20px', md: '50px' }}
           >
             Our Process
           </Heading>

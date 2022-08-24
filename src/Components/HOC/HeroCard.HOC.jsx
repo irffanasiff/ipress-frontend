@@ -24,8 +24,8 @@ const HeroCard = ({ img, title }) => {
         <Flex
           alignItems={'center'}
           justifyContent={'center'}
-          fontWeight="700"
-          fontSize={{ base: 'xl', md: '3xl' }}
+          fontWeight="600"
+          fontSize={{ base: '1.2rem', md: '1.5rem' }}
           color={'white'}
           position={'absolute'}
           w={'100%'}

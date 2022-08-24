@@ -26,6 +26,7 @@ import { listCartItems } from './Actions/cartAction';
 import { AdminHome } from './Screens/AdminHome';
 import { ProductCategory } from './Screens/ProductCategory';
 import { NAV_ITEMS } from './Components/Header/NavItems';
+import { CustomerSupport } from './Screens/CustomerSupport';
 
 export const newTheme = {
   ...theme,
@@ -67,6 +68,7 @@ function App() {
           />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/variants" element={<Variants />} />
+          <Route path="/customer-support" element={<CustomerSupport />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route
