@@ -40,10 +40,10 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    /* window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return function cleanupListener() {
       window.removeEventListener('scroll', handleScroll);
-    }; */
+    };
   }, []);
 
   return (
@@ -55,16 +55,23 @@ const Home = () => {
           h={'120vh'}
           minH={'300px'}
           maxH={{ base: '500px', md: '1200px' }}
-          bg="gray.500"
-          bgImage={
-            "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg')"
-          }
-          bgRepeat={'no-repeat'}
-          bgSize={'cover'}
-          bgAttachment={'fixed'}
-          bgPos={'center'}
+          pos={'relative'}
+          bg={{ base: 'transparent' }}
         >
+          <Box
+            zIndex={1}
+            w={'100%'}
+            h={'100%'}
+            pos={'absolute'}
+            bgImage={
+              "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg')"
+            }
+            bgSize={'cover'}
+            bgAttachment={'fixed'}
+            bgPos={'center'}
+          ></Box>
           <Heading
+            zIndex={2}
             lineHeight={{ base: '3.6rem', md: '130%' }}
             pl={'30px'}
             maxW="6xl"
@@ -118,9 +125,10 @@ const Home = () => {
               h={'100%'}
               position={'absolute'}
               bg="gray.500"
-              bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")'
-              }
+              bgImage={{
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
+              }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
               bgPos={'center'}
@@ -178,9 +186,10 @@ const Home = () => {
               h={'100%'}
               position={'absolute'}
               bg="gray.500"
-              bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")'
-              }
+              bgImage={{
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
+              }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
               bgPos={'center'}
@@ -270,9 +279,10 @@ const Home = () => {
               rowSpan={4}
               colSpan={5}
               bg="gray.500"
-              bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,ar_5:4,c_fill/c_scale,h_550/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")'
-              }
+              bgImage={{
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")',
+              }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
               bgPos={'center'}
@@ -281,9 +291,10 @@ const Home = () => {
               rowSpan={3}
               colSpan={5}
               bg="gray.500"
-              bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_80,ar_5:3,c_fill/c_scale,w_800/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")'
-              }
+              bgImage={{
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")',
+              }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
               bgPos={'center'}
@@ -407,7 +418,7 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="Brochures"
-                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_600/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg"
               />
             </WrapItem>
             <WrapItem>

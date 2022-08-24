@@ -96,7 +96,7 @@ export const CustomerSupport = () => {
           </VStack>
         </HStack>
       </VStack>
-      <VStack py={'65px'} gap={4}>
+      <VStack id={'contact'} py={'65px'} gap={4}>
         <Heading
           textAlign={'center'}
           color="#00284F"

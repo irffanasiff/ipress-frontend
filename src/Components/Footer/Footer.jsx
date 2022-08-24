@@ -25,7 +25,7 @@ import {
   Jcb,
   Mastercard,
 } from 'react-pay-icons';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -231,7 +231,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/service/dryCleaning');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -243,7 +243,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/service/bedding');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -269,7 +269,7 @@ const Footer = () => {
                     as="button"
                     mb={'0.5rem'}
                     onClick={() => {
-                      navigate('service/shirts');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -289,7 +289,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('service/shirts');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -301,7 +301,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('service/shirts');
+                      navigate('/customer-support');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
