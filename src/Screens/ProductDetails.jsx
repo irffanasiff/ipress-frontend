@@ -58,7 +58,7 @@ const product = id => {
   );
   return product;
 };
-const printingStyles = ['Flex Banner/Event Backdrops'];
+const printingStyles = ['Event Backdrops', 'Flex Banners'];
 const brochureTypes = ['Brochures'];
 const noInfo = [
   'T-shirt',
@@ -120,30 +120,6 @@ const ProductDetails = ({ setUrl }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Center
-        bg={'#8AADCF'}
-        h={'20vw'}
-        maxH={'300px'}
-        minH={'200px'}
-        color={'#00509E'}
-        flexDirection={'column'}
-        maxW={'8xl'}
-        mx={'auto'}
-      >
-        <Heading
-          fontSize={['2xl', '3xl', '4xl', '2.3rem']}
-          textAlign={'center'}
-        >
-          {productInfo.label}
-        </Heading>
-        <Heading
-          fontSize={['md', 'lg', 'xl', '1.5rem']}
-          fontWeight={400}
-          mt={5}
-        >
-          {productInfo.subLabel}
-        </Heading>
-      </Center>
       <Stack
         spacing={{ base: '4rem', md: '2rem' }}
         p={{ base: '2rem 1.5rem', md: '3rem 2rem' }}
@@ -155,12 +131,31 @@ const ProductDetails = ({ setUrl }) => {
         justifyContent={'space-between'}
       >
         <VStack
-          p={{ base: '0 1rem', md: '0 1.8rem' }}
+          p={{ base: 0, md: '30px' }}
           maxW={{ base: '80%', md: '50%' }}
-          spacing={'30px'}
-          alignSelf={'center'}
+          minW={{ lg: '500px' }}
+          spacing={productInfo.inquiry ? '10px' : { base: '30px', lg: '40px' }}
+          minH={'600px'}
         >
+          <Center flexDirection={'column'}>
+            <Heading
+              fontSize={{ base: '2.8rem', sm: '3.5rem', md: '3rem' }}
+              textAlign={'center'}
+              fontWeight={600}
+            >
+              {productInfo.label}
+            </Heading>
+            <Heading
+              fontSize={{ base: 'md', md: 'lg', lg: '1.3rem' }}
+              fontWeight={400}
+              textAlign={'center'}
+              mt={5}
+            >
+              {productInfo.subLabel}
+            </Heading>
+          </Center>
           <Flex
+            pt={10}
             flexWrap={'wrap'}
             w="full"
             justifyContent={productInfo.inquiry ? 'flex-start' : 'space-evenly'}
@@ -176,7 +171,7 @@ const ProductDetails = ({ setUrl }) => {
               productInfo.fields.map((field, index) => (
                 <FormControl
                   isInvalid={errors.name}
-                  minW={'170px'}
+                  minW={'200px'}
                   isRequired
                   mb="1rem"
                   mx={2}
@@ -199,12 +194,13 @@ const ProductDetails = ({ setUrl }) => {
                   {field.type === 'option' ? (
                     <Select
                       alignSelf={'center'}
-                      h={{ base: '2rem', md: '2.5rem' }}
+                      h={['2.3rem', '2.6rem', '2.3rem', '2.8rem']}
+                      fontSize={{ base: 'sm', sm: 'md' }}
                       borderRadius={'30px'}
                       boxShadow={'5px 7px 25px rgba(0,0,0,0.25)'}
+                      cursor={'pointer'}
                       _focus={{
-                        outline: '2px solid rgba(0,0,0,0.5)',
-                        boxShadow: 'none',
+                        outline: 'none',
                       }}
                       placeholder={field.name}
                       {...register(`${field.name}`, {
@@ -230,14 +226,14 @@ const ProductDetails = ({ setUrl }) => {
                   ) : (
                     <Input
                       outline={'1px solid rgba(0,0,0,0.5)'}
-                      fontSize="lg"
+                      fontSize={['sm', 'md', 'lg']}
                       type={field.type || 'text'}
                       px="0.5rem"
                       h={{ base: '2.5rem', md: '3rem' }}
-                      size={{ base: 'sm', md: 'lg' }}
+                      size={{ base: '12px', md: 'lg' }}
                       placeholder={field.placeholder || field.name}
                       _focus={{
-                        outline: '2px solid rgba(0,0,0,0.5)',
+                        outline: '2px solid rgba(0,0,0, 0.7)',
                         boxShadow: 'none',
                       }}
                       {...register(`${field.name}`, {
@@ -254,34 +250,60 @@ const ProductDetails = ({ setUrl }) => {
             )}
           </Flex>
           <Stack
-            direction={{ base: 'column', md: 'row' }}
+            spacing={6}
+            alignItems={'center'}
+            direction={'column'}
             justify={productInfo.inquiry ? 'flex-start' : 'space-evenly'}
             px="0.5rem"
             w="full"
           >
             {productInfo.browse && (
               <Button
+                w={['100%', '65%', '80%', '65%']}
+                textTransform={'uppercase'}
                 type="submit"
                 borderRadius={'30px'}
-                variant={'custom-black'}
-                _hover={{ bg: 'white', color: 'black' }}
+                fontWeight={600}
+                fontSize={{
+                  base: '11px',
+                  sm: '12px',
+                  md: '11px',
+                  lg: '14px',
+                }}
+                letterSpacing={'2px'}
+                py={'25px'}
+                bg="black"
+                color={'white'}
+                border={'1px solid black'}
+                _hover={{
+                  bg: 'white',
+                  color: 'black',
+                }}
                 onClick={() => setAction('browse')}
               >
-                Browse Design
+                Browse Our Design
               </Button>
             )}
 
             <>
               {productInfo.inquiry ? (
                 <Button
-                  variant={'custom-black'}
+                  w={'50%'}
+                  minW={'200px'}
+                  textTransform={'uppercase'}
+                  type="submit"
+                  rounded={false}
+                  fontWeight={400}
+                  fontSize={{ base: 'sm', md: 'md' }}
+                  letterSpacing={'2px'}
+                  py={'25px'}
                   bg="black"
                   color={'white'}
-                  fontSize={{ base: 'md', md: 'xl' }}
-                  p={{ base: '1rem', md: '1.5rem' }}
-                  rounded={false}
-                  _hover={{ bg: 'whiteAlpha.600', color: 'black' }}
-                  type="submit"
+                  border={'1px solid black'}
+                  _hover={{
+                    bg: 'white',
+                    color: 'black',
+                  }}
                   onClick={() => {
                     setAction('inquiry');
                   }}
@@ -290,17 +312,29 @@ const ProductDetails = ({ setUrl }) => {
                 </Button>
               ) : (
                 <Button
-                  variant={'custom-black'}
+                  w={['100%', '65%', '80%', '65%']}
+                  textTransform={'uppercase'}
+                  type="submit"
+                  borderRadius={'30px'}
+                  fontWeight={600}
+                  fontSize={{
+                    base: '11px',
+                    sm: '12px',
+                    md: '11px',
+                    lg: '14px',
+                  }}
+                  letterSpacing={'2px'}
+                  py={'25px'}
                   bg="black"
                   color={'white'}
-                  borderRadius={'30px'}
-                  _hover={{ bg: 'white', color: 'black' }}
-                  type="submit"
-                  onClick={() => {
-                    setAction('upload');
+                  border={'1px solid black'}
+                  _hover={{
+                    bg: 'white',
+                    color: 'black',
                   }}
+                  onClick={() => setAction('upload')}
                 >
-                  Upload Design
+                  Upload your design
                 </Button>
               )}
               <input

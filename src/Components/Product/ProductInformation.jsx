@@ -17,7 +17,8 @@ const getInformation = label => {
       info: '420gsm',
       includedIn: [
         'Billboards',
-        'Flex Banner/Event Backdrops',
+        'Event Backdrops',
+        'Flex Banners',
         'Window Graphics',
       ],
     },
@@ -31,7 +32,8 @@ const getInformation = label => {
       ],
       includedIn: [
         'Billboards',
-        'Flex Banner/Event Backdrops',
+        'Event Backdrops',
+        'Flex Banners',
         'Window Graphics',
         'Car/Bike/Tricycle Branding',
         'Dummy Cheques',
@@ -51,7 +53,8 @@ const getInformation = label => {
       ],
       includedIn: [
         'Billboards',
-        'Flex Banner/Event Backdrops',
+        'Event Backdrops',
+        'Flex Banners',
         'Window Graphics',
         'Car/Bike/Tricycle Branding',
         'Dummy Cheques',

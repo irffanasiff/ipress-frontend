@@ -22,6 +22,7 @@ export const InquiryForm = ({ fields, errors, register }) => {
           base: 'full',
           md: '44%',
         }}
+        minW={'200px'}
       >
         <FormLabel fontSize={{ base: 'sm', md: 'md' }}>First Name</FormLabel>
         <Input
@@ -29,7 +30,7 @@ export const InquiryForm = ({ fields, errors, register }) => {
           fontSize={{ base: 'sm', md: 'md' }}
           type={'text'}
           px="0.5rem"
-          h={{ base: '1.7rem', md: '2.2rem' }}
+          h={{ base: '1.5rem', md: '2rem' }}
           size={{ base: 'sm', md: 'md' }}
           _focus={{
             outline: '2px solid rgba(0,0,0,0.5)',
@@ -53,6 +54,7 @@ export const InquiryForm = ({ fields, errors, register }) => {
           base: 'full',
           md: '44%',
         }}
+        minW={'200px'}
       >
         <FormLabel fontSize={{ base: 'sm', md: 'md' }}>Last Name</FormLabel>
         <Input
@@ -256,15 +258,14 @@ export const InquiryForm = ({ fields, errors, register }) => {
         }}
       >
         <Input
-          outline={'1px solid rgba(0,0,0,0.3)'}
           _focus={{
-            outline: '2px solid rgba(0,0,0,0.5)',
+            outline: 'none',
             boxShadow: 'none',
           }}
-          fontSize={{ base: 'sm', md: 'md' }}
+          fontSize={'sm'}
           type={'file'}
           px="0.5rem"
-          size={{ base: 'sm', md: 'md' }}
+          size={{ base: 'sm' }}
           {...register('Upload', {
             required: `Please upload your design`,
           })}
@@ -283,12 +284,13 @@ export const InquiryForm = ({ fields, errors, register }) => {
         mb={{ base: '1rem', md: '1.5rem' }}
       >
         <Checkbox
-          fontSize={{ base: 'xs', md: 'md' }}
           {...register('T&C', {
             required: `Please accept the terms & conditions.`,
           })}
         >
-          I accept the terms and conditions.
+          <Text as={'span'} fontSize={{ base: 'xs', md: 'sm' }}>
+            I accept the terms and conditions.
+          </Text>
         </Checkbox>
         {errors.name && (
           <FormErrorMessage>{errors.name.message}</FormErrorMessage>

@@ -289,7 +289,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/terms-conditions');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -333,7 +333,17 @@ const Footer = () => {
                   </Flex>
                   <Flex alignItems={'center'} as="button">
                     <Icon as={GrMail} mr={2} />
-                    ipressltd@yahoo.com
+                    <Link
+                      to="#"
+                      onClick={e => {
+                        window.location.href = 'mailto:ipressltd@yahoo.com';
+                        e.preventDefault();
+                      }}
+                    >
+                      <Text as="span" _hover={{ textDecor: 'underline' }}>
+                        ipressltd@yahoo.com
+                      </Text>
+                    </Link>
                   </Flex>
                   <VStack
                     alignItems={'flex-start'}

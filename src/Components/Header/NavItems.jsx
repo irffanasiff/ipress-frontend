@@ -4,11 +4,10 @@ export const NAV_ITEMS = [
     href: '/category/Large-Formats',
     children: [
       {
-        label: 'Flex Banner/Event Backdrops',
+        label: 'Event Backdrops',
         subLabel: 'Trending Design to inspire you',
-        href: '/product/Banners',
+        href: '/product/Event-Backdrops',
         image: [
-          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg',
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113332/IPRESS/Mockups/Event_Backdrop_Mockup_ndjjvt.jpg',
         ],
         styleImages: ['Non-reflective Flex', 'Canvas Flex', 'Reflective Flex'],
@@ -104,9 +103,62 @@ export const NAV_ITEMS = [
         ],
       },
       {
+        label: 'Flex Banners',
+        subLabel: 'Minimum qty starting at 100pcs',
+        href: '/product/Flex-Banners',
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg',
+        ],
+        browse: true,
+        styleImages: ['Non-reflective Flex', 'Canvas Flex', 'Reflective Flex'],
+        fields: [
+          {
+            name: 'Ink Type',
+            type: 'option',
+            value: ['Eco-solvent Ink', 'UV Ink'],
+          },
+          {
+            name: 'Framing',
+            type: 'option',
+            value: [
+              'No Framing',
+              '1FT',
+              '2FT',
+              '3FT',
+              '4FT',
+              '5FT',
+              '6FT',
+              '7FT',
+              '8FT',
+            ],
+          },
+          {
+            name: 'Eyelet',
+            type: 'option',
+            value: [0, 2, 4, 6, 8],
+          },
+          {
+            name: 'Finishing',
+            type: 'option',
+            value: ['Non-reflective', 'Reflective', 'Canvas'],
+          },
+          {
+            name: 'Length',
+            type: 'number',
+            label: 'Enter Length in cm',
+          },
+          {
+            name: 'Width',
+            type: 'number',
+            label: 'Enter Width in cm',
+          },
+        ],
+      },
+      {
         label: 'Roll Up Stands',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Roll-Up-Stands',
+        browse: true,
         image: [''],
         fields: [
           {
@@ -124,13 +176,13 @@ export const NAV_ITEMS = [
             type: 'option',
             value: ['Eco-solvent Ink', 'UV Ink'],
           },
-          { name: 'Upload Your Design', type: 'file' },
         ],
       },
       {
         label: 'Instagram Frame Boards',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Instagram-Frame-Boards',
+        browse: true,
         image: [''],
         fields: [
           {
@@ -473,7 +525,7 @@ export const NAV_ITEMS = [
       {
         label: 'ID Cards',
         subLabel: 'Find your dream design job',
-        href: '/product/Id-Cards',
+        href: '/product/ID-Card',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113394/IPRESS/Mockups/ID_Card_Mockup_tvpwth.jpg',
         ],
@@ -575,7 +627,7 @@ export const NAV_ITEMS = [
       {
         label: 'Scratch Cards',
         subLabel: 'Find your dream design job',
-        href: '/product/Scratch-Card',
+        href: '/product/Scratch-Cards',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114777/IPRESS/Mockups/Scrach_Card_Mockup_qllphm.jpg',
         ],
@@ -659,7 +711,7 @@ export const NAV_ITEMS = [
       {
         label: 'Event/Membership Cards',
         subLabel: 'Find your dream design job',
-        href: '/product/Event-Badge',
+        href: '/product/Membership-Cards',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113366/IPRESS/Mockups/Guest_ID_Card_xluwkt.jpg',
         ],
@@ -1123,7 +1175,6 @@ export const NAV_ITEMS = [
         href: '/product/Calender',
         image: [''],
         styleImages: ['Gloss', 'Matte'],
-        browse: true,
         fields: [
           {
             name: 'Calender Size',

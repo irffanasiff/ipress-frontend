@@ -3,11 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getImages } from '../Actions/imageAction';
 import {
+  Center,
   GridItem,
   Heading,
   Image,
   SimpleGrid,
+  Skeleton,
   Spinner,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 /* import { AdvancedImage } from '@cloudinary/react';
@@ -21,66 +24,156 @@ import { FocusOn } from '@cloudinary/url-gen/qualifiers/focusOn'; */
 
 export const Designs = ({ setUrl }) => {
   let { type } = useParams();
-  type = type.charAt(0).toUpperCase() + type.slice(1);
+  let productName =
+    type === 'Paper-Stickers' || type === 'Transparent-Stickers'
+      ? 'Stickers'
+      : type.split('-').join(' ');
   const navigate = useNavigate(); // navigate to editor on clicking poster
   const dispatch = useDispatch();
   const { imageData, loading, error } = useSelector(state => state.images);
   useEffect(() => {
-    if (!imageData || !imageData[type]) {
-      dispatch(getImages(type.split('-').join(' ')));
-    } else if (imageData[type].length === 0) {
+    if (!imageData || !imageData[productName]) {
+      dispatch(getImages(productName));
+    } else if (imageData[productName].length === 0) {
       navigate(`/product/${type}`);
     }
-  }, [imageData, type, dispatch, navigate]);
+  }, [productName, imageData, type, dispatch, navigate]);
   const handleClick = e => {
     setUrl(e.target.src);
     navigate(`/designs/${type}/editor`);
   };
   const renderImages = data => {
     return (
-      <SimpleGrid columns={[3]} columnGap={10} rowGap={20} w={'full'}>
-        {data.map(img => (
-          <GridItem
-            key={img.filename}
-            colSpan={1}
-            onClick={e => handleClick(e)}
-          >
-            <Image src={img['secure_url']} alt={img.filename} />
-          </GridItem>
-        ))}
+      <SimpleGrid
+        columns={[2, 2, 3, 4]}
+        minChildWidth={{ base: '280px', sm: '200px', lg: '300px' }}
+        columnGap={[5, 5, 10]}
+        rowGap={[10, 10, 20]}
+        w={'full'}
+      >
+        {data.map((img, index) => {
+          let url = img['secure_url'].split('upload/');
+          return (
+            <GridItem
+              key={index}
+              mx={'auto'}
+              onClick={e => handleClick(e)}
+              minW={{ base: '280px', sm: '200px', lg: '300px' }}
+              _hover={{ cursor: 'pointer' }}
+            >
+              <Image
+                src={url[0] + 'upload/q_auto,w_1000/' + url[1]}
+                alt={img.filename}
+                maxH={'400px'}
+                minW={{ base: '280px', sm: '200px', lg: '300px' }}
+                mx={'auto'}
+              />
+              <Text
+                textAlign={'center'}
+                m={2}
+                fontSize={{ base: '0.8rem', sm: '0.9rem', md: '1rem' }}
+              >
+                Click to begin designing
+              </Text>
+            </GridItem>
+          );
+        })}
       </SimpleGrid>
     );
   };
-  return (
-    <VStack
-      spacing={{ base: '4rem', lg: '2rem' }}
-      p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
-      maxW="8xl"
-      mx="auto"
-      direction={{ base: 'column-reverse', lg: 'row' }}
-      alignItems={{ base: 'center', lg: 'flex-start' }}
-      justifyContent={'space-between'}
+  const renderSkeleton = () => (
+    <SimpleGrid
+      minChildWidth={{ base: '280px', sm: '200px', lg: '300px' }}
+      columnGap={[5, 5, 10]}
+      rowGap={[10, 10, 20]}
+      w={'full'}
     >
-      <Heading fontWeight={'400'}>{type}</Heading>
-
-      {loading ? (
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
-      ) : imageData ? (
-        imageData[type] ? (
-          renderImages(imageData[type])
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+      <GridItem minW={{ base: '280px', sm: '200px', lg: '300px' }}>
+        <Skeleton height={'250px'}></Skeleton>
+      </GridItem>
+    </SimpleGrid>
+  );
+  return (
+    <>
+      <Center
+        bg={'#8AADCF'}
+        h={'60vh'}
+        maxH={'500px'}
+        minH={'200px'}
+        color={'#00509E'}
+        flexDirection={'column'}
+        maxW={'8xl'}
+        mx={'auto'}
+      >
+        <VStack
+          bg={'white'}
+          w={{ base: '90%', md: '80%' }}
+          h={{ base: '70%', md: '65%' }}
+          justifyContent={'center'}
+          gap={'12%'}
+        >
+          <Heading
+            fontSize={{ base: '2rem', sm: '2.5rem', md: '3rem' }}
+            fontWeight={400}
+            textAlign={'center'}
+          >
+            Start Designing
+          </Heading>
+          <Heading
+            fontSize={{ base: '0.9rem', md: '1.1rem' }}
+            fontWeight={400}
+            mt={5}
+            px={'8%'}
+            textAlign={'center'}
+          >
+            Simply customize one of our templates or create your own designs
+            with our online design tool.
+          </Heading>
+        </VStack>
+      </Center>
+      <VStack
+        spacing={{ base: '4rem', lg: '2rem' }}
+        p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
+        maxW="8xl"
+        mx="auto"
+        direction={{ base: 'column-reverse', lg: 'row' }}
+        alignItems={{ base: 'center', lg: 'flex-start' }}
+        justifyContent={'space-between'}
+      >
+        {loading ? (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        ) : imageData ? (
+          imageData[productName] ? (
+            renderImages(imageData[productName])
+          ) : (
+            renderSkeleton()
+          )
         ) : (
-          ''
-        )
-      ) : (
-        ''
-      )}
-    </VStack>
+          renderSkeleton()
+        )}
+      </VStack>
+    </>
   );
 };
 

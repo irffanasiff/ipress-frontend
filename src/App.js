@@ -27,6 +27,7 @@ import { AdminHome } from './Screens/AdminHome';
 import { ProductCategory } from './Screens/ProductCategory';
 import { NAV_ITEMS } from './Components/Header/NavItems';
 import { CustomerSupport } from './Screens/CustomerSupport';
+import { TermsConditions } from './Screens/TermsConditions';
 
 export const newTheme = {
   ...theme,
@@ -69,6 +70,7 @@ function App() {
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/variants" element={<Variants />} />
           <Route path="/customer-support" element={<CustomerSupport />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route

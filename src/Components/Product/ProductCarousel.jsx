@@ -41,6 +41,7 @@ export const ProductCarousel = ({ images }) => {
               h={'50vw'}
               minH={'300px'}
               maxH={'550px'}
+              bgColor={'gray.500'}
               bgImage={`url("${
                 url.split('q_auto')[0] + 'q_auto,h_700' + url.split('q_auto')[1]
               }")`}
