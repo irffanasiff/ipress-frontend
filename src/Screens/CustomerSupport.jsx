@@ -47,7 +47,7 @@ export const CustomerSupport = () => {
         >
           Ways to Connect
         </Heading>
-        <Text fontSize={{ base: 'md', md: 'xl' }} fontWeight={200}>
+        <Text fontSize={{ base: 'md', md: 'xl' }} fontWeight={300} p={2}>
           Our Customer Service team is always happy to help you.
         </Text>
         <HStack

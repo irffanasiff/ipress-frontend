@@ -155,23 +155,13 @@ export const Designs = ({ setUrl }) => {
         alignItems={{ base: 'center', lg: 'flex-start' }}
         justifyContent={'space-between'}
       >
-        {loading ? (
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        ) : imageData ? (
-          imageData[productName] ? (
-            renderImages(imageData[productName])
-          ) : (
-            renderSkeleton()
-          )
-        ) : (
-          renderSkeleton()
-        )}
+        {loading
+          ? renderSkeleton()
+          : imageData
+          ? imageData[productName]
+            ? renderImages(imageData[productName])
+            : renderSkeleton()
+          : renderSkeleton()}
       </VStack>
     </>
   );

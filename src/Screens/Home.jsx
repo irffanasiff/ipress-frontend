@@ -67,7 +67,7 @@ const Home = () => {
               "url('https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661113425/IPRESS/Mockups/Ipress_T_shirt_2_o023zx.jpg')"
             }
             bgSize={'cover'}
-            bgAttachment={'fixed'}
+            bgAttachment={{ md: 'fixed' }}
             bgPos={'center'}
           ></Box>
           <Heading
@@ -121,10 +121,9 @@ const Home = () => {
           >
             <Box
               zIndex={0}
-              w={{ base: '120%', md: '110%', xl: '130%' }}
+              w={'140%'}
               h={'100%'}
               position={'absolute'}
-              bg="gray.500"
               bgImage={{
                 base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
                 md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
@@ -182,7 +181,7 @@ const Home = () => {
           >
             <Box
               zIndex={0}
-              w={{ base: '120%', md: '110%', xl: '130%' }}
+              w={'130%'}
               h={'100%'}
               position={'absolute'}
               bg="gray.500"
