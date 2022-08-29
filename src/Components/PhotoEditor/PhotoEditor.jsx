@@ -100,9 +100,11 @@ function Photoeditor({ passImg, imgURL }) {
   };
   let changeColor = (value, obj) => {
     if (obj.type === 'image') {
-      obj.filters[0].rotation = value;
+      let hue = value.h;
+      hue = hue - 180;
+      let normalizedHue = hue / 180;
+      obj.filters[0].rotation = normalizedHue;
       obj.applyFilters();
-      obj.setCoords(true);
     } else if (selectedObj === 'shape') obj.set({ fill: value });
     canvas.requestRenderAll();
   };
@@ -147,6 +149,47 @@ function Photoeditor({ passImg, imgURL }) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  }
+  function hexToHSL(H) {
+    // Convert hex to RGB first
+    let r = 0,
+      g = 0,
+      b = 0;
+    if (H.length === 4) {
+      r = '0x' + H[1] + H[1];
+      g = '0x' + H[2] + H[2];
+      b = '0x' + H[3] + H[3];
+    } else if (H.length === 7) {
+      r = '0x' + H[1] + H[2];
+      g = '0x' + H[3] + H[4];
+      b = '0x' + H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
+      delta = cmax - cmin,
+      h = 0,
+      s = 0,
+      l = 0;
+
+    if (delta === 0) h = 0;
+    else if (cmax === r) h = ((g - b) / delta) % 6;
+    else if (cmax === g) h = (b - r) / delta + 2;
+    else h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    if (h < 0) h += 360;
+
+    l = (cmax + cmin) / 2;
+    s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    return { h, s, l };
   }
   useEffect(() => {
     const outerCanvasContainer = canvasContainer.current;
@@ -201,8 +244,10 @@ function Photoeditor({ passImg, imgURL }) {
         top: 0,
         opacity: 1,
         minimumScaleTrigger: 1,
-        lockMovementX: true /* ########### lock image movements from here #################### */,
-        lockMovementY: true,
+        lockMovementX: false /* ########### lock image movements from here #################### */,
+        lockMovementY: false,
+        lockScalingX: false,
+        lockScalingY: false,
       }
     );
 
@@ -284,40 +329,21 @@ function Photoeditor({ passImg, imgURL }) {
           }}
           disabled={!(selectedObj === 'text')}
         />
-        <Select
-          className="text-color"
-          placeholder="Color"
-          size={['xs', 'sm']}
-          variant="unstyled"
-          w={['65px', '80px', '100px']}
-          pl="3px"
+        <Input
+          type="color"
+          w={'100px'}
           value={bgColor}
           onChange={e => {
-            let target = e.target.options[e.target.selectedIndex];
-            let value = target.value;
-            let color = target.style.backgroundColor;
-            setBgColor(color);
+            let value = e.target.value;
+            let color = hexToHSL(value);
+            setBgColor(value);
             let imgToChange = canvas.getActiveObject();
-            if (selectedObj === 'text') changeFont({ fill: `${color}` });
-            else if (selectedObj === 'shape') changeColor(color, imgToChange);
+            if (selectedObj === 'text') changeFont({ fill: `${value}` });
+            else if (selectedObj === 'shape') changeColor(value, imgToChange);
             else if (selectedObj === 'image' || selectedObj === 'bgImg')
-              changeColor(value, imgToChange);
+              changeColor(color, imgToChange);
           }}
-          style={{ color: 'black' }}
-          disabled={selectedObj === 'none'}
-        >
-          {rotation.map(value => (
-            <option
-              key={value}
-              value={value}
-              style={{
-                backgroundColor: `hsl(${value * 18 * 10 + 180}, 100%, 50%)`,
-              }}
-            >
-              {''}
-            </option>
-          ))}
-        </Select>
+        />
         <Flex
           className="text-styling"
           w={['40px', '60px', '80px', '100px']}

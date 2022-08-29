@@ -49,7 +49,11 @@ export const NAV_ITEMS = [
         label: 'Billboards',
         subLabel: 'Up-and-coming Designers',
         href: '/product/Billboards',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727971/IPRESS/Mockups/BILLBOARD_4_hkyoxo.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727911/IPRESS/Mockups/BILLBOARD_3_j6rxnp.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727691/IPRESS/Mockups/STORE_SIGN_vaujjo.jpg',
+        ],
         inquiry: true,
         fields: [
           {
@@ -78,7 +82,9 @@ export const NAV_ITEMS = [
         label: 'Dummy Cheques',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Dummy-Cheques',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727873/IPRESS/Mockups/DUMMY_CHEQUE_1_copy_yh7ibp.jpg',
+        ],
         fields: [
           {
             name: 'Ink Type',
@@ -159,7 +165,9 @@ export const NAV_ITEMS = [
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Roll-Up-Stands',
         browse: true,
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727892/IPRESS/Mockups/ROLL_UP_BANNER_ywrfzs.jpg',
+        ],
         fields: [
           {
             name: 'Base Type',
@@ -317,7 +325,9 @@ export const NAV_ITEMS = [
         label: 'Caps',
         subLabel: 'Find your dream design job',
         href: '/product/Caps',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727764/IPRESS/Mockups/CAPS_hsd5pe.jpg',
+        ],
         styleImages: [
           'Vinyl Flex',
           'Glitter Flex',
@@ -400,7 +410,9 @@ export const NAV_ITEMS = [
         label: 'Business Cards',
         subLabel: 'Minimum qty starting at 100pcs',
         href: '/product/Business-Cards',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661728040/IPRESS/Mockups/ID_CARD_mwr5bm.jpg',
+        ],
         styleImages: [
           'Star Finishing',
           'Embossed',
@@ -528,6 +540,7 @@ export const NAV_ITEMS = [
         href: '/product/ID-Card',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113394/IPRESS/Mockups/ID_Card_Mockup_tvpwth.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727672/IPRESS/Mockups/ID_CARD_2_jndqhe.jpg',
         ],
         styleImages: [
           'Star Finishing',
@@ -986,6 +999,7 @@ export const NAV_ITEMS = [
         href: '/product/Bags',
         image: [
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114385/IPRESS/Mockups/Paper_Bag_Mockup_f25xra.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727715/IPRESS/Mockups/BAGS_dmdwr3.jpg',
         ],
         inquiry: true,
         fields: [
@@ -1017,6 +1031,8 @@ export const NAV_ITEMS = [
         subLabel: '$50 Minimum qty starting at 100pcs',
         href: '/product/Brochures',
         image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727994/IPRESS/Mockups/BROCHURE_1_hfpx4t.jpg',
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727672/IPRESS/Mockups/BROCHURE_2_pjyjew.jpg',
           'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg',
         ],
         styleImages: [
@@ -1173,7 +1189,9 @@ export const NAV_ITEMS = [
         label: 'Calenders',
         subLabel: 'Find your dream design job',
         href: '/product/Calender',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661728093/IPRESS/Mockups/CALENDAR_ro6wyf.jpg',
+        ],
         styleImages: ['Gloss', 'Matte'],
         fields: [
           {
@@ -1427,7 +1445,6 @@ export const NAV_ITEMS = [
           'Spot Laminate',
           'Foil Stamping',
         ],
-        browse: true,
         fields: [
           {
             name: 'Paper Type (cover page)',
@@ -1486,7 +1503,9 @@ export const NAV_ITEMS = [
         label: 'Envelopes',
         subLabel: 'Find your dream design job',
         href: '/product/Envelopes',
-        image: [''],
+        image: [
+          'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661727730/IPRESS/Mockups/ENVELOPE_sn5yg9.jpg',
+        ],
         fields: [
           {
             name: 'Size',
@@ -1659,12 +1678,37 @@ export const NAV_ITEMS = [
   },
   {
     label: 'Awards',
-    href: '/category/Awards',
+    subLabel:
+      'Request a quote for custom wooden, metallic, crystal and acrylic awards.',
+    href: '/product/Awards',
     image: [
       'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114266/IPRESS/Mockups/New_Wooden_Award_Plaque_wodgm5.jpg',
       'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661114212/IPRESS/Mockups/new_metallic_award_plaque_eabbai.jpg',
       'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113314/IPRESS/Mockups/Crystal_Award_Plaque_ygicko.jpg',
       'https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto/v1661113283/IPRESS/Mockups/Arcylic_Award_Plaque_n8skfl.jpg',
+    ],
+    inquiry: true,
+    fields: [
+      {
+        name: 'Award Type',
+        type: 'option',
+        value: ['Crystal', 'Metallic', 'Acrylic', 'Wooden'],
+      },
+      {
+        name: 'Length',
+        type: 'number',
+        label: 'Length (cm)',
+      },
+      {
+        name: 'Width',
+        type: 'number',
+        label: 'Width (cm)',
+      },
+      {
+        name: 'Quantity',
+        type: 'option',
+        value: [100, 200, 300, 400, 500],
+      },
     ],
   },
   {

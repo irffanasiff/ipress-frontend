@@ -218,15 +218,9 @@ const Signup = ({ close, reset }) => {
 
             <Button
               my="2rem"
-              width="fit-content"
-              mx="auto"
-              alignSelf={'center'}
+              w={['100%', '65%', '80%', '65%']}
               type="submit"
-              variant="custom-black"
-              _hover={{
-                color: 'ipress.500',
-                borderColor: 'ipress.500',
-              }}
+              variant={'ipress-black'}
             >
               Signup
             </Button>

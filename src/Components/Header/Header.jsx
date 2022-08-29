@@ -30,13 +30,14 @@ import {
   VStack,
   useOutsideClick,
   Image,
+  Avatar,
 } from '@chakra-ui/react';
 import { CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import { RiCustomerService2Line, RiUserLocationLine } from 'react-icons/ri';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { BsMinecart } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Cart, Login, ChangePassword, Signup } from '../../Screens';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -44,7 +45,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Actions/userAction';
 import { NAV_ITEMS } from './NavItems';
 
-export default function WithSubnavigation() {
+export default function WithSubnavigation({ product, category }) {
   const { isOpen, onToggle } = useDisclosure();
   const [drawerContent, setDrawerContent] = useState();
   const [searchInput, setSearchInput] = useState('');
@@ -265,16 +266,18 @@ export default function WithSubnavigation() {
                   <MenuButton
                     fontWeight={500}
                     m={'auto'}
-                    p={'5px 15px'}
-                    borderRadius={'8px'}
-                    border={`1px solid gray`}
                     fontSize={{ base: 'sm', md: 'md' }}
                   >
-                    {userDetails.user.name
-                      ? userDetails.user.name.split(' ')[0]
-                      : ''}
+                    <Avatar
+                      w={['20px', '36px']}
+                      h={['20px', '36px']}
+                      bg={'gray.300'}
+                      borderRadius="50%"
+                      textAlign={'left'}
+                      border={'2px solid rgba(0,0,0,0.7)'}
+                    />
                   </MenuButton>
-                  <MenuList>
+                  <MenuList zIndex={5}>
                     <Link to="/profile">
                       <MenuItem>Profile</MenuItem>
                     </Link>
@@ -358,7 +361,7 @@ export default function WithSubnavigation() {
           </Center>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
+          <MobileNav category={category} product={product} toggle={onToggle} />
         </Collapse>
       </Container>
       <Center
@@ -369,13 +372,13 @@ export default function WithSubnavigation() {
         px={10}
         py={4}
       >
-        <DesktopNav />
+        <DesktopNav category={category} product={product} />
       </Center>
     </Container>
   );
 }
 
-const DesktopNav = () => {
+const DesktopNav = ({ category, product }) => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
@@ -389,7 +392,7 @@ const DesktopNav = () => {
                 to={navItem.href ?? '#'}
                 fontSize={{ md: 'sm', lg: 'sm', xl: 'md' }}
                 fontWeight={500}
-                color={'black'}
+                color={category === navItem.label ? 'red' : 'black'}
                 textAlign={'center'}
                 _hover={{
                   textDecoration: 'none',
@@ -412,7 +415,11 @@ const DesktopNav = () => {
               >
                 <Stack>
                   {navItem.children.map(child => (
-                    <DesktopSubNav key={child.label} {...child} />
+                    <DesktopSubNav
+                      key={child.label}
+                      {...child}
+                      product={product}
+                    />
                   ))}
                 </Stack>
               </PopoverContent>
@@ -424,7 +431,7 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }) => {
+const DesktopSubNav = ({ label, href, subLabel, product }) => {
   return (
     <NavLink to={href}>
       <Box
@@ -434,7 +441,11 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
         rounded={'md'}
         _hover={{ bg: 'gray.50' }}
       >
-        <Stack direction={'row'} align={'center'}>
+        <Stack
+          direction={'row'}
+          align={'center'}
+          color={product === label ? 'red' : 'black'}
+        >
           <Box>
             <Text
               transition={'all .3s ease'}
@@ -463,19 +474,31 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   );
 };
 
-const MobileNav = () => {
+const MobileNav = ({ category, product, toggle }) => {
   return (
     <Stack bg={'white'} p={4} display={{ lg: 'none' }}>
       {NAV_ITEMS.map(navItem => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+        <MobileNavItem
+          key={navItem.label}
+          {...navItem}
+          product={product}
+          category={category}
+          toggle={toggle}
+        />
       ))}
     </Stack>
   );
 };
 
-const MobileNavItem = ({ label, children, href }) => {
+const MobileNavItem = ({
+  label,
+  children,
+  href,
+  product,
+  category,
+  toggle,
+}) => {
   const { isOpen, onToggle } = useDisclosure();
-
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
@@ -486,7 +509,11 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: 'none',
         }}
       >
-        <Text fontWeight={500} cursor={'pointer'}>
+        <Text
+          fontWeight={500}
+          cursor={'pointer'}
+          color={category === label ? 'red' : 'black'}
+        >
           {label}
         </Text>
         {children && (
@@ -511,9 +538,19 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map(child => (
-              <NavLink to={child.href} key={child.label} py={2}>
-                {child.label}
-              </NavLink>
+              <Text
+                color={product === child.label ? 'red' : 'black'}
+                onClick={toggle}
+              >
+                <NavLink
+                  to={child.href}
+                  key={child.label}
+                  py={2}
+                  color={'red !important'}
+                >
+                  {child.label}
+                </NavLink>
+              </Text>
             ))}
         </Stack>
       </Collapse>

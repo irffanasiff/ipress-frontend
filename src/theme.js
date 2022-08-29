@@ -67,6 +67,26 @@ const theme = extendTheme({
           textTransform: 'uppercase',
           p: '1.5rem',
         },
+        'ipress-black': {
+          textTransform: 'uppercase',
+          borderRadius: '30px',
+          fontWeight: 600,
+          fontSize: {
+            base: '11px',
+            sm: '12px',
+            md: '11px',
+            lg: '14px',
+          },
+          letterSpacing: '2px',
+          py: '25px',
+          bg: 'black',
+          color: 'white',
+          border: '1px solid black',
+          _hover: {
+            bg: 'white',
+            color: 'black',
+          },
+        },
       },
     },
     Input: {

@@ -173,14 +173,7 @@ const ChangePassword = ({ close }) => {
                 )}
               </FormControl>
               <Box my="2rem" width="fit-content" mx="auto" alignSelf={'center'}>
-                <Button
-                  type="submit"
-                  variant="custom-black"
-                  _hover={{
-                    color: 'ipress.500',
-                    borderColor: 'ipress.500',
-                  }}
-                >
+                <Button w={'220px'} type="submit" variant={'ipress-black'}>
                   Send Reset Link
                 </Button>
               </Box>
@@ -290,7 +283,7 @@ const ChangePassword = ({ close }) => {
               <Box my="2rem" width="fit-content" mx="auto" alignSelf={'center'}>
                 <Button
                   type="submit"
-                  variant="custom-black"
+                  variant="ipress-black"
                   _hover={{
                     color: 'ipress.500',
                     borderColor: 'ipress.500',

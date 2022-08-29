@@ -19,9 +19,15 @@ export const OrderInfo = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button variant={'custom-black'} onClick={onOpen}>
-        More
-      </Button>
+      <Text
+        onClick={onOpen}
+        color={'red'}
+        textDecor={'underline'}
+        cursor={'pointer'}
+      >
+        {' '}
+        More Info{' '}
+      </Text>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'}>
         <ModalOverlay />
         <ModalContent>
@@ -86,7 +92,12 @@ export const OrderInfo = ({ item }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant={'custom-black'} mr={3} onClick={onClose}>
+            <Button
+              variant={'ipress-black'}
+              mr={3}
+              onClick={onClose}
+              minW={'150px'}
+            >
               Close
             </Button>
           </ModalFooter>

@@ -36,6 +36,8 @@ export const newTheme = {
 };
 function App() {
   const [imgURL, setImgURL] = useState();
+  const [category, setCategory] = useState('');
+  const [product, setProduct] = useState('');
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
   const userDetails = useSelector(state => state.userDetails);
@@ -61,11 +63,21 @@ function App() {
     <ChakraProvider theme={newTheme}>
       <Fonts />
       <BrowserRouter>
-        {userInfo && userInfo.isAdmin ? '' : <Header />}
+        {userInfo && userInfo.isAdmin ? (
+          ''
+        ) : (
+          <Header category={category} product={product} />
+        )}
         <Routes>
           <Route
             path="/*"
-            element={userInfo && userInfo.isAdmin ? <AdminHome /> : <Home />}
+            element={
+              userInfo && userInfo.isAdmin ? (
+                <AdminHome />
+              ) : (
+                <Home setCategory={setCategory} setProduct={setProduct} />
+              )
+            }
           />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/variants" element={<Variants />} />
@@ -84,11 +96,19 @@ function App() {
           <Route path="/reset-password" element={<ChangePassword />} />
           <Route
             path="/product/:id"
-            element={<ProductDetails setUrl={setImgURL} />}
+            element={
+              <ProductDetails
+                setUrl={setImgURL}
+                setCategory={setCategory}
+                setProduct={setProduct}
+              />
+            }
           />
           <Route
             path="/category/:type"
-            element={<ProductCategory items={NAV_ITEMS} />}
+            element={
+              <ProductCategory items={NAV_ITEMS} setCategory={setCategory} />
+            }
           />
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Shipping />} />

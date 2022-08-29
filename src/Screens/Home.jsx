@@ -24,7 +24,7 @@ import HeroCard from '../Components/HOC/HeroCard.HOC';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
-const Home = () => {
+const Home = ({ setCategory, setProduct }) => {
   const targetElement = useRef();
   const targetElement2 = useRef();
   const handleScroll = e => {
@@ -40,11 +40,13 @@ const Home = () => {
     }
   };
   useEffect(() => {
+    setCategory('');
+    setProduct('');
     window.addEventListener('scroll', handleScroll);
     return function cleanupListener() {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [setCategory, setProduct]);
 
   return (
     <Container paddingInline={'0'} maxW={'8xl'}>
@@ -186,8 +188,8 @@ const Home = () => {
               position={'absolute'}
               bg="gray.500"
               bgImage={{
-                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
-                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/Pen_Mockup_rfflsu.jpg")',
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661727809/IPRESS/Mockups/STICKER_1_pefvxn.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/STICKER_1_pefvxn.jpg")',
               }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -246,7 +248,7 @@ const Home = () => {
               colSpan={5}
               bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_600/v1661114104/IPRESS/Mockups/Mug_five_oerswx.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_600/v1661727971/IPRESS/Mockups/BILLBOARD_4_hkyoxo.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -257,7 +259,7 @@ const Home = () => {
               colSpan={2}
               bg="gray.500"
               bgImage={
-                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_300/v1661113343/IPRESS/Mockups/Flex_banner_with_4_eyelets_mockup_bgxcvd.jpg")'
+                'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,h_300/v1661727892/IPRESS/Mockups/ROLL_UP_BANNER_ywrfzs.jpg")'
               }
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -279,8 +281,8 @@ const Home = () => {
               colSpan={5}
               bg="gray.500"
               bgImage={{
-                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")',
-                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661116261/IPRESS/Mockups/Window_Graphics_Mockup_New_tahxzr.jpg")',
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661727931/IPRESS/Mockups/BILLBOARD_5_hwzthh.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661727931/IPRESS/Mockups/BILLBOARD_5_hwzthh.jpg")',
               }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -291,8 +293,8 @@ const Home = () => {
               colSpan={5}
               bg="gray.500"
               bgImage={{
-                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")',
-                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661114324/IPRESS/Mockups/Notebook_Correction_ephzm4.jpg")',
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_500/v1661727911/IPRESS/Mockups/BILLBOARD_3_j6rxnp.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661727911/IPRESS/Mockups/BILLBOARD_3_j6rxnp.jpg")',
               }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -417,19 +419,19 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="Brochures"
-                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661115015/IPRESS/Mockups/Trifold_Brochure_Mockup_ut653a.jpg"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727672/IPRESS/Mockups/BROCHURE_2_pjyjew.jpg"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
                 title="Dummy Cheques"
-                img="https://img.pikbest.com/01/61/68/65SpIkbEsTywJ.jpg-0.jpg!bw700"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727873/IPRESS/Mockups/DUMMY_CHEQUE_1_copy_yh7ibp.jpg"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
                 title="Menus"
-                img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727685/IPRESS/Mockups/MENU_r8gquk.jpg"
               />
             </WrapItem>
             <WrapItem>
@@ -447,19 +449,19 @@ const Home = () => {
             <WrapItem>
               <HeroCard
                 title="Calenders"
-                img="https://img.pikbest.com/01/61/68/65SpIkbEsTywJ.jpg-0.jpg!bw700"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661728093/IPRESS/Mockups/CALENDAR_ro6wyf.jpg"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
                 title="Banners"
-                img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727892/IPRESS/Mockups/ROLL_UP_BANNER_ywrfzs.jpg"
               />
             </WrapItem>
             <WrapItem>
               <HeroCard
                 title="Stickers"
-                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661114640/IPRESS/Mockups/Plain_White_Stickers_Mockup_cqls7k.jpg"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727748/IPRESS/Mockups/STICKER_2_dqt3df.jpg"
               />
             </WrapItem>
           </Wrap>

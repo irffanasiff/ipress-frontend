@@ -7,9 +7,10 @@ import {
   Heading,
   Image,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 
-const ProductCategory = ({ items }) => {
+const ProductCategory = ({ items, setCategory }) => {
   let { type } = useParams();
   const products = items.filter(item => {
     return item.href === `/category/${type}`;
@@ -18,7 +19,7 @@ const ProductCategory = ({ items }) => {
     let url = image.split('q_auto');
     console.log(category);
     let transformation =
-      category === 'Large Formats' ? 'q_60,w_650,h_500' : 'q_auto,w_650,h_700';
+      category === 'Large Formats' ? 'q_60,w_650,h_500' : 'q_auto,w_900';
 
     return (
       <Box
@@ -79,6 +80,9 @@ const ProductCategory = ({ items }) => {
       </Box>
     );
   };
+  useEffect(() => {
+    setCategory(products.label);
+  }, [setCategory, products]);
   return (
     <Container maxW={'8xl'} p="0">
       <Center

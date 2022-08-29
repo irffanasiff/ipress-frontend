@@ -2,21 +2,15 @@ import {
   Button,
   FormControl,
   Heading,
-  HStack,
-  Image,
-  Text,
   VStack,
   Center,
   Stack,
   Input,
   FormErrorMessage,
   Flex,
-  RadioGroup,
-  Radio,
   Textarea,
   Select,
   FormLabel,
-  Box,
   Tabs,
   TabList,
   Tab,
@@ -28,13 +22,13 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { saveProducts } from '../Actions/productAction';
 import { useNavigate } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import Faq from '../Components/Sections/FAQ';
+import { useForm } from 'react-hook-form';
 import { NAV_ITEMS } from '../Components/Header/NavItems';
 import { InquiryForm } from '../Components/Product/InquiryForm';
 import { ProductCarousel } from '../Components/Product/ProductCarousel';
 import { ProductInformation } from '../Components/Product/ProductInformation';
 import { ProductStyles } from '../Components/Product/ProductStyles';
+import { useEffect } from 'react';
 
 /* const useNavigateParams = () => {
   const navigate = useNavigate();
@@ -54,6 +48,8 @@ const product = id => {
       ? item.children.forEach(child =>
           child.href === `/product/${id}` ? (product = child) : ''
         )
+      : item.href === `/product/${id}`
+      ? (product = item)
       : ''
   );
   return product;
@@ -72,7 +68,7 @@ const noInfo = [
   'Envelopes',
   'Awards',
 ];
-const ProductDetails = ({ setUrl }) => {
+const ProductDetails = ({ setUrl, setCategory, setProduct }) => {
   const { id } = useParams();
   const uploadImg = useRef();
   const [action, setAction] = useState();
@@ -85,7 +81,6 @@ const ProductDetails = ({ setUrl }) => {
     handleSubmit,
     register,
     formState: { errors },
-    control,
   } = useForm();
   /* const addToCartHandler = () => {
     navigate(`/cart/${id}`, `qty=${qty}`);
@@ -117,7 +112,14 @@ const ProductDetails = ({ setUrl }) => {
       dispatch(saveProducts(product));
     }
   };
-
+  useEffect(() => {
+    setProduct(productInfo.label);
+    NAV_ITEMS.forEach(item => {
+      if (item.children && item.children.includes(productInfo))
+        setCategory(item.label);
+      else if (item === productInfo) setCategory(item.label);
+    });
+  }, [productInfo, setProduct, setCategory]);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack
@@ -139,14 +141,15 @@ const ProductDetails = ({ setUrl }) => {
         >
           <Center flexDirection={'column'}>
             <Heading
-              fontSize={{ base: '2.8rem', sm: '3.5rem', md: '3rem' }}
+              fontSize={{ base: '2.5rem', sm: '3.2rem', md: '3rem' }}
+              color={'#00509E'}
               textAlign={'center'}
-              fontWeight={600}
+              fontWeight={500}
             >
               {productInfo.label}
             </Heading>
             <Heading
-              fontSize={{ base: 'md', md: 'lg', lg: '1.3rem' }}
+              fontSize={{ base: 'sm', md: '1rem' }}
               fontWeight={400}
               textAlign={'center'}
               mt={5}
@@ -260,25 +263,8 @@ const ProductDetails = ({ setUrl }) => {
             {productInfo.browse && (
               <Button
                 w={['100%', '65%', '80%', '65%']}
-                textTransform={'uppercase'}
                 type="submit"
-                borderRadius={'30px'}
-                fontWeight={600}
-                fontSize={{
-                  base: '11px',
-                  sm: '12px',
-                  md: '11px',
-                  lg: '14px',
-                }}
-                letterSpacing={'2px'}
-                py={'25px'}
-                bg="black"
-                color={'white'}
-                border={'1px solid black'}
-                _hover={{
-                  bg: 'white',
-                  color: 'black',
-                }}
+                variant={'ipress-black'}
                 onClick={() => setAction('browse')}
               >
                 Browse Our Design

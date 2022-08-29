@@ -45,50 +45,72 @@ const UserProfile = () => {
       p={{ base: '3rem 1.5rem', md: '4rem 2rem' }}
       maxW="8xl"
       mx="auto"
-      direction={{ base: 'column-reverse', lg: 'row' }}
       alignItems={'flex-start'}
       textAlign={'left'}
       justifyContent={'space-between'}
     >
-      <Heading fontWeight={'400'}>Profile</Heading>
-      <Flex direction={['column']} w={'full'}>
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        w={'full'}
+        gap={{ base: '15px', md: '50px' }}
+        justifyContent={{ lg: 'space-evenly' }}
+      >
         {user && user.name ? (
-          <VStack px={'5rem'} alignItems={'flex-start'}>
-            <Avatar
-              w={['100px', '120px', '150px', '180px']}
-              h={['100px', '120px', '150px', '180px']}
-              bg={'gray.300'}
-              borderRadius="50%"
-              textAlign={'left'}
-            />
-            <VStack alignItems={'flex-start'}>
-              <Text fontSize={'2xl'}>Name :</Text>
-              <Text>{user.name.toUpperCase()}</Text>
-            </VStack>
-            <VStack alignItems={'flex-start'}>
-              <Text fontSize={'2xl'}>Email :</Text>
-              <Text>{user.email}</Text>
-            </VStack>
-            <VStack alignItems={'flex-start'}>
-              <Text fontSize={'2xl'}>Address :</Text>
-              <Text>{`${address || ''}, ${city || ''}(${zipCode || ''}), ${
-                country || ''
-              }`}</Text>
-            </VStack>
+          <VStack
+            alignItems={{ base: 'flex-start' }}
+            gap={{ base: '15px', md: '30px' }}
+          >
+            <Heading fontWeight={'400'}>Profile</Heading>
 
+            <VStack
+              alignItems={'flex-start'}
+              alignSelf={{ base: 'center', sm: 'flex-start' }}
+            >
+              <Avatar
+                w={['100px', '120px', '150px', '180px']}
+                h={['100px', '120px', '150px', '180px']}
+                bg={'gray.300'}
+                borderRadius="50%"
+                textAlign={'left'}
+                mb={'2rem !important'}
+              />
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={{ base: '15px', md: '18px' }}>
+                  Name :{' '}
+                  <Text as={'span'} fontSize={{ base: '14px', md: '16px' }}>
+                    {user.name.toUpperCase()}
+                  </Text>
+                </Text>
+              </VStack>
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={{ base: '15px', md: '18px' }}>
+                  Email :{' '}
+                  <Text as={'span'} fontSize={{ base: '14px', md: '16px' }}>
+                    {user.email}
+                  </Text>
+                </Text>
+              </VStack>
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={{ base: '15px', md: '18px' }}>
+                  Address :{' '}
+                  <Text as={'span'} fontSize={{ base: '14px', md: '16px' }}>{`${
+                    address || ''
+                  }, ${city || ''}(${zipCode || ''}), ${country || ''}`}</Text>
+                </Text>
+              </VStack>
+            </VStack>
             <Flex
               direction={['column', 'row']}
               gap={[2, 4]}
               align={['center']}
-              marginTop={'2rem !important'}
+              alignSelf={{ base: 'center', sm: 'flex-start' }}
             >
               <EditProfile />
               <Button
-                size="sm"
                 w={'full'}
                 onClick={logoutHandler}
-                variant={'custom-black'}
-                fontSize={['10px', '13px', '15px']}
+                variant={'ipress-black'}
+                py={{ base: 2, md: '25px' }}
               >
                 Logout
               </Button>
@@ -97,6 +119,9 @@ const UserProfile = () => {
         ) : error ? (
           <Heading>{error}</Heading>
         ) : (
+          ''
+        )}
+        {ordersLoading ? (
           <Spinner
             thickness="4px"
             speed="0.65s"
@@ -104,87 +129,97 @@ const UserProfile = () => {
             color="blue.500"
             size="xl"
           />
-        )}
-        <VStack>
-          {ordersLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
-            />
-          ) : products ? (
-            <VStack align={'flex-start'} alignSelf={'stretch'}>
-              {products.map((item, key) => {
-                const { address, city, zipCode, country } =
-                  item.shippingAddress;
-                return (
-                  <HStack
-                    w={'full'}
-                    p="1rem"
-                    gap={[3, 4, 5, 6]}
-                    justifyContent={'space-evenly'}
-                    key={key}
+        ) : products ? (
+          <VStack
+            align={'flex-start'}
+            alignSelf={'stretch'}
+            flex={1}
+            gap={{ md: 10 }}
+          >
+            <Heading
+              fontWeight={'400'}
+              my={{ base: '2rem !important', md: '0rem !important' }}
+            >
+              Order List
+            </Heading>
+            {products.map((item, key) => {
+              const { address, city, zipCode, country } = item.shippingAddress;
+              return (
+                <HStack
+                  w={'full'}
+                  p="1rem"
+                  gap={[8, 4, 5, 6]}
+                  flexDirection={{
+                    base: 'column',
+                    sm: 'row',
+                    md: 'column',
+                    lg: 'row',
+                  }}
+                  justifyContent={'space-evenly'}
+                  key={key}
+                  borderBottom={'1px solid rgba(0,0,0,0.5)'}
+                  borderLeft={'1px solid rgba(0,0,0,0.5)'}
+                  fontSize={{ base: '14px', md: '16px' }}
+                  textAlign={'right'}
+                >
+                  <VStack>
+                    <Box width="100px" height="100px">
+                      <Image
+                        rounded="lg"
+                        height="full"
+                        fit="cover"
+                        draggable="false"
+                        loading="lazy"
+                        src={item.orderItems[0].product.design.image}
+                      />
+                    </Box>
+                    <Text textAlign={'center'}>
+                      Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
+                    </Text>
+                  </VStack>
+                  <VStack
+                    alignItems={'flex-start'}
+                    gap={1}
+                    alignSelf={['center', 'flex-start', 'center', 'flex-start']}
                   >
-                    <VStack>
-                      <Box width="100px" height="100px">
-                        <Image
-                          rounded="lg"
-                          height="full"
-                          fit="cover"
-                          draggable="false"
-                          loading="lazy"
-                          src={item.orderItems[0].product.design.image}
-                        />
-                      </Box>
-                      <Text>
-                        Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
-                      </Text>
-                    </VStack>
-                    <VStack
-                      alignItems={'flex-start'}
-                      gap={1}
-                      alignSelf={'flex-start'}
+                    <HStack
+                      w={'full'}
+                      justifyContent="space-between"
+                      fontSize={['14px', '16px', '18px']}
                     >
-                      <Text
-                        fontSize={['14px', '16px', '20px', '22px']}
-                        fontWeight={'bold'}
-                      >
-                        {item._id}
-                      </Text>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Date: </Text>{' '}
-                        <Text> {item.paidAt.split('T')[0]}</Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Address: </Text>{' '}
-                        <Text>
-                          {' '}
-                          {`${address}, ${city}(${zipCode}), ${country}`}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Delivered: </Text>{' '}
-                        <Text>
-                          {' '}
-                          {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Order Total: </Text>{' '}
-                        <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
-                      </HStack>
-                    </VStack>
+                      <Text>Id: </Text> <Text> {item._id}</Text>{' '}
+                    </HStack>
+                    <HStack w={'full'} justifyContent="space-between">
+                      <Text>Date: </Text>{' '}
+                      <Text> {item.paidAt.split('T')[0]}</Text>{' '}
+                    </HStack>
+                    <HStack w={'full'} justifyContent="space-between">
+                      <Text>Address: </Text>{' '}
+                      <Text>
+                        {' '}
+                        {`${address}, ${city}(${zipCode}), ${country}`}
+                      </Text>{' '}
+                    </HStack>
+                    <HStack w={'full'} justifyContent="space-between">
+                      <Text>Delivered: </Text>{' '}
+                      <Text>
+                        {' '}
+                        {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
+                      </Text>{' '}
+                    </HStack>
+                    <HStack w={'full'} justifyContent="space-between">
+                      <Text>Order Total: </Text>{' '}
+                      <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
+                    </HStack>
                     <OrderInfo item={item} />
-                  </HStack>
-                );
-              })}
-            </VStack>
-          ) : (
-            <Heading>Loading...</Heading>
-          )}
-        </VStack>
+                  </VStack>
+                </HStack>
+              );
+            })}
+          </VStack>
+        ) : (
+          <Heading>Loading...</Heading>
+        )}
       </Flex>
     </VStack>
   );

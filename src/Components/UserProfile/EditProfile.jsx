@@ -56,10 +56,9 @@ export const EditProfile = () => {
     <>
       <Button
         onClick={onOpen}
-        size="sm"
-        w={'full'}
-        variant={'custom-black'}
-        fontSize={['10px', '13px', '15px']}
+        minW={'150px'}
+        variant={'ipress-black'}
+        py={{ base: 2, md: '25px' }}
       >
         Edit Profile
       </Button>
@@ -73,7 +72,8 @@ export const EditProfile = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={errors.name}>
                 <Input
-                  fontSize="xl"
+                  fontSize={{ base: '14px', md: '16px' }}
+                  rounded={false}
                   variant="custom"
                   borderBottom={'1px solid gray'}
                   type={'text'}
@@ -90,7 +90,8 @@ export const EditProfile = () => {
               </FormControl>
               <FormControl isInvalid={errors.email}>
                 <Input
-                  fontSize="xl"
+                  fontSize={{ base: '14px', md: '16px' }}
+                  rounded={false}
                   variant="custom"
                   borderBottom={'1px solid gray'}
                   type={'text'}
@@ -124,7 +125,8 @@ export const EditProfile = () => {
                 >
                   <InputGroup>
                     <Input
-                      fontSize="xl"
+                      fontSize={{ base: '14px', md: '16px' }}
+                      rounded={false}
                       variant="custom"
                       borderBottom={'1px solid gray'}
                       px="0.5rem"
@@ -153,14 +155,15 @@ export const EditProfile = () => {
           </ModalBody>
           <ModalFooter>
             <Button
-              variant={'custom-black'}
+              variant={'ipress-black'}
+              minW={'100px'}
               mr={3}
               type={'submit'}
               onClick={handleSubmit(onSubmit)}
             >
               Save
             </Button>
-            <Button variant={'custom-black'} onClick={onClose}>
+            <Button variant={'ipress-black'} onClick={onClose}>
               Cancel
             </Button>
           </ModalFooter>
