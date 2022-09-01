@@ -5,27 +5,27 @@ import {
   Heading,
   HStack,
   Image,
+  Select,
   Spinner,
   Tag,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   addToCart,
+  changeQuantity,
   listCartItems,
   removeFromCart,
 } from '../Actions/cartAction';
 
 const Cart = () => {
-  const { search } = useLocation();
-  const qty = search ? Number(search.split('=')[1]) : 1;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [quantity, setQuantity] = useState([]);
   const cart = useSelector(state => state.cart);
   const { product } = useSelector(state => state.productSaved);
   const { cartItems, loading } = cart;
@@ -36,7 +36,7 @@ const Cart = () => {
     } else if (!cartItems && !loading) {
       dispatch(listCartItems());
     }
-  }, [dispatch, product, cartItems, loading]);
+  }, [dispatch, product, cartItems, loading, quantity]);
 
   const removeFromCartHandler = id => {
     dispatch(removeFromCart(id));
@@ -74,6 +74,9 @@ const Cart = () => {
                 gap={[3, 4, 5, 6]}
                 justifyContent={'space-evenly'}
                 key={key}
+                borderBottom={
+                  cartItems.length !== key + 1 ? '1px solid lightgray' : 'none'
+                }
               >
                 <VStack>
                   <Box width="100px" height="100px">
@@ -86,10 +89,6 @@ const Cart = () => {
                       src={item.design.image}
                     />
                   </Box>
-                  <Text>
-                    {item.fields[0].size.split('_')[0]} x{' '}
-                    {item.fields[0].size.split('_')[1]}
-                  </Text>
                 </VStack>
                 <VStack
                   alignItems={'flex-start'}
@@ -102,31 +101,51 @@ const Cart = () => {
                   >
                     {item.name}
                   </Text>
-                  {/* <FormControl w="6rem" as="span" value={qty}>
-                  <Select
-                    placeholder={item.fields ? item.fields.quantity : ''}
-                    onChange={e => console.log(e.target)}
-                  >
-                    {[...Array(item.countInStock).keys()].map(index => (
-                      <option key={index} value={index + 2}>
-                        {index + 2}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl> */}
                   <HStack
                     minW={['150px', '200px']}
                     justifyContent="space-between"
                   >
-                    <Text>Quantity: </Text>{' '}
-                    <Text> {item.fields[0].quantity}</Text>{' '}
+                    <Text>Quantity: </Text>
+                    <Select
+                      alignSelf={'center'}
+                      h={['2.3rem', '2.6rem', '2.3rem', '2.8rem']}
+                      fontSize={{ base: 'sm', sm: 'md' }}
+                      borderRadius={'30px'}
+                      cursor={'pointer'}
+                      _focus={{
+                        outline: 'none',
+                      }}
+                      onChange={e => {
+                        dispatch(changeQuantity(e.target.value, key));
+                      }}
+                      value={item.fields.Quantity || 20}
+                      placeholder={'quantity'}
+                    >
+                      {(() => {
+                        var indents = [];
+                        if (!item.fields.Quantity) {
+                          dispatch(changeQuantity(20, key));
+                        }
+                        for (var i = 20; i <= 500; i = i + 20) {
+                          indents.push(
+                            <option value={i} key={i}>
+                              {i}
+                            </option>
+                          );
+                        }
+                        return indents;
+                      })()}
+                    </Select>
                   </HStack>
                   <HStack
                     minW={['150px', '200px']}
                     justifyContent="space-between"
                   >
                     <Text>Item Total: </Text>{' '}
-                    <Text fontWeight={'bold'}> ${item.price}</Text>{' '}
+                    <Text fontWeight={'bold'}>
+                      {' '}
+                      ${item.price * (item.fields.Quantity || 20)}
+                    </Text>{' '}
                   </HStack>
                 </VStack>
                 <Button
@@ -159,7 +178,8 @@ const Cart = () => {
               {!cartItems
                 ? ''
                 : cartItems.reduce(
-                    (acc, item) => acc + item.fields[0].quantity * item.price,
+                    (acc, item, index) =>
+                      acc + (item.fields.Quantity || 20) * item.price,
                     0
                   )}
             </Tag>

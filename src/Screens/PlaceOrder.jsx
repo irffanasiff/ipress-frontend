@@ -2,10 +2,12 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Divider,
   Flex,
   Heading,
   HStack,
   Image,
+  Select,
   Spinner,
   Stack,
   Text,
@@ -18,11 +20,14 @@ import { useEffect } from 'react';
 import { CheckoutSteps } from '../Components/Checkout/CheckoutSteps';
 import { OrderSummary } from '../Components/Checkout/OrderSummary';
 import { orderProducts } from '../Actions/productAction';
+import { changeQuantity } from '../Actions/cartAction';
+import { useState } from 'react';
 //import { createOrder } from '../Actions/orderAction';
 
 export const PlaceOrder = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [ordering, setOrdering] = useState(false);
   const cart = useSelector(state => state.cart);
   const { userInfo } = useSelector(state => state.userLogin);
   const { address, city, zipCode, country } = cart.shippingAddress;
@@ -43,7 +48,7 @@ export const PlaceOrder = () => {
   cart.itemsPrice = addDecimals(
     cartItems
       ? cart.cartItems.reduce(
-          (acc, item) => acc + item.price * item.fields[0].quantity,
+          (acc, item) => acc + item.price * item.fields.Quantity,
           0
         )
       : 0
@@ -83,14 +88,15 @@ export const PlaceOrder = () => {
         email_address: payer.email_address,
       };
     }
-    dispatch(orderProducts(order));
+    dispatch(orderProducts(order, cartItems));
+    setOrdering(true);
   };
 
   useEffect(() => {
-    if (order && order.success) {
-      navigate(`/`);
+    if (ordering && order.success) {
+      navigate(`/profile`);
     }
-  }, [navigate, order]);
+  }, [navigate, order, ordering]);
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -99,14 +105,19 @@ export const PlaceOrder = () => {
         mx="auto"
         px={{ base: '4', md: '8', lg: '12' }}
         py={{ base: '6', md: '8', lg: '12' }}
+        fontSize={['14px', '16px']}
       >
         <Stack
           direction={{ base: 'column', lg: 'row' }}
           align={{ lg: 'flex-start' }}
           spacing={{ base: '8', md: '16' }}
         >
-          <Stack spacing={{ base: '8', md: '10' }} flex="2">
-            <Heading fontSize="2xl" fontWeight="bold">
+          <Stack spacing={{ base: '8', md: '10' }} flex={2}>
+            <Heading
+              fontSize={{ base: '3xl', md: '4xl' }}
+              fontWeight="bold"
+              color={'#00509E'}
+            >
               SHOPPING CART
             </Heading>
             <Stack spacing="2" borderBottom={'1px solid gray'} pb={5}>
@@ -115,11 +126,10 @@ export const PlaceOrder = () => {
                 fontWeight="bold"
                 color={mode('gray.700', 'white')}
               >
-                SHIPPING
+                SHIPPING ADDRESS
               </Heading>
               <Text
                 color={mode('gray.500', 'gray.400')}
-                fontSize="16px"
               >{`${address}, ${city}(${zipCode}), ${country}`}</Text>
             </Stack>
             <Stack spacing="2" borderBottom={'1px solid gray'} pb={5}>
@@ -130,14 +140,15 @@ export const PlaceOrder = () => {
               >
                 PAYMENT METHOD
               </Heading>
-              <Text color={mode('gray.500', 'gray.400')} fontSize="16px">
+              <Text color={mode('gray.500', 'gray.400')}>
                 Payment Method : {cart.paymentMethod}
               </Text>
             </Stack>
-            <Stack spacing="6">
-              <Heading fontSize="xl" fontWeight="bold">
+            <VStack alignItems={'flex-start'} my={'100px !important'}>
+              <Heading fontSize={{ base: '2rem', md: '3xl' }} fontWeight="bold">
                 ITEMS
               </Heading>
+              <Divider borderColor={'black'} mb={'20px !important'} />
               {!cartItems ? (
                 loading ? (
                   <Spinner
@@ -153,48 +164,115 @@ export const PlaceOrder = () => {
               ) : cartItems.length !== 0 ? (
                 cartItems.map((item, key) => (
                   <HStack
-                    p="1rem"
-                    justify={'space-between'}
-                    gap={3}
-                    maxW={'500px'}
-                    alignSelf={'stretch'}
+                    w={'full'}
+                    py={7}
+                    gap={7}
+                    justifyContent={'flex-start'}
+                    flexDir={{ base: 'column', sm: 'row' }}
+                    key={key}
+                    borderBottom={
+                      cartItems.length !== key + 1
+                        ? '1px solid lightgray'
+                        : 'none'
+                    }
                   >
-                    <VStack>
+                    <Box
+                      width={{ base: '120px', md: '200px' }}
+                      height={{ base: '120px', md: '150px' }}
+                      border={'1px solid black'}
+                      borderColor={'gray.400'}
+                      borderRadius={'8px'}
+                    >
                       <Image
                         rounded="lg"
-                        width="120px"
-                        height="120px"
+                        height="full"
                         fit="cover"
                         draggable="false"
                         loading="lazy"
                         src={item.design.image}
                       />
-                      <Text>
-                        {item.fields[0].size.split('_')[0]} x{' '}
-                        {item.fields[0].size.split('_')[1]}
+                    </Box>
+                    <VStack
+                      alignItems={{ base: 'center', sm: 'flex-start' }}
+                      gap={1}
+                      w={'full'}
+                      alignSelf={'flex-start'}
+                    >
+                      <Text
+                        fontSize={{ base: 'xl', md: '2xl' }}
+                        fontWeight={'bold'}
+                      >
+                        {item.name}
                       </Text>
+                      <HStack
+                        fontSize={['14px', '16px', '17px']}
+                        w={'full'}
+                        maxW={'500px'}
+                        justifyContent={'space-between'}
+                      >
+                        <VStack
+                          justifyContent={'flex-start'}
+                          alignItems={'flex-start'}
+                        >
+                          <Text>Quantity: </Text>
+                          <Select
+                            w={'100px'}
+                            h={['2rem', '2.3rem']}
+                            fontSize={{ base: 'sm', sm: 'md' }}
+                            borderRadius={'30px'}
+                            cursor={'pointer'}
+                            _focus={{
+                              outline: 'none',
+                            }}
+                            onChange={e => {
+                              dispatch(changeQuantity(e.target.value, key));
+                            }}
+                            value={item.fields.Quantity || 20}
+                            placeholder={'quantity'}
+                          >
+                            {(() => {
+                              var indents = [];
+                              if (!item.fields.Quantity) {
+                                dispatch(changeQuantity(20, key));
+                              }
+                              for (var i = 20; i <= 500; i = i + 20) {
+                                indents.push(
+                                  <option value={i} key={i}>
+                                    {i}
+                                  </option>
+                                );
+                              }
+                              return indents;
+                            })()}
+                          </Select>
+                        </VStack>
+                        <VStack
+                          alignSelf={'stretch'}
+                          justifyContent={'space-evenly'}
+                          alignItems={'flex-start'}
+                        >
+                          <Text>Item Price: </Text>{' '}
+                          <Text fontWeight={'bold'}> ${item.price}</Text>{' '}
+                        </VStack>
+                        <VStack
+                          alignSelf={'stretch'}
+                          justifyContent={'space-evenly'}
+                          alignItems={'flex-start'}
+                        >
+                          <Text>Total Item Price: </Text>{' '}
+                          <Text fontWeight={'bold'}>
+                            {' '}
+                            ${item.price * (item.fields.Quantity || 20)}
+                          </Text>{' '}
+                        </VStack>
+                      </HStack>
                     </VStack>
-                    <Text>{item.name}</Text>
-                    {/* <FormControl w="6rem" as="span" value={qty}>
-                  <Select
-                    placeholder={item.fields ? item.fields.quantity : ''}
-                    onChange={e => console.log(e.target)}
-                  >
-                    {[...Array(item.countInStock).keys()].map(index => (
-                      <option key={index} value={index + 2}>
-                        {index + 2}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl> */}
-                    <Text>Quantity: {item.fields[0].quantity}</Text>
-                    <Text>Price: ${item.price}</Text>
                   </HStack>
                 ))
               ) : (
                 <Heading fontWeight={'400'}>EMPTY CART</Heading>
               )}
-            </Stack>
+            </VStack>
           </Stack>
 
           <Flex direction="column" align="center" flex="1">

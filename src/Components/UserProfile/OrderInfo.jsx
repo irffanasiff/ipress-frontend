@@ -44,7 +44,7 @@ export const OrderInfo = ({ item }) => {
                   key={key}
                 >
                   <VStack>
-                    <Box width="100px" height="100px">
+                    <Box width="100px" height="100px" border={'1px solid gray'}>
                       <Image
                         rounded="lg"
                         height="full"
@@ -54,10 +54,6 @@ export const OrderInfo = ({ item }) => {
                         src={product.design.image}
                       />
                     </Box>
-                    <Text>
-                      {product.fields[0].size.split('_')[0]} x{' '}
-                      {product.fields[0].size.split('_')[1]}
-                    </Text>
                   </VStack>
                   <VStack
                     alignItems={'flex-start'}
@@ -75,8 +71,7 @@ export const OrderInfo = ({ item }) => {
                       minW={['150px', '200px']}
                       justifyContent="space-between"
                     >
-                      <Text>Quantity: </Text>{' '}
-                      <Text> {product.fields[0].quantity}</Text>{' '}
+                      <Text>Quantity: </Text> <Text> 100</Text>{' '}
                     </HStack>
                     <HStack
                       minW={['150px', '200px']}

@@ -7,6 +7,7 @@ import {
   CART_LIST_REQUEST,
   CART_LIST_SUCCESS,
   CART_LIST_FAIL,
+  CART_CHANGE_QUANTITY,
 } from '../Constants/cartConstants.js';
 import {
   PRODUCT_CREATE_FAIL,
@@ -131,4 +132,13 @@ export const savePaymentMethod = data => dispatch => {
   });
 
   localStorage.setItem('paymentMethod', JSON.stringify(data));
+};
+
+export const changeQuantity = (qty, index) => async (dispatch, getState) => {
+  let items = getState().cart.cartItems;
+  items[index].fields.Quantity = qty;
+  dispatch({
+    type: CART_CHANGE_QUANTITY,
+    payload: items,
+  });
 };

@@ -54,18 +54,24 @@ export const Shipping = () => {
   return (
     <>
       <CheckoutSteps step1 step2 />
-      <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
-        <Heading size="2xl">SHIPPING ADDRESS</Heading>
+      <VStack w="full" minH="600px" p={10} spacing={10} alignItems="center">
+        <Heading
+          textAlign={'center'}
+          fontSize={{ base: '2rem', sm: '2.3rem', md: '2.6rem' }}
+        >
+          SHIPPING ADDRESS
+        </Heading>
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ alignSelf: 'center', margin: '15px 0px' }}
         >
           <SimpleGrid
-            columns={1}
+            columns={{ base: 1, md: 2 }}
             columnGap={3}
-            rowGap={6}
-            w={'50%'}
+            rowGap={'30px'}
+            w={'100%'}
             minW={'300px'}
+            my={'30px'}
           >
             <GridItem colSpan={1}>
               <FormControl>
@@ -122,13 +128,11 @@ export const Shipping = () => {
                 />
               </FormControl>
             </GridItem>
-            <GridItem colSpan={1}>
+            <GridItem colSpan={{ base: 1, md: 2 }}>
               <Button
                 w="full"
                 type="submit"
-                bg={'gray.600'}
-                color={'white'}
-                _hover={{ bg: 'gray.700' }}
+                variant={'ipress-black'}
                 onClick={checkError}
               >
                 Continue

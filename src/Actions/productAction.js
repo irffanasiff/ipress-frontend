@@ -46,47 +46,48 @@ export const saveProducts = data => async dispatch => {
   localStorage.setItem('SAVED_PRODUCT', JSON.stringify(data));
 };
 
-export const orderProducts = order => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: ORDER_CREATE_REQUEST,
-    });
-    const {
-      userLogin: { userInfo },
-    } = getState();
+export const orderProducts =
+  (order, cartItems) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ORDER_CREATE_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.post(
-      'https://ipress-server.herokuapp.com/api/orders',
-      { ...order },
-      config
-    );
-    console.log(data);
-    // on success clear cart product
+      const { data } = await axios.post(
+        'https://ipress-server.herokuapp.com/api/orders',
+        { order, cartItems },
+        config
+      );
+      // on success clear cart product
 
-    dispatch({
-      type: ORDER_CREATE_SUCCESS,
-    });
-    dispatch({
-      type: CART_CLEAR_ITEMS,
-    });
-    localStorage.removeItem('cartItems');
-  } catch (error) {
-    dispatch({
-      type: ORDER_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: ORDER_CREATE_SUCCESS,
+      });
+      dispatch(listProducts());
+      dispatch({
+        type: CART_CLEAR_ITEMS,
+      });
+      localStorage.removeItem('cartItems');
+    } catch (error) {
+      dispatch({
+        type: ORDER_CREATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 // get all orders from a user
 export const listProducts = data => async (dispatch, getState) => {
@@ -109,7 +110,6 @@ export const listProducts = data => async (dispatch, getState) => {
       'https://ipress-server.herokuapp.com/api/orders',
       config
     );
-    console.log(data);
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,

@@ -1,5 +1,6 @@
 import {
   CART_ADD_ITEM,
+  CART_CHANGE_QUANTITY,
   CART_CLEAR,
   CART_CLEAR_ITEMS,
   CART_LIST_FAIL,
@@ -52,6 +53,8 @@ export const cartReducer = (
       return { ...state, error: action.payload, loading: false };
     case CART_CLEAR_ITEMS:
       return { ...state, cartItems: [] };
+    case CART_CHANGE_QUANTITY:
+      return { ...state, cartItems: action.payload };
     default:
       return state;
   }

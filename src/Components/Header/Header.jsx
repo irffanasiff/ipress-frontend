@@ -274,7 +274,6 @@ export default function WithSubnavigation({ product, category }) {
                       bg={'gray.300'}
                       borderRadius="50%"
                       textAlign={'left'}
-                      border={'2px solid rgba(0,0,0,0.7)'}
                     />
                   </MenuButton>
                   <MenuList zIndex={5}>
@@ -348,6 +347,7 @@ export default function WithSubnavigation({ product, category }) {
               _hover={{
                 textDecoration: 'underline',
               }}
+              color={'white'}
             >
               <Icon
                 as={BsMinecart}
@@ -392,7 +392,12 @@ const DesktopNav = ({ category, product }) => {
                 to={navItem.href ?? '#'}
                 fontSize={{ md: 'sm', lg: 'sm', xl: 'md' }}
                 fontWeight={500}
-                color={category === navItem.label ? 'red' : 'black'}
+                color={
+                  `/category/${category}` === navItem.href ||
+                  category === navItem.label
+                    ? 'red'
+                    : 'black'
+                }
                 textAlign={'center'}
                 _hover={{
                   textDecoration: 'none',
@@ -537,8 +542,9 @@ const MobileNavItem = ({
           align={'start'}
         >
           {children &&
-            children.map(child => (
+            children.map((child, index) => (
               <Text
+                key={index}
                 color={product === child.label ? 'red' : 'black'}
                 onClick={toggle}
               >

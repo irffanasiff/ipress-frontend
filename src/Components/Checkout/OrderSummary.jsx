@@ -105,7 +105,7 @@ export const OrderSummary = ({
         <Button
           bg={'gray.600'}
           color={'white'}
-          _hover={{ bg: 'gray.700' }}
+          _hover={{ bg: 'gray.900' }}
           size="lg"
           fontSize="md"
           rightIcon={<FaArrowRight />}

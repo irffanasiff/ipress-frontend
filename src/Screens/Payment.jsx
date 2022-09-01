@@ -9,6 +9,7 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  Text,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -34,48 +35,46 @@ export const Payment = () => {
   return (
     <>
       <CheckoutSteps step1 step2 step3 />
-      <VStack w="full" h="full" p={10} spacing={10} alignItems="center">
-        <Heading size="2xl">Payment Method</Heading>
+      <VStack w="full" minH="600px" p={10} gap={'30px'} alignItems="center">
+        <Heading
+          fontSize={{ base: '2rem', sm: '2.3rem', md: '2.6rem' }}
+          textAlign={'center'}
+        >
+          Payment Method
+        </Heading>
         <form
           onSubmit={onSubmit}
           style={{ alignSelf: 'center', margin: '15px 0' }}
         >
-          <SimpleGrid
-            columns={1}
-            columnGap={3}
-            rowGap={6}
-            w={'50%'}
-            minW={'300px'}
-          >
-            <GridItem colSpan={1}>
-              <FormControl>
-                <FormLabel>Payment method</FormLabel>
-                <RadioGroup
-                  defaultValue={'PayPal'}
-                  onChange={setValue}
-                  value={value}
-                >
-                  <Stack direction="row">
-                    <Radio value="PayPal">PayPal</Radio>
-                    <Radio value="Stripe">Stripe</Radio>
-                    <Radio value="COD">Cash on Delivery</Radio>
-                  </Stack>
-                </RadioGroup>
-              </FormControl>
-            </GridItem>
-
-            <GridItem colSpan={1}>
-              <Button
-                w="full"
-                type="submit"
-                bg={'gray.600'}
-                color={'white'}
-                _hover={{ bg: 'gray.700' }}
+          <FormControl minW={{ base: '300px', md: '400px' }}>
+            <RadioGroup
+              defaultValue={'PayPal'}
+              onChange={setValue}
+              value={value}
+            >
+              <Stack
+                direction="row"
+                justifyContent={'space-between'}
+                w={'full'}
               >
-                Continue
-              </Button>
-            </GridItem>
-          </SimpleGrid>
+                <Radio size={'md'} value="PayPal">
+                  <Text fontSize={{ base: '14px', md: '17px' }}>PayPal</Text>
+                </Radio>
+                <Radio size="md" value="Stripe">
+                  <Text fontSize={{ base: '14px', md: '17px' }}>Stripe</Text>
+                </Radio>
+                <Radio size="md" value="COD">
+                  <Text fontSize={{ base: '14px', md: '17px' }}>
+                    Cash on Delivery
+                  </Text>
+                </Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          <Button w="full" type="submit" variant={'ipress-black'} my={'30px'}>
+            Continue
+          </Button>
         </form>
       </VStack>
     </>

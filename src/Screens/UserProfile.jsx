@@ -52,7 +52,7 @@ const UserProfile = () => {
       <Flex
         direction={{ base: 'column', md: 'row' }}
         w={'full'}
-        gap={{ base: '15px', md: '50px' }}
+        gap={{ base: '15px', md: '30px', lg: '50px' }}
         justifyContent={{ lg: 'space-evenly' }}
       >
         {user && user.name ? (
@@ -60,11 +60,13 @@ const UserProfile = () => {
             alignItems={{ base: 'flex-start' }}
             gap={{ base: '15px', md: '30px' }}
           >
-            <Heading fontWeight={'400'}>Profile</Heading>
+            <Heading fontWeight={'600'}>Profile</Heading>
 
             <VStack
               alignItems={'flex-start'}
               alignSelf={{ base: 'center', sm: 'flex-start' }}
+              boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
+              p={'2rem'}
             >
               <Avatar
                 w={['100px', '120px', '150px', '180px']}
@@ -98,23 +100,24 @@ const UserProfile = () => {
                   }, ${city || ''}(${zipCode || ''}), ${country || ''}`}</Text>
                 </Text>
               </VStack>
-            </VStack>
-            <Flex
-              direction={['column', 'row']}
-              gap={[2, 4]}
-              align={['center']}
-              alignSelf={{ base: 'center', sm: 'flex-start' }}
-            >
-              <EditProfile />
-              <Button
-                w={'full'}
-                onClick={logoutHandler}
-                variant={'ipress-black'}
-                py={{ base: 2, md: '25px' }}
+              <Flex
+                mt={'2rem !important'}
+                direction={['column', 'row']}
+                gap={[2, 4]}
+                align={['center']}
+                alignSelf={{ base: 'center', sm: 'flex-start' }}
               >
-                Logout
-              </Button>
-            </Flex>
+                <EditProfile />
+                <Button
+                  w={'full'}
+                  onClick={logoutHandler}
+                  variant={'ipress-black'}
+                  py={{ base: 2, md: '25px' }}
+                >
+                  Logout
+                </Button>
+              </Flex>
+            </VStack>
           </VStack>
         ) : error ? (
           <Heading>{error}</Heading>
@@ -134,88 +137,120 @@ const UserProfile = () => {
             align={'flex-start'}
             alignSelf={'stretch'}
             flex={1}
-            gap={{ md: 10 }}
+            gap={{ base: '15px', md: '30px' }}
           >
             <Heading
-              fontWeight={'400'}
+              fontWeight={'600'}
               my={{ base: '2rem !important', md: '0rem !important' }}
             >
               Order List
             </Heading>
-            {products.map((item, key) => {
-              const { address, city, zipCode, country } = item.shippingAddress;
-              return (
-                <HStack
-                  w={'full'}
-                  p="1rem"
-                  gap={[8, 4, 5, 6]}
-                  flexDirection={{
-                    base: 'column',
-                    sm: 'row',
-                    md: 'column',
-                    lg: 'row',
-                  }}
-                  justifyContent={'space-evenly'}
-                  key={key}
-                  borderBottom={'1px solid rgba(0,0,0,0.5)'}
-                  borderLeft={'1px solid rgba(0,0,0,0.5)'}
-                  fontSize={{ base: '14px', md: '16px' }}
-                  textAlign={'right'}
-                >
-                  <VStack>
-                    <Box width="100px" height="100px">
-                      <Image
-                        rounded="lg"
-                        height="full"
-                        fit="cover"
-                        draggable="false"
-                        loading="lazy"
-                        src={item.orderItems[0].product.design.image}
-                      />
-                    </Box>
-                    <Text textAlign={'center'}>
-                      Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
-                    </Text>
-                  </VStack>
-                  <VStack
-                    alignItems={'flex-start'}
-                    gap={1}
-                    alignSelf={['center', 'flex-start', 'center', 'flex-start']}
+            <VStack
+              w={{ base: 'full', lg: '90%' }}
+              p="1.5rem"
+              boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
+            >
+              {products.map((item, key) => {
+                const { address, city, zipCode, country } =
+                  item.shippingAddress;
+                return (
+                  <HStack
+                    w={'full'}
+                    p={{ base: '1.5rem 0', xl: '1.5rem' }}
+                    gap={[8, 4, 4, 8]}
+                    flexDirection={{
+                      base: 'column',
+                      sm: 'row',
+                      md: 'column',
+                      lg: 'row',
+                    }}
+                    justifyContent={'flex-start'}
+                    key={key}
+                    fontSize={[{ base: '14px', md: '16px' }]}
+                    textAlign={'right'}
+                    borderBottom={
+                      products.length === key + 1 ? 'none' : '1px solid gray'
+                    }
                   >
-                    <HStack
-                      w={'full'}
-                      justifyContent="space-between"
-                      fontSize={['14px', '16px', '18px']}
+                    <VStack>
+                      <Box
+                        width="135px"
+                        height="150px"
+                        border={'1px solid gray'}
+                      >
+                        <Image
+                          rounded="lg"
+                          height="full"
+                          fit="cover"
+                          draggable="false"
+                          loading="lazy"
+                          src={item.orderItems[0].product.design.image}
+                        />
+                      </Box>
+                      <Text textAlign={'center'} fontWeight={600}>
+                        Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
+                      </Text>
+                    </VStack>
+                    <VStack
+                      alignItems={'flex-start'}
+                      gap={1}
+                      alignSelf={[
+                        'center',
+                        'flex-start',
+                        'center',
+                        'flex-start',
+                      ]}
+                      w={{ xl: '350px' }}
+                      fontSize={['13px', '15px', '15px', '15px', '16px']}
                     >
-                      <Text>Id: </Text> <Text> {item._id}</Text>{' '}
-                    </HStack>
-                    <HStack w={'full'} justifyContent="space-between">
-                      <Text>Date: </Text>{' '}
-                      <Text> {item.paidAt.split('T')[0]}</Text>{' '}
-                    </HStack>
-                    <HStack w={'full'} justifyContent="space-between">
-                      <Text>Address: </Text>{' '}
-                      <Text>
-                        {' '}
-                        {`${address}, ${city}(${zipCode}), ${country}`}
-                      </Text>{' '}
-                    </HStack>
-                    <HStack w={'full'} justifyContent="space-between">
-                      <Text>Delivered: </Text>{' '}
-                      <Text>
-                        {' '}
-                        {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
-                      </Text>{' '}
-                    </HStack>
-                    <HStack w={'full'} justifyContent="space-between">
-                      <Text>Order Total: </Text>{' '}
-                      <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
-                    </HStack>
-                    <OrderInfo item={item} />
-                  </VStack>
-                </HStack>
-              );
-            })}
+                      <HStack
+                        w={'full'}
+                        justifyContent="space-between"
+                        fontSize={['14px', '16px', '18px']}
+                        fontWeight={600}
+                      >
+                        <Text>Id: </Text>{' '}
+                        <Text fontSize={['13px', '15px', '17px']}>
+                          {' '}
+                          {item._id}
+                        </Text>{' '}
+                      </HStack>
+                      <HStack w={'full'} justifyContent="space-between">
+                        <Text>Date: </Text>{' '}
+                        <Text>
+                          {' '}
+                          {item.paidAt ? item.paidAt.split('T')[0] : 'NOT PAID'}
+                        </Text>{' '}
+                      </HStack>
+                      <HStack w={'full'} justifyContent="space-between">
+                        <Text>Address: </Text>{' '}
+                        <Text>
+                          {' '}
+                          {`${address}, ${city}(${zipCode}), ${country}`}
+                        </Text>{' '}
+                      </HStack>
+                      <HStack w={'full'} justifyContent="space-between">
+                        <Text>Delivered: </Text>{' '}
+                        <Text>
+                          {' '}
+                          {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
+                        </Text>{' '}
+                      </HStack>
+                      <HStack w={'full'} justifyContent="space-between">
+                        <Text>Order Total: </Text>{' '}
+                        <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
+                      </HStack>
+                      <OrderInfo item={item} />
+                    </VStack>
+                  </HStack>
+                );
+              })}
+              {products.length === 0 ? (
+                <Heading fontWeight={400}>Order list empty</Heading>
+              ) : (
+                ''
+              )}
+            </VStack>
           </VStack>
         ) : (
           <Heading>Loading...</Heading>

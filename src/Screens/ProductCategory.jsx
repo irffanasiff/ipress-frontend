@@ -17,7 +17,6 @@ const ProductCategory = ({ items, setCategory }) => {
   });
   const productCard = (product, index, href, image, category) => {
     let url = image.split('q_auto');
-    console.log(category);
     let transformation =
       category === 'Large Formats' ? 'q_60,w_650,h_500' : 'q_auto,w_900';
 
@@ -81,8 +80,9 @@ const ProductCategory = ({ items, setCategory }) => {
     );
   };
   useEffect(() => {
-    setCategory(products.label);
-  }, [setCategory, products]);
+    setCategory(type);
+    return () => setCategory('none');
+  }, [setCategory, type]);
   return (
     <Container maxW={'8xl'} p="0">
       <Center

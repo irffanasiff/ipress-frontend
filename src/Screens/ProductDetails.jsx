@@ -79,12 +79,11 @@ const ProductDetails = ({ setUrl, setCategory, setProduct }) => {
 
   const {
     handleSubmit,
+    getValues,
+    reset,
     register,
     formState: { errors },
   } = useForm();
-  /* const addToCartHandler = () => {
-    navigate(`/cart/${id}`, `qty=${qty}`);
-  }; */
 
   const handleImg = e => {
     let img = URL.createObjectURL(e.target.files[0]);
@@ -100,7 +99,7 @@ const ProductDetails = ({ setUrl, setCategory, setProduct }) => {
     if (action === 'inquiry') console.log(fields);
     else {
       const product = {
-        name: productInfo.name,
+        name: productInfo.label,
         fields,
         browseDesign: false,
         uploadDesign: false,
@@ -108,7 +107,6 @@ const ProductDetails = ({ setUrl, setCategory, setProduct }) => {
       action === 'upload'
         ? (product.uploadDesign = true)
         : (product.browseDesign = true);
-      console.log(product);
       dispatch(saveProducts(product));
     }
   };
@@ -119,7 +117,14 @@ const ProductDetails = ({ setUrl, setCategory, setProduct }) => {
         setCategory(item.label);
       else if (item === productInfo) setCategory(item.label);
     });
+    return () => {
+      setProduct('none');
+      setCategory('none');
+    };
   }, [productInfo, setProduct, setCategory]);
+  useEffect(() => {
+    reset();
+  }, [productInfo, reset]);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack
