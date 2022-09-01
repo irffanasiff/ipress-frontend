@@ -269,8 +269,8 @@ export default function WithSubnavigation({ product, category }) {
                     fontSize={{ base: 'sm', md: 'md' }}
                   >
                     <Avatar
-                      w={['20px', '36px']}
-                      h={['20px', '36px']}
+                      w={['30px', '36px']}
+                      h={['30px', '36px']}
                       bg={'gray.300'}
                       borderRadius="50%"
                       textAlign={'left'}
@@ -293,6 +293,7 @@ export default function WithSubnavigation({ product, category }) {
                 alignItems="center"
                 fontSize={'md'}
                 fontWeight={500}
+                color={'whiteAlpha.800'}
               >
                 <Icon
                   as={AiOutlineUser}

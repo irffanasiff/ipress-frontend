@@ -65,7 +65,7 @@ const theme = extendTheme({
           color: 'black',
           fontSize: 'xl',
           textTransform: 'uppercase',
-          p: '1.5rem',
+          p: { base: '1rem', md: '1.5rem' },
         },
         'ipress-black': {
           textTransform: 'uppercase',

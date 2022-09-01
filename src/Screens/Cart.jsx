@@ -1,9 +1,11 @@
+import { CloseIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Container,
   Heading,
   HStack,
+  IconButton,
   Image,
   Select,
   Spinner,
@@ -46,7 +48,12 @@ const Cart = () => {
   };
 
   return (
-    <Container maxW="6xl" w={'90%'} minH={'90%'} my={'20px'}>
+    <Container
+      maxW="6xl"
+      w={{ base: '100%', sm: '90%' }}
+      minH={'90%'}
+      my={'20px'}
+    >
       <Heading mx="auto" my={5}>
         Cart
       </Heading>
@@ -70,9 +77,12 @@ const Cart = () => {
             {cartItems.map((item, key) => (
               <HStack
                 w={'full'}
-                p="1rem"
+                p={'1rem'}
+                pos={'relative'}
                 gap={[3, 4, 5, 6]}
+                flexDirection={{ base: 'column', sm: 'row' }}
                 justifyContent={'space-evenly'}
+                alignItems={'center'}
                 key={key}
                 borderBottom={
                   cartItems.length !== key + 1 ? '1px solid lightgray' : 'none'
@@ -91,12 +101,12 @@ const Cart = () => {
                   </Box>
                 </VStack>
                 <VStack
-                  alignItems={'flex-start'}
+                  alignItems={{ base: 'center', sm: 'flex-start' }}
                   gap={1}
-                  alignSelf={'flex-start'}
+                  alignSelf={{ base: 'center', sm: 'flex-start' }}
                 >
                   <Text
-                    fontSize={['14px', '16px', '20px', '22px']}
+                    fontSize={['18px', '16px', '20px', '22px']}
                     fontWeight={'bold'}
                   >
                     {item.name}
@@ -148,12 +158,24 @@ const Cart = () => {
                     </Text>{' '}
                   </HStack>
                 </VStack>
+
                 <Button
-                  variant={'custom-black'}
+                  display={{ base: 'none', md: 'flex' }}
+                  variant={'ipress-black'}
+                  borderRadius={'8px'}
                   onClick={() => removeFromCartHandler(item._id)}
                 >
                   Remove
                 </Button>
+                <IconButton
+                  display={{ md: 'none' }}
+                  position={'absolute'}
+                  right={'0px'}
+                  top={'0px'}
+                  onClick={() => removeFromCartHandler(item._id)}
+                >
+                  <CloseIcon size={32} />
+                </IconButton>
               </HStack>
             ))}
           </VStack>
@@ -186,6 +208,8 @@ const Cart = () => {
           </Text>
           <Button
             variant={'custom-black'}
+            _hover={{ bgColor: 'black', color: 'whiteAlpha.900' }}
+            fontSize={{ base: '12px', sm: '16px', md: '18px' }}
             isDisabled={!cartItems ? '' : cartItems.length === 0}
             onClick={checkoutHandler}
           >

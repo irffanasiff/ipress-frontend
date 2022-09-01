@@ -67,6 +67,7 @@ const UserProfile = () => {
               alignSelf={{ base: 'center', sm: 'flex-start' }}
               boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
               p={'2rem'}
+              minW={{ base: '240px' }}
             >
               <Avatar
                 w={['100px', '120px', '150px', '180px']}
@@ -95,9 +96,18 @@ const UserProfile = () => {
               <VStack alignItems={'flex-start'}>
                 <Text fontSize={{ base: '15px', md: '18px' }}>
                   Address :{' '}
-                  <Text as={'span'} fontSize={{ base: '14px', md: '16px' }}>{`${
-                    address || ''
-                  }, ${city || ''}(${zipCode || ''}), ${country || ''}`}</Text>
+                  {address || city || zipCode || country ? (
+                    <Text
+                      as={'span'}
+                      fontSize={{ base: '14px', md: '16px' }}
+                    >{`${address || ''}, ${city || ''}(${zipCode || ''}), ${
+                      country || ''
+                    }`}</Text>
+                  ) : (
+                    <Text fontSize={{ base: '14px', md: '16px' }}>
+                      no address saved
+                    </Text>
+                  )}
                 </Text>
               </VStack>
               <Flex
