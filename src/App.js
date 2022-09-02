@@ -28,6 +28,7 @@ import { ProductCategory } from './Screens/ProductCategory';
 import { NAV_ITEMS } from './Components/Header/NavItems';
 import { CustomerSupport } from './Screens/CustomerSupport';
 import { TermsConditions } from './Screens/TermsConditions';
+import ScrollToTop from './Components/Utils/ScrollToTop';
 
 export const newTheme = {
   ...theme,
@@ -68,6 +69,7 @@ function App() {
         ) : (
           <Header category={category} product={product} />
         )}
+        <ScrollToTop />
         <Routes>
           <Route
             path="/*"

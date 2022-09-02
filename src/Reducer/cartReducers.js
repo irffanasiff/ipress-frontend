@@ -10,6 +10,7 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from '../Constants/cartConstants';
+import { PRODUCT_CREATE_REQUEST } from '../Constants/productConstants';
 
 export const cartReducer = (
   state = { cartItems: [], loading: true },
@@ -23,13 +24,17 @@ export const cartReducer = (
         return {
           ...state,
           cartItems: state.cartItems.map(x => (x === existItem ? item : x)),
+          loading: false,
         };
       } else {
         return {
           ...state,
           cartItems: [...state.cartItems, item],
+          loading: false,
         };
       }
+    case PRODUCT_CREATE_REQUEST:
+      return { ...state, loading: true };
     case CART_REMOVE_ITEM:
       return {
         ...state,

@@ -27,18 +27,17 @@ import {
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState([]);
   const cart = useSelector(state => state.cart);
   const { product } = useSelector(state => state.productSaved);
   const { cartItems, loading } = cart;
 
   useEffect(() => {
-    if (product && product.design) {
+    if (product && product.design && !loading) {
       dispatch(addToCart(product));
     } else if (!cartItems && !loading) {
       dispatch(listCartItems());
     }
-  }, [dispatch, product, cartItems, loading, quantity]);
+  }, [dispatch, product, cartItems, loading]);
 
   const removeFromCartHandler = id => {
     dispatch(removeFromCart(id));
@@ -70,9 +69,9 @@ const Cart = () => {
           ) : (
             ''
           )
-        ) : cartItems.length === 0 ? (
+        ) : cartItems.length === 0 && !loading ? (
           <Text>Your card is empty</Text>
-        ) : (
+        ) : cartItems.length > 0 ? (
           <VStack align={'flex-start'} alignSelf={'stretch'}>
             {cartItems.map((item, key) => (
               <HStack
@@ -178,7 +177,30 @@ const Cart = () => {
                 </IconButton>
               </HStack>
             ))}
+            {loading ? (
+              <Spinner
+                alignSelf={'center'}
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            ) : (
+              <></>
+            )}
           </VStack>
+        ) : loading ? (
+          <Spinner
+            alignSelf={'center'}
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        ) : (
+          <></>
         )}
         <HStack
           borderTop="1px solid gray"

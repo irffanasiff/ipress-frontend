@@ -134,27 +134,27 @@ const UserProfile = () => {
         ) : (
           ''
         )}
-        {ordersLoading ? (
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        ) : products ? (
-          <VStack
-            align={'flex-start'}
-            alignSelf={'stretch'}
-            flex={1}
-            gap={{ base: '15px', md: '30px' }}
+        <VStack
+          align={'flex-start'}
+          alignSelf={'stretch'}
+          flex={1}
+          gap={{ base: '15px', md: '30px' }}
+        >
+          <Heading
+            fontWeight={'600'}
+            my={{ base: '2rem !important', md: '0rem !important' }}
           >
-            <Heading
-              fontWeight={'600'}
-              my={{ base: '2rem !important', md: '0rem !important' }}
-            >
-              Order List
-            </Heading>
+            Order List
+          </Heading>
+          {ordersLoading ? (
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          ) : products ? (
             <VStack
               w={{ base: 'full', lg: '90%' }}
               p="1.5rem"
@@ -261,10 +261,10 @@ const UserProfile = () => {
                 ''
               )}
             </VStack>
-          </VStack>
-        ) : (
-          <Heading>Loading...</Heading>
-        )}
+          ) : (
+            <Heading>Loading...</Heading>
+          )}
+        </VStack>
       </Flex>
     </VStack>
   );

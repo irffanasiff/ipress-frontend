@@ -52,6 +52,7 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
     paymentMethod: paymentMethodFromStorage,
     shippingPrice: '500',
+    loading: false,
   },
   userLogin: { userInfo: userInfoFromStorage },
 };

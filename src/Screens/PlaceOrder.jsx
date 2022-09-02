@@ -1,5 +1,9 @@
 import {
   Alert,
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   AlertIcon,
   Box,
   Divider,
@@ -12,6 +16,7 @@ import {
   Stack,
   Text,
   useColorModeValue as mode,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +32,7 @@ import { useState } from 'react';
 export const PlaceOrder = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [ordering, setOrdering] = useState(false);
   const cart = useSelector(state => state.cart);
   const { userInfo } = useSelector(state => state.userLogin);
@@ -65,6 +71,7 @@ export const PlaceOrder = () => {
 
   //   Place Order
   const placeOrderHandler = paymentResult => {
+    onOpen();
     let orderItems = cartItems.map(item => ({ product: item._id }));
     let order = {
       user: userInfo._id,
@@ -100,6 +107,20 @@ export const PlaceOrder = () => {
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
+
+      <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent w={'50%'}>
+            <AlertDialogHeader
+              fontSize={{ base: '1rem', md: '2rem' }}
+              fontWeight="bold"
+              color={'green'}
+            >
+              Ordering...
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
       <Box
         maxW={{ base: '3xl', lg: '8xl' }}
         mx="auto"
