@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const NAV_ITEMS = [
   {
     label: 'Large Formats',
@@ -1713,6 +1715,15 @@ export const NAV_ITEMS = [
   },
   {
     label: 'Customer Reviews',
+    href: '/customer-reviews',
   },
 ];
 // Voucher card, pillow, pen, Membership ID, Magazine, Hardcover, Diary,
+/* export const postData = async () => {
+  console.log('send');
+  const data = await axios.post('http://localhost:5000/api/items', [
+    ...NAV_ITEMS,
+  ]);
+  console.log(data);
+};
+ */

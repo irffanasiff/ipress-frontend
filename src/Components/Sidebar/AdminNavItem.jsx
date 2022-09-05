@@ -2,30 +2,27 @@ import React from 'react';
 import { Flex, Text, Icon, Box } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 
-export default function AdminNavItem({ icon, title, active, navSize, link }) {
+export default function AdminNavItem({ icon, title, active, link }) {
   return (
-    <Flex
-      mt={3}
-      flexDir="column"
-      w="100%"
-      alignItems={navSize === 'small' ? 'center' : 'flex-start'}
-    >
+    <Flex mt={3} flexDir="column" w="100%" alignItems={'flex-start'}>
       <Box
+        cursor={'pointer'}
         backgroundColor={active && 'white'}
         color={active ? 'black' : 'white'}
-        p={3}
-        borderRadius={8}
+        px={7}
+        py={4}
+        border={'1px solid #00509E'}
         _hover={{
           textDecor: 'none',
           backgroundColor: 'white',
           color: 'black',
         }}
-        w={navSize === 'large' && '100%'}
+        w={'100%'}
       >
         <NavLink to={`/${link}`}>
           <Flex width={'100%'}>
             <Icon as={icon} fontSize="xl" />
-            <Text ml={5} display={navSize === 'small' ? 'none' : 'flex'}>
+            <Text ml={5} display={'flex'}>
               {title}
             </Text>
           </Flex>

@@ -29,6 +29,10 @@ import { NAV_ITEMS } from './Components/Header/NavItems';
 import { CustomerSupport } from './Screens/CustomerSupport';
 import { TermsConditions } from './Screens/TermsConditions';
 import ScrollToTop from './Components/Utils/ScrollToTop';
+import { getNavItem } from './Actions/itemAction';
+import Faq from './Components/Sections/FAQ';
+import { CustomerInquiries } from './Screens/CustomerInquiries';
+import { AboutUs } from './Screens/AboutUs';
 
 export const newTheme = {
   ...theme,
@@ -39,11 +43,8 @@ function App() {
   const [imgURL, setImgURL] = useState();
   const [category, setCategory] = useState('');
   const [product, setProduct] = useState('');
-  const userLogin = useSelector(state => state.userLogin);
+  const { userDetails, cart, items, userLogin } = useSelector(state => state);
   const { userInfo } = userLogin;
-  const userDetails = useSelector(state => state.userDetails);
-
-  const cart = useSelector(state => state.cart);
   const { cartItems, loading } = cart;
   const { user, error } = userDetails;
   const dispatch = useDispatch();
@@ -59,7 +60,19 @@ function App() {
     } else if (user.name && !cartItems && !loading) {
       dispatch(listCartItems());
     }
-  }, [dispatch, user, userInfo, error, loading, cartItems]);
+    if (!items.navItem && !items.loading) {
+      dispatch(getNavItem());
+    }
+  }, [
+    dispatch,
+    user,
+    userInfo,
+    error,
+    loading,
+    cartItems,
+    items.loading,
+    items.navItem,
+  ]);
   return (
     <ChakraProvider theme={newTheme}>
       <Fonts />
@@ -67,7 +80,11 @@ function App() {
         {userInfo && userInfo.isAdmin ? (
           ''
         ) : (
-          <Header category={category} product={product} />
+          <Header
+            category={category}
+            product={product}
+            NAV_ITEMS={items.navItem ? items.navItem : NAV_ITEMS}
+          />
         )}
         <ScrollToTop />
         <Routes>
@@ -83,7 +100,13 @@ function App() {
           />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/variants" element={<Variants />} />
-          <Route path="/customer-support" element={<CustomerSupport />} />
+          <Route path="/faqs" element={<Faq />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route
+            path="/customer-support/:section"
+            element={<CustomerSupport />}
+          />
+          <Route path="/customer-inquiries" element={<CustomerInquiries />} />
           <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -103,13 +126,17 @@ function App() {
                 setUrl={setImgURL}
                 setCategory={setCategory}
                 setProduct={setProduct}
+                NAV_ITEMS={items.navItem ? items.navItem : NAV_ITEMS}
               />
             }
           />
           <Route
             path="/category/:type"
             element={
-              <ProductCategory items={NAV_ITEMS} setCategory={setCategory} />
+              <ProductCategory
+                items={items.navItem ? items.navItem : NAV_ITEMS}
+                setCategory={setCategory}
+              />
             }
           />
           <Route path="/cart" element={<Cart />} />
@@ -128,7 +155,7 @@ function App() {
             }
           />
         </Routes>
-        <Footer />
+        {userInfo && userInfo.isAdmin ? '' : <Footer />}
       </BrowserRouter>
     </ChakraProvider>
   );

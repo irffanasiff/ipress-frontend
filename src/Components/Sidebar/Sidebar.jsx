@@ -6,6 +6,9 @@ import {
   Divider,
   Avatar,
   Heading,
+  HStack,
+  VStack,
+  Image,
 } from '@chakra-ui/react';
 import {
   FiMenu,
@@ -14,49 +17,32 @@ import {
   FiDollarSign,
   FiSettings,
 } from 'react-icons/fi';
+import { BsCartCheck } from 'react-icons/bs';
 import AdminNavItem from './AdminNavItem';
 import { useLocation } from 'react-router-dom';
+import Logo from '../../Images/logo.webp';
 
 export const Sidebar = () => {
-  const [navSize, changeNavSize] = useState('large');
   const { pathname } = useLocation();
   return (
-    <Flex
-      pos="sticky"
-      left="5"
-      my="2.5vh"
-      alignSelf={'stretch'}
-      minH={'95vh'}
-      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-      borderRadius={navSize === 'small' ? '15px' : '30px'}
-      minW={navSize === 'small' ? '70px' : '200px'}
-      flexDir="column"
+    <VStack
+      pos="fixed"
+      left="0"
+      top={'0'}
+      h={'100vh'}
+      w={{ base: '70px', md: '200px' }}
       justifyContent="space-between"
-      bg="ipress.600"
+      bg="main.400"
       color="white"
     >
-      <Flex
-        p={2}
-        flexDir={'column'}
+      <VStack
+        spacing={0}
         w={'100%'}
-        alignItems={navSize === 'small' ? 'center' : 'flex-start'}
+        alignItems={'flex-start'}
         as="nav"
+        py={'60px'}
       >
-        <IconButton
-          background="none"
-          color="white"
-          fontSize={navSize === 'small' ? '2xl' : 'xl'}
-          mt={5}
-          _hover={{ background: 'none' }}
-          _active={{ background: 'white', color: 'black' }}
-          icon={<FiMenu />}
-          onClick={() => {
-            if (navSize === 'small') changeNavSize('large');
-            else changeNavSize('small');
-          }}
-        />
         <AdminNavItem
-          navSize={navSize}
           icon={FiHome}
           title="Dashboard"
           description="This is the description for the dashboard."
@@ -65,7 +51,6 @@ export const Sidebar = () => {
         />
 
         <AdminNavItem
-          navSize={navSize}
           icon={FiUser}
           title="Clients"
           link="admin/users"
@@ -73,42 +58,37 @@ export const Sidebar = () => {
         />
 
         <AdminNavItem
-          navSize={navSize}
+          icon={BsCartCheck}
+          title="Products"
+          link="admin/products"
+          active={pathname === '/admin/products'}
+        />
+
+        <AdminNavItem
           icon={FiDollarSign}
           title="Orders"
           link="admin/orders"
           active={pathname === '/admin/orders'}
         />
         <AdminNavItem
-          navSize={navSize}
           icon={FiSettings}
           title="Settings"
           link="admin/settings"
           active={pathname === '/admin/settings'}
         />
-      </Flex>
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize === 'small' ? 'center' : 'flex-start'}
-        mb={4}
-      >
-        <Divider display={navSize === 'small' ? 'none' : 'flex'} />
-        <Flex mt={4} align="center">
-          <Avatar size="sm" src="avatar-1.jpg" />
-          <Flex
-            flexDir="column"
-            ml={4}
-            display={navSize === 'small' ? 'none' : 'flex'}
-          >
+      </VStack>
+      <VStack w="100%" alignItems={'center'} mb={4}>
+        <Divider />
+        <HStack mt={4} align="flex-start">
+          <Avatar size="sm" src="avatar-1.jpg" mx={'auto'} />
+          <Flex flexDir="column" ml={4}>
             <Heading as="h3" size="sm">
               ADMIN NAME
             </Heading>
             <Text color="gray">Admin</Text>
           </Flex>
-        </Flex>
-      </Flex>
-    </Flex>
+        </HStack>
+      </VStack>
+    </VStack>
   );
 };

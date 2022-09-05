@@ -11,7 +11,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { BsPaypal, BsTelephonePlusFill } from 'react-icons/bs';
+import { BsTelephonePlusFill } from 'react-icons/bs';
 import { GrMail, GrYoutube } from 'react-icons/gr';
 import { FaFacebookF } from 'react-icons/fa';
 import { RiLinkedinFill, RiTwitterFill } from 'react-icons/ri';
@@ -243,7 +243,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/faqs');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -256,7 +256,7 @@ const Footer = () => {
                     as="button"
                     textAlign={'left'}
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/customer-inquiries');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -269,7 +269,7 @@ const Footer = () => {
                     as="button"
                     mb={'0.5rem'}
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/about-us');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',

@@ -76,27 +76,23 @@ const Home = ({ setCategory, setProduct }) => {
             zIndex={2}
             lineHeight={{ base: '3.6rem', md: '130%' }}
             pl={'30px'}
-            maxW="6xl"
+            maxW="7xl"
             mx="auto"
-            fontSize={{ base: '3.2rem', md: '8xl' }}
+            fontSize={{ base: '3.2rem', md: '7rem' }}
             fontWeight="700"
             minH={{ base: '180px' }}
             color={'white'}
           >
-            <Text as="span">
-              Quality Prints Shipped to your{' '}
+            {/* <Text as="span">
+              Start your Print project
               <Box h={0} display={{ base: 'none', md: 'inline', lg: 'none' }}>
                 <br />
               </Box>
-            </Text>
+            </Text> */}
             <Typewriter
               className="HomePage-typewriter"
               options={{
-                strings: [
-                  '<span>doorstep</span>',
-                  '<span>house</span>',
-                  '<span>office</span>',
-                ],
+                strings: ['<span>Start your Print project</span>'],
                 autoStart: true,
                 loop: true,
               }}

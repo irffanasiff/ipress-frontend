@@ -9,7 +9,7 @@ import { Sidebar } from '../Components/Sidebar/Sidebar';
 
 const AdminHome = () => {
   return (
-    <Container paddingInline={'0'} maxW={'full'}>
+    <Container paddingInline={'0'} maxW={'full'} pl={'200px'}>
       <HStack gap={7} background={'gray.100'}>
         <Sidebar />
         <Routes>

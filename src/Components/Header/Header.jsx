@@ -37,21 +37,21 @@ import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import { RiCustomerService2Line, RiUserLocationLine } from 'react-icons/ri';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { BsMinecart } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cart, Login, ChangePassword, Signup } from '../../Screens';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Actions/userAction';
-import { NAV_ITEMS } from './NavItems';
 
-export default function WithSubnavigation({ product, category }) {
+export default function WithSubnavigation({ product, category, NAV_ITEMS }) {
   const { isOpen, onToggle } = useDisclosure();
   const [drawerContent, setDrawerContent] = useState();
   const [searchInput, setSearchInput] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
   const ref = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);
   const userDetails = useSelector(state => state.userDetails);
   const { userInfo } = userLogin;
@@ -125,9 +125,18 @@ export default function WithSubnavigation({ product, category }) {
             ></Icon>
             <Text mx={{ base: 1, md: 3, lg: 4 }}> 0813 894 1946 </Text>
           </Center>
-          <Center display={{ base: 'none', md: 'flex' }}>
+          <Center
+            display={{ base: 'none', md: 'flex' }}
+            onClick={() => {
+              navigate('/customer-support/stores');
+            }}
+            _hover={{ cursor: 'pointer' }}
+          >
             <Icon as={RiUserLocationLine} color={'#00509E'} w={6} h={6}></Icon>
-            <Text mx={{ md: 3, lg: 4 }}> View our locations </Text>
+            <Text mx={{ md: 3, lg: 4 }} _hover={{ cursor: 'pointer' }}>
+              {' '}
+              View our locations{' '}
+            </Text>
           </Center>
           <NavLink to="/">
             <Image
@@ -231,7 +240,7 @@ export default function WithSubnavigation({ product, category }) {
                 overflowY={'auto'}
                 maxW={'200px'}
                 alignItems={'stretch'}
-                borderRadius={'8px'}
+                zIndex={100}
               >
                 {renderList(searchInput).map((item, index) => {
                   return (
@@ -254,6 +263,20 @@ export default function WithSubnavigation({ product, category }) {
                     </NavLink>
                   );
                 })}
+                {renderList(searchInput).length === 0 ? (
+                  <Text
+                    p={2}
+                    px={3}
+                    w={'full'}
+                    textAlign={'left'}
+                    color={'gray.500'}
+                    fontSize={{ base: 'sm', md: 'md' }}
+                  >
+                    No match found.
+                  </Text>
+                ) : (
+                  ''
+                )}
               </VStack>
             ) : (
               ''
@@ -293,13 +316,8 @@ export default function WithSubnavigation({ product, category }) {
                 alignItems="center"
                 fontSize={'md'}
                 fontWeight={500}
-                color={'whiteAlpha.800'}
               >
-                <Icon
-                  as={AiOutlineUser}
-                  w={{ base: 6, md: 8 }}
-                  h={{ base: 6, md: 8 }}
-                ></Icon>
+                <Avatar w={['30px']} h={['30px']} bg={'black'} mx={3}></Avatar>
                 <Text as="span" display={{ base: 'none', md: 'inline' }}>
                   Signup
                 </Text>
@@ -348,7 +366,6 @@ export default function WithSubnavigation({ product, category }) {
               _hover={{
                 textDecoration: 'underline',
               }}
-              color={'white'}
             >
               <Icon
                 as={BsMinecart}
@@ -359,10 +376,20 @@ export default function WithSubnavigation({ product, category }) {
                 Cart
               </Text>
             </Box>
+            <Box display={{ base: 'none', md: 'block' }}>
+              <NavLink to="/customer-support">
+                <Text>Customer Support</Text>
+              </NavLink>
+            </Box>
           </Center>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
-          <MobileNav category={category} product={product} toggle={onToggle} />
+          <MobileNav
+            category={category}
+            product={product}
+            toggle={onToggle}
+            NAV_ITEMS={NAV_ITEMS}
+          />
         </Collapse>
       </Container>
       <Center
@@ -373,13 +400,17 @@ export default function WithSubnavigation({ product, category }) {
         px={10}
         py={4}
       >
-        <DesktopNav category={category} product={product} />
+        <DesktopNav
+          category={category}
+          product={product}
+          NAV_ITEMS={NAV_ITEMS}
+        />
       </Center>
     </Container>
   );
 }
 
-const DesktopNav = ({ category, product }) => {
+const DesktopNav = ({ category, product, NAV_ITEMS }) => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
@@ -410,12 +441,12 @@ const DesktopNav = ({ category, product }) => {
               </Center>
             </PopoverTrigger>
 
-            {navItem.children && (
+            {navItem.children.length > 0 && (
               <PopoverContent
                 border={'1px solid #00509E'}
                 boxShadow={'2xl'}
                 bg={popoverContentBgColor}
-                p={4}
+                p={2}
                 rounded={'xl'}
                 minW={'sm'}
               >
@@ -461,7 +492,6 @@ const DesktopSubNav = ({ label, href, subLabel, product }) => {
             >
               {label}
             </Text>
-            <Text fontSize={'xs'}>{subLabel}</Text>
           </Box>
           <Flex
             transition={'all .3s ease'}
@@ -480,7 +510,7 @@ const DesktopSubNav = ({ label, href, subLabel, product }) => {
   );
 };
 
-const MobileNav = ({ category, product, toggle }) => {
+const MobileNav = ({ category, product, toggle, NAV_ITEMS }) => {
   return (
     <Stack bg={'white'} p={4} display={{ lg: 'none' }}>
       {NAV_ITEMS.map(navItem => (
@@ -522,7 +552,7 @@ const MobileNavItem = ({
         >
           {label}
         </Text>
-        {children && (
+        {children.length > 0 && (
           <Icon
             as={ChevronDownIcon}
             transition={'all .25s ease-in-out'}
@@ -542,7 +572,7 @@ const MobileNavItem = ({
           borderColor={useColorModeValue('gray.200', 'gray.700')}
           align={'start'}
         >
-          {children &&
+          {children.length > 0 &&
             children.map((child, index) => (
               <Text
                 key={index}

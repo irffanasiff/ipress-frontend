@@ -17,7 +17,12 @@ import {
 import { RiCustomerService2Line } from 'react-icons/ri';
 import { GoMailRead } from 'react-icons/go';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 export const CustomerSupport = () => {
+  const { section } = useParams();
+  const store = useRef();
   const {
     handleSubmit,
     register,
@@ -27,6 +32,12 @@ export const CustomerSupport = () => {
   const onSubmit = fields => {
     console.log(fields);
   };
+  useEffect(() => {
+    if (section === 'stores') {
+      store.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      console.log('working????');
+    }
+  }, [section]);
   return (
     <Container maxW={'8xl'} p={0}>
       <Heading
@@ -342,7 +353,7 @@ export const CustomerSupport = () => {
           </Flex>
         </form>
       </VStack>
-      <VStack py={'65px'} gap={4}>
+      <VStack py={'65px'} gap={4} ref={store}>
         <Heading
           textAlign={'center'}
           color="#00284F"
@@ -381,33 +392,33 @@ export const CustomerSupport = () => {
               Mercyland Land Junction Opposite NNPC Filling Station, East West
               Road, Nkpolu- Rumuigbo, Port Harcourt, Rivers State
             </Text>
-            <Text
+            <Box
               w={'20%'}
               fontSize={{ base: '.8rem', sm: '0.9rem', md: '1rem' }}
             >
               <Text my={2}> Opening hours:</Text>
-              <Text my={2}>
+              <Box my={2}>
                 Mon - Fri:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 8am - 8pm
-              </Text>
-              <Text my={2}>
+              </Box>
+              <Box my={2}>
                 Saturday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 9am - 7pm
-              </Text>
-              <Text my={2}>
+              </Box>
+              <Box my={2}>
                 Sunday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 9am - 8pm
-              </Text>
-            </Text>
+              </Box>
+            </Box>
           </HStack>
           <HStack
             w={'100%'}
@@ -430,33 +441,33 @@ export const CustomerSupport = () => {
               KM16, East-West Road, Before UPTH Junction Alakahia, Port
               Harcourt, Rivers State
             </Text>
-            <Text
+            <Box
               w={'20%'}
               fontSize={{ base: '.8rem', sm: '0.9rem', md: '1rem' }}
             >
               <Text my={2}> Opening hours:</Text>
-              <Text my={2}>
+              <Box my={2}>
                 Mon - Fri:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 8am - 8pm
-              </Text>
-              <Text my={2}>
+              </Box>
+              <Box my={2}>
                 Saturday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 9am - 7pm
-              </Text>
-              <Text my={2}>
+              </Box>
+              <Box my={2}>
                 Sunday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
                 9am - 8pm
-              </Text>
-            </Text>
+              </Box>
+            </Box>
           </HStack>
         </VStack>
       </VStack>
