@@ -441,7 +441,7 @@ const DesktopNav = ({ category, product, NAV_ITEMS }) => {
               </Center>
             </PopoverTrigger>
 
-            {navItem.children.length > 0 && (
+            {navItem.children && navItem.children.length > 0 && (
               <PopoverContent
                 border={'1px solid #00509E'}
                 boxShadow={'2xl'}
@@ -513,15 +513,26 @@ const DesktopSubNav = ({ label, href, subLabel, product }) => {
 const MobileNav = ({ category, product, toggle, NAV_ITEMS }) => {
   return (
     <Stack bg={'white'} p={4} display={{ lg: 'none' }}>
-      {NAV_ITEMS.map(navItem => (
-        <MobileNavItem
-          key={navItem.label}
-          {...navItem}
-          product={product}
-          category={category}
-          toggle={toggle}
-        />
-      ))}
+      {NAV_ITEMS.map(navItem => {
+        return navItem.children ? (
+          <MobileNavItem
+            key={navItem.label}
+            {...navItem}
+            product={product}
+            category={category}
+            toggle={toggle}
+          />
+        ) : (
+          <Text
+            key={navItem.label}
+            fontWeight={500}
+            cursor={'pointer'}
+            color={category === navItem.label ? 'red' : 'black'}
+          >
+            {navItem.label}
+          </Text>
+        );
+      })}
     </Stack>
   );
 };
