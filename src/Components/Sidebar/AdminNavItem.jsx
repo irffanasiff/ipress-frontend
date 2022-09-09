@@ -9,7 +9,7 @@ export default function AdminNavItem({ icon, title, active, link }) {
         cursor={'pointer'}
         backgroundColor={active && 'white'}
         color={active ? 'black' : 'white'}
-        px={7}
+        px={3}
         py={4}
         border={'1px solid #00509E'}
         _hover={{
@@ -22,7 +22,7 @@ export default function AdminNavItem({ icon, title, active, link }) {
         <NavLink to={`/${link}`}>
           <Flex width={'100%'}>
             <Icon as={icon} fontSize="xl" />
-            <Text ml={5} display={'flex'}>
+            <Text ml={5} display={{ base: 'none', md: 'flex' }}>
               {title}
             </Text>
           </Flex>

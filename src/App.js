@@ -60,19 +60,12 @@ function App() {
     } else if (user.name && !cartItems && !loading) {
       dispatch(listCartItems());
     }
+  }, [dispatch, user, userInfo, error, loading, cartItems]);
+  useEffect(() => {
     if (!items.navItem && !items.loading) {
       dispatch(getNavItem());
     }
-  }, [
-    dispatch,
-    user,
-    userInfo,
-    error,
-    loading,
-    cartItems,
-    items.loading,
-    items.navItem,
-  ]);
+  }, [dispatch, items.loading, items.navItem]);
   return (
     <ChakraProvider theme={newTheme}>
       <Fonts />
@@ -92,7 +85,9 @@ function App() {
             path="/*"
             element={
               userInfo && userInfo.isAdmin ? (
-                <AdminHome />
+                <AdminHome
+                  NAV_ITEMS={items.navItem ? items.navItem : NAV_ITEMS}
+                />
               ) : (
                 <Home setCategory={setCategory} setProduct={setProduct} />
               )
