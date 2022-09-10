@@ -25,27 +25,54 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderDetails } from './OrderDetails';
 const tableColumns = [
   {
-    Header: <Text color={'main.400'}>Sr. No.</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Sr. No.
+      </Text>
+    ),
     accessor: 'index',
   },
   {
-    Header: <Text color={'main.400'}> Product</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        {' '}
+        Product
+      </Text>
+    ),
     accessor: 'product',
   },
   {
-    Header: <Text color={'main.400'}> Design</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        {' '}
+        Design
+      </Text>
+    ),
     accessor: 'design',
   },
   {
-    Header: <Text color={'main.400'}> User</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        {' '}
+        User
+      </Text>
+    ),
     accessor: 'user',
   },
   {
-    Header: <Text color={'main.400'}>Price</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Price
+      </Text>
+    ),
     accessor: 'price',
   },
   {
-    Header: <Text color={'main.400'}>Ordered</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Ordered
+      </Text>
+    ),
     accessor: 'ordered',
   },
   {
@@ -122,6 +149,7 @@ export const ProductList = () => {
         boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
         fontSize={{ base: 'sm', md: '1rem' }}
         w={'fit-content'}
+        bg={'gray.300'}
       >
         {products ? (
           <Table

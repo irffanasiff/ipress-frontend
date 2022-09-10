@@ -1,4 +1,9 @@
 import {
+  ORDER_EDIT_FAIL,
+  ORDER_EDIT_REQUEST,
+  ORDER_EDIT_SUCCESS,
+} from '../Constants/productConstants';
+import {
   DETAILS_GET_FAIL,
   DETAILS_GET_REQUEST,
   DETAILS_GET_SUCCESS,
@@ -108,8 +113,14 @@ export const allDetailsReducer = (state = { loading: false }, action) => {
     case USER_DELETE_REQUEST:
       return { ...state, loading: true };
     case USER_DELETE_SUCCESS:
-      return { ...state, loading: false, users: action.payload };
+      return { loading: false, ...action.payload };
     case USER_DELETE_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case ORDER_EDIT_REQUEST:
+      return { ...state, loading: true };
+    case ORDER_EDIT_SUCCESS:
+      return { ...state, loading: false, orders: action.payload };
+    case ORDER_EDIT_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

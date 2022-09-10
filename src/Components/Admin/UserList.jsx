@@ -7,20 +7,36 @@ import {
   Icon,
   Button,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  useDisclosure,
+  ModalFooter,
+  ModalBody,
 } from '@chakra-ui/react';
 import { FiTrash2, FiUser } from 'react-icons/fi';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser } from '../../Actions/userAction';
+import { UserDetails } from './UserDetails';
 
 export const UserList = () => {
   const [page, setPage] = useState(1);
+  const [selected, setSelected] = useState({});
+  const [id, setId] = useState();
 
   const {
-    allDetails: { users, loading },
+    allDetails: { users, loading, orders, products },
   } = useSelector(state => state);
   const dispatch = useDispatch();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
   const tableData = users
     ? users.map((user, index) => ({
         index: (
@@ -38,7 +54,11 @@ export const UserList = () => {
         action: (
           <Button
             colorScheme="gray"
-            onClick={() => dispatch(deleteUser(user._id))}
+            onClick={() => {
+              setId(user._id);
+              onOpenDelete();
+              //dispatch(deleteUser(user._id))
+            }}
             size="sm"
             bg={'white'}
           >
@@ -46,7 +66,22 @@ export const UserList = () => {
           </Button>
         ),
         orders: (
-          <Button size="md" bg={'white'} onClick={() => {}}>
+          <Button
+            size="md"
+            bg={'white'}
+            onClick={() => {
+              let order = orders.filter(item => item.user === user._id);
+              let items = order.map(
+                or => or.orderItems.find(item => item.product).product
+              );
+              let orderedItems = products.filter(item =>
+                items.includes(item._id)
+              );
+              console.log({ order, user, items, orderedItems });
+              setSelected({ orders: order, user, products: orderedItems });
+              onOpen();
+            }}
+          >
             View Orders
           </Button>
         ),
@@ -126,9 +161,12 @@ export const UserList = () => {
       </Heading>
 
       <Box
+        mx={'auto'}
         mt="6"
+        w={'fit-content'}
         boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
         fontSize={{ base: 'sm', md: '1rem' }}
+        bg={'gray.300'}
       >
         {users ? (
           <Table
@@ -149,6 +187,64 @@ export const UserList = () => {
           <Heading p={4}>Loading ....</Heading>
         )}
       </Box>
+      <Modal
+        key={'modal2'}
+        isOpen={isDelete}
+        onClose={onCloseDelete}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent w={'fit-content'} maxW={'1000px'}>
+          <ModalHeader fontSize={{ base: 'md', md: '1.5rem' }} color={'red'}>
+            Confirm
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Are you sure you want to delete this user?</ModalBody>
+          <ModalFooter>
+            <Button colorScheme={'blue'} mr={3} onClick={onCloseDelete}>
+              Close
+            </Button>
+            <Button
+              colorScheme={'red'}
+              mr={3}
+              onClick={() => {
+                dispatch(deleteUser(id));
+                onCloseDelete();
+              }}
+            >
+              Delete
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal
+        key={'modal1'}
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent w={'fit-content'} maxW={'1000px'}>
+          <ModalHeader
+            fontWeight={500}
+            fontSize={['1.5rem', '2rem', '2.5rem', '3rem']}
+          >
+            Orders
+          </ModalHeader>
+          <ModalCloseButton />
+          <UserDetails {...selected} onClose={onClose} />
+          <ModalFooter>
+            <Button
+              variant={'ipress-black'}
+              mr={3}
+              onClick={onClose}
+              minW={'150px'}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

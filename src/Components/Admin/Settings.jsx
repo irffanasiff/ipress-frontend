@@ -1,13 +1,11 @@
-import {
-  Button,
-  Container,
-  Heading,
-  useDisclosure,
-  VStack,
-} from '@chakra-ui/react';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { Box, Container, Heading, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { NavChildren } from './NavChildren';
-
+// REMAINING: ADD NEW CATEGORIES, BROWSE OPTION AND FIELDS ADD AND REMOVE
 export const Settings = ({ NAV_ITEMS }) => {
+  const [isClosed, setIsClosed] = useState([]);
+
   return (
     <Container maxW={'6xl'} w={'100%'} overflowX={'hidden'} p={[0, 2, 4]}>
       <Heading
@@ -31,6 +29,8 @@ export const Settings = ({ NAV_ITEMS }) => {
             gap={{ base: '20px', md: '40px' }}
           >
             <Heading
+              display={'flex'}
+              justifyContent={'space-between'}
               w={'full'}
               textAlign={'left'}
               color="#00509E"
@@ -38,12 +38,34 @@ export const Settings = ({ NAV_ITEMS }) => {
               fontSize={['1.8rem', '2.3rem', '2.5rem']}
             >
               {item.label}
+              {!isClosed.includes(index) ? (
+                <ChevronDownIcon
+                  cursor={'pointer'}
+                  onClick={() => setIsClosed([...isClosed, index])}
+                />
+              ) : (
+                <ChevronUpIcon
+                  cursor={'pointer'}
+                  onClick={() =>
+                    setIsClosed(isClosed.filter(item => item !== index))
+                  }
+                />
+              )}
             </Heading>
-            {item.children
-              ? item.children.map((child, index) => (
-                  <NavChildren item={child} id={item._id} childIndex={index} />
-                ))
-              : ''}
+            <Box
+              w={'full'}
+              display={isClosed.includes(index) ? 'none' : 'initial'}
+            >
+              {item.children
+                ? item.children.map((child, index) => (
+                    <NavChildren
+                      item={child}
+                      id={item._id}
+                      childIndex={index}
+                    />
+                  ))
+                : ''}
+            </Box>
           </VStack>
         ))}
       </VStack>

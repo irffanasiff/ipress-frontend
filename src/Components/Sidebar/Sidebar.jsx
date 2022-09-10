@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Flex,
   Text,
@@ -8,26 +8,19 @@ import {
   Heading,
   HStack,
   VStack,
-  Image,
   useDisclosure,
 } from '@chakra-ui/react';
-import {
-  FiMenu,
-  FiHome,
-  FiUser,
-  FiDollarSign,
-  FiSettings,
-} from 'react-icons/fi';
+import { FiHome, FiUser, FiDollarSign, FiSettings } from 'react-icons/fi';
 import { BsCartCheck } from 'react-icons/bs';
 import AdminNavItem from './AdminNavItem';
-import { useLocation } from 'react-router-dom';
-import Logo from '../../Images/logo.webp';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 
 export const Sidebar = () => {
   const { isOpen, onToggle } = useDisclosure();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   return (
     <VStack
       pos="fixed"
@@ -35,9 +28,12 @@ export const Sidebar = () => {
       top={'0'}
       h={{ base: isOpen ? '100vh' : 'fit-content', md: '100vh' }}
       w={{ base: '50px', md: '200px' }}
+      borderRadius={isOpen ? '0' : '0 0 10px 0'}
+      boxShadow={'0 3px 10px rgb(0 0 0 / 0.2)'}
       justifyContent="space-between"
       bg="main.400"
       color="white"
+      zIndex={100}
     >
       <Flex display={{ base: 'flex', md: 'none' }}>
         <IconButton
@@ -103,11 +99,17 @@ export const Sidebar = () => {
         <Divider />
         <HStack mt={4} align="flex-start" pb={2}>
           <Avatar size="sm" src="avatar-1.jpg" mx={'auto'} />
-          <Flex flexDir="column" ml={4} display={{ base: 'none', md: 'flex' }}>
+          <Flex
+            flexDir="column"
+            ml={4}
+            display={{ base: 'none', md: 'flex' }}
+            cursor="pointer"
+            onClick={() => navigate('/admin/profile')}
+          >
             <Heading as="h3" size="sm">
-              ADMIN NAME
+              ADMIN PROFILE
             </Heading>
-            <Text color="gray">Admin</Text>
+            <Text color="gray.300">Admin</Text>
           </Flex>
         </HStack>
       </VStack>

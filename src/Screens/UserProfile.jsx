@@ -60,19 +60,25 @@ const UserProfile = () => {
             alignItems={{ base: 'flex-start' }}
             gap={{ base: '15px', md: '30px' }}
           >
-            <Heading fontWeight={'600'}>Profile</Heading>
+            <Heading
+              fontWeight={'600'}
+              color={user.isAdmin ? '#00509E' : 'black'}
+            >
+              Profile
+            </Heading>
 
             <VStack
               alignItems={'flex-start'}
               alignSelf={{ base: 'center', sm: 'flex-start' }}
               boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
               p={'2rem'}
+              bg={'gray.100'}
               minW={{ base: '240px' }}
             >
               <Avatar
                 w={['100px', '120px', '150px', '180px']}
                 h={['100px', '120px', '150px', '180px']}
-                bg={'gray.300'}
+                bg={'gray.500'}
                 borderRadius="50%"
                 textAlign={'left'}
                 mb={'2rem !important'}
@@ -134,137 +140,143 @@ const UserProfile = () => {
         ) : (
           ''
         )}
-        <VStack
-          align={'flex-start'}
-          alignSelf={'stretch'}
-          flex={1}
-          gap={{ base: '15px', md: '30px' }}
-        >
-          <Heading
-            fontWeight={'600'}
-            my={{ base: '2rem !important', md: '0rem !important' }}
+        {user && !user.isAdmin ? (
+          <VStack
+            align={'flex-start'}
+            alignSelf={'stretch'}
+            flex={1}
+            gap={{ base: '15px', md: '30px' }}
           >
-            Order List
-          </Heading>
-          {ordersLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
-            />
-          ) : products ? (
-            <VStack
-              w={{ base: 'full', lg: '90%' }}
-              p="1.5rem"
-              boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
+            <Heading
+              fontWeight={'600'}
+              my={{ base: '2rem !important', md: '0rem !important' }}
             >
-              {products.map((item, key) => {
-                const { address, city, zipCode, country } =
-                  item.shippingAddress;
-                return (
-                  <HStack
-                    w={'full'}
-                    p={{ base: '1.5rem 0', xl: '1.5rem' }}
-                    gap={[8, 4, 4, 8]}
-                    flexDirection={{
-                      base: 'column',
-                      sm: 'row',
-                      md: 'column',
-                      lg: 'row',
-                    }}
-                    justifyContent={'flex-start'}
-                    key={key}
-                    fontSize={[{ base: '14px', md: '16px' }]}
-                    textAlign={'right'}
-                    borderBottom={
-                      products.length === key + 1 ? 'none' : '1px solid gray'
-                    }
-                  >
-                    <VStack>
-                      <Box
-                        width="135px"
-                        height="150px"
-                        border={'1px solid gray'}
-                      >
-                        <Image
-                          rounded="lg"
-                          height="full"
-                          fit="cover"
-                          draggable="false"
-                          loading="lazy"
-                          src={item.orderItems[0].product.design.image}
-                        />
-                      </Box>
-                      <Text textAlign={'center'} fontWeight={600}>
-                        Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
-                      </Text>
-                    </VStack>
-                    <VStack
-                      alignItems={'flex-start'}
-                      gap={1}
-                      alignSelf={[
-                        'center',
-                        'flex-start',
-                        'center',
-                        'flex-start',
-                      ]}
-                      w={{ xl: '350px' }}
-                      fontSize={['13px', '15px', '15px', '15px', '16px']}
+              Order List
+            </Heading>
+            {ordersLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            ) : products ? (
+              <VStack
+                w={{ base: 'full', lg: '90%' }}
+                p="1.5rem"
+                boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
+              >
+                {products.map((item, key) => {
+                  const { address, city, zipCode, country } =
+                    item.shippingAddress;
+                  return (
+                    <HStack
+                      w={'full'}
+                      p={{ base: '1.5rem 0', xl: '1.5rem' }}
+                      gap={[8, 4, 4, 8]}
+                      flexDirection={{
+                        base: 'column',
+                        sm: 'row',
+                        md: 'column',
+                        lg: 'row',
+                      }}
+                      justifyContent={'flex-start'}
+                      key={key}
+                      fontSize={[{ base: '14px', md: '16px' }]}
+                      textAlign={'right'}
+                      borderBottom={
+                        products.length === key + 1 ? 'none' : '1px solid gray'
+                      }
                     >
-                      <HStack
-                        w={'full'}
-                        justifyContent="space-between"
-                        fontSize={['14px', '16px', '18px']}
-                        fontWeight={600}
+                      <VStack>
+                        <Box
+                          width="135px"
+                          height="150px"
+                          border={'1px solid gray'}
+                        >
+                          <Image
+                            rounded="lg"
+                            height="full"
+                            fit="cover"
+                            draggable="false"
+                            loading="lazy"
+                            src={item.orderItems[0].product.design.image}
+                          />
+                        </Box>
+                        <Text textAlign={'center'} fontWeight={600}>
+                          Payment: {item.isPaid ? 'COMPLETED' : 'PENDING'}
+                        </Text>
+                      </VStack>
+                      <VStack
+                        alignItems={'flex-start'}
+                        gap={1}
+                        alignSelf={[
+                          'center',
+                          'flex-start',
+                          'center',
+                          'flex-start',
+                        ]}
+                        w={{ xl: '350px' }}
+                        fontSize={['13px', '15px', '15px', '15px', '16px']}
                       >
-                        <Text>Id: </Text>{' '}
-                        <Text fontSize={['13px', '15px', '17px']}>
-                          {' '}
-                          {item._id}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Date: </Text>{' '}
-                        <Text>
-                          {' '}
-                          {item.paidAt ? item.paidAt.split('T')[0] : 'NOT PAID'}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Address: </Text>{' '}
-                        <Text>
-                          {' '}
-                          {`${address}, ${city}(${zipCode}), ${country}`}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Delivered: </Text>{' '}
-                        <Text>
-                          {' '}
-                          {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
-                        </Text>{' '}
-                      </HStack>
-                      <HStack w={'full'} justifyContent="space-between">
-                        <Text>Order Total: </Text>{' '}
-                        <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
-                      </HStack>
-                      <OrderInfo item={item} />
-                    </VStack>
-                  </HStack>
-                );
-              })}
-              {products.length === 0 ? (
-                <Heading fontWeight={400}>Order list empty</Heading>
-              ) : (
-                ''
-              )}
-            </VStack>
-          ) : (
-            <Heading>Loading...</Heading>
-          )}
-        </VStack>
+                        <HStack
+                          w={'full'}
+                          justifyContent="space-between"
+                          fontSize={['14px', '16px', '18px']}
+                          fontWeight={600}
+                        >
+                          <Text>Id: </Text>{' '}
+                          <Text fontSize={['13px', '15px', '17px']}>
+                            {' '}
+                            {item._id}
+                          </Text>{' '}
+                        </HStack>
+                        <HStack w={'full'} justifyContent="space-between">
+                          <Text>Date: </Text>{' '}
+                          <Text>
+                            {' '}
+                            {item.paidAt
+                              ? item.paidAt.split('T')[0]
+                              : 'NOT PAID'}
+                          </Text>{' '}
+                        </HStack>
+                        <HStack w={'full'} justifyContent="space-between">
+                          <Text>Address: </Text>{' '}
+                          <Text>
+                            {' '}
+                            {`${address}, ${city}(${zipCode}), ${country}`}
+                          </Text>{' '}
+                        </HStack>
+                        <HStack w={'full'} justifyContent="space-between">
+                          <Text>Delivered: </Text>{' '}
+                          <Text>
+                            {' '}
+                            {item.isDelivered ? 'DELIVERED' : 'IN TRANSIT'}
+                          </Text>{' '}
+                        </HStack>
+                        <HStack w={'full'} justifyContent="space-between">
+                          <Text>Order Total: </Text>{' '}
+                          <Text fontWeight={'bold'}> ${item.totalPrice}</Text>{' '}
+                        </HStack>
+                        <OrderInfo item={item} />
+                      </VStack>
+                    </HStack>
+                  );
+                })}
+                {products.length === 0 ? (
+                  <Heading fontWeight={400}>Order list empty</Heading>
+                ) : (
+                  ''
+                )}
+              </VStack>
+            ) : (
+              <Heading>Loading...</Heading>
+            )}
+          </VStack>
+        ) : (
+          ''
+        )}
       </Flex>
     </VStack>
   );

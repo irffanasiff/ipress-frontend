@@ -27,6 +27,11 @@ import {
   USER_UPDATE_RESET,
   USER_UPDATE_SUCCESS,
 } from '../Constants/userConstants';
+import {
+  ORDER_EDIT_FAIL,
+  ORDER_EDIT_REQUEST,
+  ORDER_EDIT_SUCCESS,
+} from '../Constants/productConstants';
 import axios from 'axios';
 
 export const login = (email, password) => async dispatch => {
@@ -183,7 +188,6 @@ export const sendResetLink = email => async (dispatch, getState) => {
         email,
       }
     );
-    console.log(data);
     await dispatch({
       type: USER_SEND_RESETLINK_SUCCESS,
       payload: data,
@@ -213,7 +217,6 @@ export const changePassword =
           token,
         }
       );
-      console.log(data);
       await dispatch({
         type: USER_RESET_PASSWORD_SUCCESS,
         payload: data,
@@ -251,11 +254,9 @@ export const deleteUser = id => async (dispatch, getState) => {
       `https://ipress-server.herokuapp.com/api/user/admin/${id}`,
       config
     );
-    console.log(data);
-    let newUsers = users.filter(user => user._id !== id);
     await dispatch({
       type: USER_DELETE_SUCCESS,
-      payload: newUsers,
+      payload: data,
     });
   } catch (error) {
     const message =
@@ -307,6 +308,48 @@ export const getAllDetails = () => async (dispatch, getState) => {
     dispatch({
       type: DETAILS_GET_FAIL,
       payload: message,
+    });
+  }
+};
+
+// set order paid and delivered
+// ADMIN
+export const editOrders = edit => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_EDIT_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+      allDetails: { orders },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      'https://ipress-server.herokuapp.com/api/orders',
+      edit,
+      config
+    );
+    let newOrders = orders.map(order =>
+      order._id === data._id ? (order = { ...order, ...edit.update }) : order
+    );
+    dispatch({
+      type: ORDER_EDIT_SUCCESS,
+      payload: newOrders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_EDIT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

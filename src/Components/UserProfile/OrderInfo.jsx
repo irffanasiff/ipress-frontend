@@ -15,8 +15,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-export const OrderInfo = ({ item }) => {
+export const OrderInfo = ({ item, products }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  let productInfo = products || item.orderItems;
   return (
     <>
       <Text
@@ -35,54 +36,61 @@ export const OrderInfo = ({ item }) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack align={'flex-start'} alignSelf={'stretch'}>
-              {item.orderItems.map(({ product }, key) => (
-                <HStack
-                  w={'full'}
-                  p="1rem"
-                  gap={[3, 4, 5, 6]}
-                  justifyContent={'space-evenly'}
-                  key={key}
-                >
-                  <VStack>
-                    <Box width="100px" height="100px" border={'1px solid gray'}>
-                      <Image
-                        rounded="lg"
-                        height="full"
-                        fit="cover"
-                        draggable="false"
-                        loading="lazy"
-                        src={product.design.image}
-                      />
-                    </Box>
-                  </VStack>
-                  <VStack
-                    alignItems={'flex-start'}
-                    gap={1}
-                    alignSelf={'flex-start'}
+              {productInfo.map((item, key) => {
+                let product = item.product || item;
+                return (
+                  <HStack
+                    w={'full'}
+                    p="1rem"
+                    gap={[3, 4, 5, 6]}
+                    justifyContent={'space-evenly'}
+                    key={key}
                   >
-                    <Text
-                      fontSize={['14px', '16px', '20px', '22px']}
-                      fontWeight={'bold'}
+                    <VStack>
+                      <Box
+                        width="100px"
+                        height="100px"
+                        border={'1px solid gray'}
+                      >
+                        <Image
+                          rounded="lg"
+                          height="full"
+                          fit="cover"
+                          draggable="false"
+                          loading="lazy"
+                          src={product.design.image}
+                        />
+                      </Box>
+                    </VStack>
+                    <VStack
+                      alignItems={'flex-start'}
+                      gap={1}
+                      alignSelf={'flex-start'}
                     >
-                      {product.name}
-                    </Text>
+                      <Text
+                        fontSize={['14px', '16px', '20px', '22px']}
+                        fontWeight={'bold'}
+                      >
+                        {product.name}
+                      </Text>
 
-                    <HStack
-                      minW={['150px', '200px']}
-                      justifyContent="space-between"
-                    >
-                      <Text>Quantity: </Text> <Text> 100</Text>{' '}
-                    </HStack>
-                    <HStack
-                      minW={['150px', '200px']}
-                      justifyContent="space-between"
-                    >
-                      <Text>Product Price: </Text>{' '}
-                      <Text fontWeight={'bold'}> ${product.price}</Text>{' '}
-                    </HStack>
-                  </VStack>
-                </HStack>
-              ))}
+                      <HStack
+                        minW={['150px', '200px']}
+                        justifyContent="space-between"
+                      >
+                        <Text>Quantity: </Text> <Text> 100</Text>{' '}
+                      </HStack>
+                      <HStack
+                        minW={['150px', '200px']}
+                        justifyContent="space-between"
+                      >
+                        <Text>Product Price: </Text>{' '}
+                        <Text fontWeight={'bold'}> ${product.price}</Text>{' '}
+                      </HStack>
+                    </VStack>
+                  </HStack>
+                );
+              })}
             </VStack>
           </ModalBody>
 

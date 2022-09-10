@@ -24,31 +24,57 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderDetails } from './OrderDetails';
 const tableColumns = [
   {
-    Header: <Text color={'main.400'}>Sr. No.</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Sr. No.
+      </Text>
+    ),
     accessor: 'index',
   },
   {
-    Header: <Text color={'main.400'}> Order id</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        {' '}
+        Order id
+      </Text>
+    ),
     accessor: 'orderId',
   },
   {
-    Header: <Text color={'main.400'}> User</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        {' '}
+        User
+      </Text>
+    ),
     accessor: 'user',
   },
   {
-    Header: <Text color={'main.400'}>Products</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Products
+      </Text>
+    ),
     accessor: 'products',
   },
   {
-    Header: <Text color={'main.400'}>Total Price</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Total Price
+      </Text>
+    ),
     accessor: 'totalPrice',
   },
   {
-    Header: <Text color={'main.400'}>Paid</Text>,
+    Header: (
+      <Text color={'main.400'} fontSize={{ md: '1rem' }}>
+        Paid
+      </Text>
+    ),
     accessor: 'isPaid',
   },
   {
-    Header: <Text color={'main.400'}></Text>,
+    Header: <Text color={'main.400'} fontSize={{ md: '1rem' }}></Text>,
     accessor: 'more',
   },
 ];
@@ -129,6 +155,7 @@ export const OrderList = () => {
         boxShadow={'0px 10px 30px -5px rgba(0, 0, 0, 0.3)'}
         fontSize={{ base: 'sm', md: '1rem' }}
         w={'fit-content'}
+        bg={'gray.300'}
       >
         {orders ? (
           <Table
@@ -165,23 +192,7 @@ export const OrderList = () => {
             Order Details
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody p={{ base: 2, md: 4 }}>
-            <OrderDetails {...selected} />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="red" rounded={'none'} mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button
-              type={'submit'}
-              colorScheme="blue"
-              rounded={'none'}
-              onClick={onClose}
-            >
-              Save
-            </Button>
-          </ModalFooter>
+          <OrderDetails {...selected} onClose={onClose} />
         </ModalContent>
       </Modal>
     </Box>

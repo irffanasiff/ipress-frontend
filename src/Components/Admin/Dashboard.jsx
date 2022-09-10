@@ -1,169 +1,174 @@
 import {
   Box,
+  Center,
+  CircularProgress,
+  CircularProgressLabel,
   Container,
-  Flex,
   Heading,
   HStack,
   Icon,
+  SimpleGrid,
   Stack,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { FiUser } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { FiUser, FiDollarSign } from 'react-icons/fi';
+import { BsCartCheck } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 export const Dashboard = () => {
   const {
-    allDetails: { orders, users, products, loading },
+    allDetails: { orders, users },
   } = useSelector(state => state);
+  const data = [
+    {
+      icon: FiUser,
+      heading: 'Users',
+      value: users ? users.length : 'Loading',
+    },
+    {
+      icon: BsCartCheck,
+      heading: 'Orders',
+      value: orders ? orders.length : 'Loading',
+    },
+    {
+      icon: FiDollarSign,
+      heading: 'Revenue',
+      value: orders
+        ? '$' +
+          orders.reduce(
+            (sum, order) => sum + (order.isPaid ? order.totalPrice : 0),
+            0
+          )
+        : 'Loading',
+    },
+  ];
   return (
     <Container w={'100%'} p={5} maxW={'8xl'}>
-      <Heading
+      {/* <Heading
         lineHeight={{ base: '3.6rem', md: '6.8rem' }}
         maxW="6xl"
         mx="auto"
         fontSize={{ base: '3.2rem', md: '4rem' }}
-        fontWeight="500"
+        color={'#00509E'}
       >
         Dashboard
-      </Heading>
-      <VStack w={'100%'} spacing={5}>
-        <Flex w={'100%'} justifyContent={'space-between'} wrap={'wrap'}>
-          <HStack
-            p={5}
-            w={'30%'}
-            maxW={'350px'}
-            minW={'150px'}
-            borderRadius={'8px'}
-            background={'white'}
+      </Heading> */}
+      <VStack w={'100%'} spacing={5} my={'30px'}>
+        <SimpleGrid
+          columns={[1, 2, 2, 2, 3]}
+          w={'100%'}
+          my={'30px'}
+          gap={'50px'}
+        >
+          {data.map((item, index) => (
+            <HStack
+              key={index}
+              p={4}
+              w={{ md: '280px' }}
+              borderRadius={'8px'}
+              background={'white'}
+              justifyContent={'flex-end'}
+              pos={'relative'}
+            >
+              <Center
+                w={'40%'}
+                h={'80%'}
+                pos={'absolute'}
+                bg={'#00509E'}
+                top={'-30%'}
+                left={'5%'}
+                boxShadow={'2xl'}
+              >
+                <Icon
+                  as={item.icon || FiUser}
+                  fontSize="5xl"
+                  background={'transparent'}
+                  color={'white'}
+                ></Icon>
+              </Center>
+              <Stack p={2} textAlign={'right'} w={'100%'} gap={'20px'}>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: '1rem', md: '1.5rem', lg: '2rem' }}
+                  color={'gray.500'}
+                  fontWeight={'500'}
+                >
+                  {item.heading}
+                </Heading>
+                <Heading
+                  as="h3"
+                  size={'xl'}
+                  color={'gray.900'}
+                  fontWeight={500}
+                >
+                  {item.value}
+                </Heading>
+              </Stack>
+            </HStack>
+          ))}
+        </SimpleGrid>
+        <SimpleGrid
+          columns={{ base: 1, sm: 2 }}
+          w={'full'}
+          gap={{ base: '20px', sm: '5px', md: '20px' }}
+        >
+          <Box
+            boxShadow={'2xl'}
+            p={{ base: 4, sm: 2, md: 4 }}
+            bg={'white'}
+            borderRadius={'2xl'}
+            w={'fit-content'}
+            mx={'auto'}
           >
-            <Icon
-              as={FiUser}
-              fontSize="5xl"
-              p={2}
-              borderRadius={'50%'}
-              background={'gray.200'}
-            ></Icon>
-            <Stack p={2}>
-              <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Total Users
-              </Heading>
-              <Heading as="h3" size={'xl'} color={'gray.900'}>
-                {users ? users.length : 'Loading'}
-              </Heading>
-            </Stack>
-          </HStack>
-
-          <HStack
-            p={5}
-            w={'30%'}
-            minW={'150px'}
-            maxW={'350px'}
-            borderRadius={'8px'}
-            background={'white'}
+            <CircularProgress
+              value={
+                orders
+                  ? (100 * orders.filter(order => !order.isDelivered).length) /
+                    orders.length
+                  : 30
+              }
+              size="200px"
+            >
+              <CircularProgressLabel fontSize={'md'} color={'gray.600'}>
+                Orders In
+                <br /> Transit
+                <Text fontSize={'2rem'} color={'black'}>
+                  {orders
+                    ? orders.filter(order => !order.isDelivered).length
+                    : 1}
+                  /{orders ? orders.length : 1}
+                </Text>
+              </CircularProgressLabel>
+            </CircularProgress>
+          </Box>
+          <Box
+            boxShadow={'2xl'}
+            p={{ base: 4, sm: 2, md: 4 }}
+            bg={'white'}
+            borderRadius={'2xl'}
+            w={'fit-content'}
+            mx={'auto'}
           >
-            <Icon
-              as={FiUser}
-              fontSize="5xl"
-              p={2}
-              borderRadius={'50%'}
-              background={'gray.200'}
-            ></Icon>
-            <Stack p={2}>
-              <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Total Orders
-              </Heading>
-              <Heading as="h3" size={'xl'} color={'gray.900'}>
-                {orders ? orders.length : 'Loading'}
-              </Heading>
-            </Stack>
-          </HStack>
-
-          <HStack
-            maxW={'350px'}
-            p={5}
-            w={'30%'}
-            minW={'150px'}
-            borderRadius={'8px'}
-            background={'white'}
-          >
-            <Icon
-              as={FiUser}
-              fontSize="5xl"
-              p={2}
-              borderRadius={'50%'}
-              background={'gray.200'}
-            ></Icon>
-            <Stack p={2}>
-              <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Orders in Transit
-              </Heading>
-              <Heading as="h3" size={'xl'} color={'gray.900'}>
-                {orders
-                  ? orders.filter(order => !order.isDelivered).length
-                  : 'Loading'}
-              </Heading>
-            </Stack>
-          </HStack>
-        </Flex>
-        <Flex w={'100%'} justifyContent={'space-evenly'} wrap={'wrap'}>
-          <HStack
-            maxW={'350px'}
-            p={5}
-            w={'30%'}
-            minW={'150px'}
-            borderRadius={'8px'}
-            background={'white'}
-          >
-            <Icon
-              as={FiUser}
-              fontSize="5xl"
-              p={2}
-              borderRadius={'50%'}
-              background={'gray.200'}
-            ></Icon>
-            <Stack p={2}>
-              <Heading as="h2" size={'sm'} color={'gray.500'}>
+            <CircularProgress
+              value={
+                orders
+                  ? (100 * orders.filter(order => order.isPaid).length) /
+                    orders.length
+                  : 20
+              }
+              size="200px"
+            >
+              <CircularProgressLabel fontSize={'md'} color={'gray.600'}>
                 Orders Paid
-              </Heading>
-              <Heading as="h3" size={'xl'} color={'gray.900'}>
-                {orders
-                  ? orders.filter(order => order.isPaid).length
-                  : 'Loading'}
-              </Heading>
-            </Stack>
-          </HStack>
-
-          <HStack
-            maxW={'350px'}
-            p={5}
-            w={'30%'}
-            minW={'150px'}
-            borderRadius={'8px'}
-            background={'white'}
-          >
-            <Icon
-              as={FiUser}
-              fontSize="5xl"
-              p={2}
-              borderRadius={'50%'}
-              background={'gray.200'}
-            ></Icon>
-            <Stack p={2}>
-              <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Amount Recieved
-              </Heading>
-              <Heading as="h3" size={'xl'} color={'gray.900'}>
-                {orders
-                  ? orders.reduce((sum, order) =>
-                      order.isPaid ? order.totalPrice : 0
-                    )
-                  : 'Loading'}
-              </Heading>
-            </Stack>
-          </HStack>
-        </Flex>
+                <Text fontSize={'2rem'} color={'black'}>
+                  {orders ? orders.filter(order => order.isPaid).length : 1}/
+                  {orders ? orders.length : 1}
+                </Text>
+              </CircularProgressLabel>
+            </CircularProgress>
+          </Box>
+        </SimpleGrid>
       </VStack>
-      <Flex></Flex>
     </Container>
   );
 };
