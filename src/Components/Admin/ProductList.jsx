@@ -17,6 +17,7 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Image,
 } from '@chakra-ui/react';
 import { FiUser } from 'react-icons/fi';
 import { useState } from 'react';
@@ -28,67 +29,63 @@ const tableColumns = [
     accessor: 'index',
   },
   {
-    Header: <Text color={'main.400'}> Order id</Text>,
-    accessor: 'orderId',
+    Header: <Text color={'main.400'}> Product</Text>,
+    accessor: 'product',
+  },
+  {
+    Header: <Text color={'main.400'}> Design</Text>,
+    accessor: 'design',
   },
   {
     Header: <Text color={'main.400'}> User</Text>,
     accessor: 'user',
   },
   {
-    Header: <Text color={'main.400'}>Products</Text>,
-    accessor: 'products',
+    Header: <Text color={'main.400'}>Price</Text>,
+    accessor: 'price',
   },
   {
-    Header: <Text color={'main.400'}>Total Price</Text>,
-    accessor: 'totalPrice',
-  },
-  {
-    Header: <Text color={'main.400'}>Paid</Text>,
-    accessor: 'isPaid',
+    Header: <Text color={'main.400'}>Ordered</Text>,
+    accessor: 'ordered',
   },
   {
     Header: <Text color={'main.400'}></Text>,
     accessor: 'more',
   },
 ];
-export const OrderList = () => {
+export const ProductList = () => {
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState({});
   const {
-    allDetails: { orders, users, products, loading },
+    allDetails: { users, products, loading },
   } = useSelector(state => state);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const tableData = orders
-    ? orders.map((order, index) => ({
+  const tableData = products
+    ? products.map((product, index) => ({
         index: <Heading textAlign={'center'}>{index + 1}</Heading>,
-        orderId: (
+        product: (
           <Flex align="center">
-            <Text>{order._id}</Text>
+            <Text>{product.name}</Text>
           </Flex>
         ),
+        design: <Image src={product.design.image} w={'100px'} h={'100px'} />,
         user: (
           <Text w={'100%'} textAlign={'center'}>
-            {users.find(item => item._id === order.user).name}
+            {users.find(item => item._id === product.user).name}
           </Text>
         ),
-        products: (
+        price: (
           <Text w={'100%'} textAlign={'center'}>
-            {order.orderItems.length}
+            {product.price}
           </Text>
         ),
-        totalPrice: (
-          <Text w={'100%'} textAlign={'center'}>
-            {order.totalPrice}
-          </Text>
-        ),
-        isPaid: (
+        ordered: (
           <Text
             w={'100%'}
             textAlign={'center'}
-            color={order.isPaid ? 'Green' : 'Red'}
+            color={product.isOrdered ? 'Green' : 'Red'}
           >
-            {order.isPaid ? 'Yes' : 'No'}
+            {product.isOrdered ? 'Yes' : 'No'}
           </Text>
         ),
         more: (
@@ -97,12 +94,8 @@ export const OrderList = () => {
             color={'#00509E'}
             textDecor={'underline'}
             onClick={() => {
-              let user = users.find(item => item._id === order.user);
-              let items = order.orderItems.map(item => item.product);
-              let orderedItems = products.filter(item =>
-                items.includes(item._id)
-              );
-              setSelected({ order, user, products: orderedItems });
+              let user = users.find(item => item._id === product.user);
+              setSelected({ order: null, user, products: [product] });
               onOpen();
             }}
           >
@@ -120,7 +113,7 @@ export const OrderList = () => {
         fontWeight={500}
         fontSize={['2rem', '2.7rem', '3rem', '3.3rem']}
       >
-        ORDERS
+        Products
       </Heading>
 
       <Box
@@ -130,7 +123,7 @@ export const OrderList = () => {
         fontSize={{ base: 'sm', md: '1rem' }}
         w={'fit-content'}
       >
-        {orders ? (
+        {products ? (
           <Table
             colorScheme="blue"
             // Fallback component when list is empty
@@ -138,7 +131,7 @@ export const OrderList = () => {
               icon: FiUser,
               text: 'No registered user.',
             }}
-            totalRegisters={orders.length}
+            totalRegisters={products.length}
             page={page}
             // Listen change page event and control the current page using state
             onPageChange={page => setPage(page)}
@@ -158,11 +151,8 @@ export const OrderList = () => {
       >
         <ModalOverlay />
         <ModalContent w={'90vw'} maxW={'1000px'}>
-          <ModalHeader
-            fontWeight={500}
-            fontSize={['1.5rem', '2rem', '2.5rem', '3rem']}
-          >
-            Order Details
+          <ModalHeader fontWeight={500} fontSize={['1.5rem', '2rem', '2.5rem']}>
+            Product Details
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody p={{ base: 2, md: 4 }}>

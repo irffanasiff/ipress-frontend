@@ -7,11 +7,11 @@ import {
   productSaveReducer,
 } from './Reducer/productReducer';
 import {
+  allDetailsReducer,
   changePasswordReducer,
   userDetailsReducer,
   userLoginReducer,
   userRegisterReducer,
-  userUpdateReducer,
 } from './Reducer/userReducers';
 import { cartReducer } from './Reducer/cartReducers';
 import { imagesGetReducer } from './Reducer/imageReducer';
@@ -30,6 +30,7 @@ const reducer = combineReducers({
   order: orderReducer,
   passwordReset: changePasswordReducer,
   items: itemsGetReducer,
+  allDetails: allDetailsReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

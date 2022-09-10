@@ -10,7 +10,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { FiUser } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 export const Dashboard = () => {
+  const {
+    allDetails: { orders, users, products, loading },
+  } = useSelector(state => state);
   return (
     <Container w={'100%'} p={5} maxW={'8xl'}>
       <Heading
@@ -23,7 +27,7 @@ export const Dashboard = () => {
         Dashboard
       </Heading>
       <VStack w={'100%'} spacing={5}>
-        <Flex w={'100%'} justifyContent={'space-between'}>
+        <Flex w={'100%'} justifyContent={'space-between'} wrap={'wrap'}>
           <HStack
             p={5}
             w={'30%'}
@@ -44,7 +48,7 @@ export const Dashboard = () => {
                 Total Users
               </Heading>
               <Heading as="h3" size={'xl'} color={'gray.900'}>
-                100
+                {users ? users.length : 'Loading'}
               </Heading>
             </Stack>
           </HStack>
@@ -69,7 +73,7 @@ export const Dashboard = () => {
                 Total Orders
               </Heading>
               <Heading as="h3" size={'xl'} color={'gray.900'}>
-                100
+                {orders ? orders.length : 'Loading'}
               </Heading>
             </Stack>
           </HStack>
@@ -94,12 +98,14 @@ export const Dashboard = () => {
                 Orders in Transit
               </Heading>
               <Heading as="h3" size={'xl'} color={'gray.900'}>
-                100
+                {orders
+                  ? orders.filter(order => !order.isDelivered).length
+                  : 'Loading'}
               </Heading>
             </Stack>
           </HStack>
         </Flex>
-        <Flex w={'100%'} justifyContent={'space-evenly'}>
+        <Flex w={'100%'} justifyContent={'space-evenly'} wrap={'wrap'}>
           <HStack
             maxW={'350px'}
             p={5}
@@ -117,10 +123,12 @@ export const Dashboard = () => {
             ></Icon>
             <Stack p={2}>
               <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Amount to be Paid
+                Orders Paid
               </Heading>
               <Heading as="h3" size={'xl'} color={'gray.900'}>
-                100
+                {orders
+                  ? orders.filter(order => order.isPaid).length
+                  : 'Loading'}
               </Heading>
             </Stack>
           </HStack>
@@ -142,10 +150,14 @@ export const Dashboard = () => {
             ></Icon>
             <Stack p={2}>
               <Heading as="h2" size={'sm'} color={'gray.500'}>
-                Orders in Transit
+                Amount Recieved
               </Heading>
               <Heading as="h3" size={'xl'} color={'gray.900'}>
-                100
+                {orders
+                  ? orders.reduce((sum, order) =>
+                      order.isPaid ? order.totalPrice : 0
+                    )
+                  : 'Loading'}
               </Heading>
             </Stack>
           </HStack>

@@ -1,4 +1,10 @@
 import {
+  DETAILS_GET_FAIL,
+  DETAILS_GET_REQUEST,
+  DETAILS_GET_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
@@ -224,3 +230,83 @@ export const changePassword =
       });
     }
   };
+
+export const deleteUser = id => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+      allDetails: { users },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.delete(
+      `https://ipress-server.herokuapp.com/api/user/admin/${id}`,
+      config
+    );
+    console.log(data);
+    let newUsers = users.filter(user => user._id !== id);
+    await dispatch({
+      type: USER_DELETE_SUCCESS,
+      payload: newUsers,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === 'Not Authorized, token failed') {
+      dispatch(logout());
+    }
+    dispatch({
+      type: USER_DELETE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const getAllDetails = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DETAILS_GET_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `https://ipress-server.herokuapp.com/api/user`,
+      config
+    );
+
+    await dispatch({
+      type: DETAILS_GET_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === 'Not Authorized, token failed') {
+      dispatch(logout());
+    }
+    dispatch({
+      type: DETAILS_GET_FAIL,
+      payload: message,
+    });
+  }
+};

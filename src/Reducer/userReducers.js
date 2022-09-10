@@ -1,4 +1,10 @@
 import {
+  DETAILS_GET_FAIL,
+  DETAILS_GET_REQUEST,
+  DETAILS_GET_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
@@ -85,6 +91,26 @@ export const changePasswordReducer = (state = {}, action) => {
       return { loading: false, success: 'Password Updated' };
     case USER_RESET_PASSWORD_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// All users
+export const allDetailsReducer = (state = { loading: false }, action) => {
+  switch (action.type) {
+    case DETAILS_GET_REQUEST:
+      return { loading: true };
+    case DETAILS_GET_SUCCESS:
+      return { loading: false, ...action.payload };
+    case DETAILS_GET_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_DELETE_REQUEST:
+      return { ...state, loading: true };
+    case USER_DELETE_SUCCESS:
+      return { ...state, loading: false, users: action.payload };
+    case USER_DELETE_FAIL:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
