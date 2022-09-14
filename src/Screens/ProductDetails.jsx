@@ -100,6 +100,7 @@ const ProductDetails = ({ setUrl, setCategory, setProduct, NAV_ITEMS }) => {
       const product = {
         name: productInfo.label,
         fields,
+        price: productInfo.price || 500,
         browseDesign: false,
         uploadDesign: false,
       };

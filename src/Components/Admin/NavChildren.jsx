@@ -89,7 +89,7 @@ export const NavChildren = ({ item, id, childIndex }) => {
         w={'full'}
         p={'20px'}
         alignItems={'flex-start'}
-        gap={10}
+        gap={3}
         fontSize={{ base: 'sm', md: 'md' }}
       >
         <Heading
@@ -101,6 +101,42 @@ export const NavChildren = ({ item, id, childIndex }) => {
         >
           {item.label}
         </Heading>
+        <HStack
+          justifyContent={{ base: 'space-between', lg: 'flex-start' }}
+          w={'full'}
+          alignItems={'center'}
+        >
+          <Heading
+            w={'200px'}
+            textAlign={'left'}
+            color="#00509E"
+            fontWeight={500}
+            fontSize={['1rem', '1.3rem', '1.5rem']}
+          >
+            Price :
+          </Heading>
+          <HStack gap={3}>
+            <Heading fontWeight={500} fontSize={{ base: 'sm', md: 'lg' }}>
+              ${item.price || 500}
+            </Heading>
+            <Button
+              fontSize={{ base: 'sm', md: 'md' }}
+              fontWeight={{ base: 500, md: 600 }}
+              border={'1px solid gray'}
+              onClick={() => {
+                setValue({
+                  id,
+                  index: childIndex,
+                  item: item.label,
+                  price: item.price || 500,
+                });
+                onOpenField();
+              }}
+            >
+              edit
+            </Button>
+          </HStack>
+        </HStack>
         <VStack w={'full'} gap={2}>
           <Heading
             w={'full'}
@@ -135,6 +171,7 @@ export const NavChildren = ({ item, id, childIndex }) => {
                   <Button
                     fontSize={{ base: 'sm', md: 'md' }}
                     fontWeight={{ base: 500, md: 600 }}
+                    border={'1px solid gray'}
                     onClick={() => {
                       setValue({
                         id,
@@ -340,14 +377,19 @@ export const NavChildren = ({ item, id, childIndex }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader fontWeight={500} fontSize={{ base: 'md', md: 'lg' }}>
-            Enter field values separated by commas
+            {value && value.price
+              ? 'Enter Price'
+              : 'Enter field values separated by commas'}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Input
-              defaultValue={value.value}
+              defaultValue={value.price || value.value}
               onChange={e => {
-                setValue({ ...value, value: e.target.value });
+                let newValue = value.price
+                  ? { price: e.target.value }
+                  : { value: e.target.value };
+                setValue({ ...value, ...newValue });
               }}
             />
           </ModalBody>
@@ -368,7 +410,7 @@ export const NavChildren = ({ item, id, childIndex }) => {
               onClick={() => {
                 onLoading();
                 onCloseField();
-                dispatch(editNavItem(value));
+                if (value.price !== item.price) dispatch(editNavItem(value));
               }}
             >
               Save

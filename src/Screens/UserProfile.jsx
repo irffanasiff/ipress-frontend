@@ -110,7 +110,7 @@ const UserProfile = () => {
                       country || ''
                     }`}</Text>
                   ) : (
-                    <Text fontSize={{ base: '14px', md: '16px' }}>
+                    <Text as={'span'} fontSize={{ base: '14px', md: '16px' }}>
                       no address saved
                     </Text>
                   )}

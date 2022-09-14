@@ -56,15 +56,15 @@ export const Settings = ({ NAV_ITEMS }) => {
               w={'full'}
               display={isClosed.includes(index) ? 'none' : 'initial'}
             >
-              {item.children
-                ? item.children.map((child, index) => (
-                    <NavChildren
-                      item={child}
-                      id={item._id}
-                      childIndex={index}
-                    />
-                  ))
-                : ''}
+              {item.children && item.children.length > 0 ? (
+                item.children.map((child, index) => (
+                  <NavChildren item={child} id={item._id} childIndex={index} />
+                ))
+              ) : item.label === 'Awards' ? (
+                <NavChildren item={item} id={item._id} />
+              ) : (
+                ''
+              )}
             </Box>
           </VStack>
         ))}

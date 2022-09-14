@@ -34,7 +34,7 @@ export const addToCart = product => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       'https://ipress-server.herokuapp.com/api/products',
-      { ...product, price: 500 },
+      { ...product },
       config
     );
     // on success clear saved product
