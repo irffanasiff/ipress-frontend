@@ -102,7 +102,7 @@ export const CustomerSupport = () => {
               Call 08138941946 or 07083675200
             </Text>
             <Text color={'black'} textDecor={'underline'}>
-              Weekdays 8am - 6pm
+              Weekdays 9am - 6pm
             </Text>
           </VStack>
         </HStack>
@@ -402,21 +402,21 @@ export const CustomerSupport = () => {
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                8am - 8pm
+                9am - 6pm
               </Box>
               <Box my={2}>
                 Saturday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                9am - 7pm
+                9am - 3pm
               </Box>
               <Box my={2}>
                 Sunday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                9am - 8pm
+                Closed
               </Box>
             </Box>
           </HStack>
@@ -451,21 +451,21 @@ export const CustomerSupport = () => {
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                8am - 8pm
+                9am - 6pm
               </Box>
               <Box my={2}>
                 Saturday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                9am - 7pm
+                9am - 3pm
               </Box>
               <Box my={2}>
                 Sunday:{' '}
                 <Box display={{ base: 'inline', md: 'none' }}>
                   <br />
                 </Box>{' '}
-                9am - 8pm
+                Closed
               </Box>
             </Box>
           </HStack>

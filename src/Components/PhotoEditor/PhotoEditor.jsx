@@ -50,10 +50,6 @@ function Photoeditor({ passImg, imgURL }) {
     'Sans-serif',
     'serif',
   ];
-  let rotation = [
-    -1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3,
-    0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1,
-  ];
   let addText = (data, canvas) => {
     let text = new fabric.IText(data, {
       fontSize,
@@ -205,7 +201,7 @@ function Photoeditor({ passImg, imgURL }) {
     });
     let updateState = e => {
       let target = e.selected[0];
-      if (target.lockMovementX) setSelectedObj('bgImg');
+      if (target.crossOrigin) setSelectedObj('bgImg');
       else if (target.type === 'image') setSelectedObj('image');
       else if (!target.text) setSelectedObj('shape');
       else if (target.type === 'i-text') {
@@ -280,7 +276,7 @@ function Photoeditor({ passImg, imgURL }) {
   return (
     <Box
       background="#e1e1e1"
-      maxW={'full'}
+      w={'full'}
       h="100vh"
       p={['10px', '20px', '10px', '10px 60px']}
       fontSize={['10px', '13px', '15px']}
@@ -396,6 +392,7 @@ function Photoeditor({ passImg, imgURL }) {
         mt={['0', '0', '40px']}
         justifyContent={['space-evenly', 'space-evenly', 'space-between']}
         direction={['column', 'column', 'row', 'row']}
+        w={'full'}
         h="100%"
       >
         <Flex

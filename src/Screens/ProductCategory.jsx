@@ -25,12 +25,9 @@ const ProductCategory = ({ items, setCategory }) => {
         key={index}
         h={['50vh', '70vh', '80vh']}
         maxH={'600px'}
-        bgImage={
-          'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_40/v1659755515/IPRESS/Mockups/Window_Graphics_Mockup_New_gmlaom.jpg")'
-        }
-        bgRepeat={'no-repeat'}
-        bgSize={'cover'}
-        bgPos={'center'}
+        border={'2px solid black'}
+        mx={'10px'}
+        mb={'30px'}
         p={{ base: '5%', lg: '3% 5%' }}
       >
         <Flex h={'100%'} direction={index % 2 ? 'row' : 'row-reverse'}>

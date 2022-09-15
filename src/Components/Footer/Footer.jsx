@@ -231,7 +231,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/customer-support/connect');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -301,7 +301,7 @@ const Footer = () => {
                   <Box
                     as="button"
                     onClick={() => {
-                      navigate('/customer-support');
+                      navigate('/customer-support/connect');
                       window.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -351,13 +351,13 @@ const Footer = () => {
                     fontWeight={'600'}
                   >
                     <Box>
-                      <Text>Mon - Fri: 8am - 8pm</Text>
+                      <Text>Mon - Fri: 9am - 6pm</Text>
                     </Box>
                     <Box>
-                      <Text>Saturday: 9am - 7pm</Text>
+                      <Text>Saturday: 9am - 3pm</Text>
                     </Box>
                     <Box>
-                      <Text>Sunday: 9am - 8pm</Text>
+                      <Text>Sunday: Closed</Text>
                     </Box>
                   </VStack>
                 </VStack>

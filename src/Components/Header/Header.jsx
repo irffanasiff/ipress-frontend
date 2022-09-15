@@ -377,7 +377,7 @@ export default function WithSubnavigation({ product, category, NAV_ITEMS }) {
               </Text>
             </Box>
             <Box display={{ base: 'none', md: 'block' }}>
-              <NavLink to="/customer-support">
+              <NavLink to="/customer-support/connect">
                 <Text>Customer Support</Text>
               </NavLink>
             </Box>
