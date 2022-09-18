@@ -104,6 +104,7 @@ const Home = ({ setCategory, setProduct }) => {
           px={[4, '50px', 10]}
           width={'100%'}
           justifyContent={['space-between', 'space-evenly']}
+          fontFamily={'nunito'}
         >
           <Flex
             direction={'column'}
@@ -132,7 +133,12 @@ const Home = ({ setCategory, setProduct }) => {
               ref={targetElement2}
             ></Box>
             <VStack zIndex={2}>
-              <Text fontSize={['2xl', '3xl', '2rem', '2.5rem']} p={2}>
+              <Text
+                fontSize={['2xl', '3xl', '2rem', '2.5rem']}
+                p={2}
+                color={'black'}
+                fontWeight={200}
+              >
                 Custom <br />
                 Stationary/
                 <br />
@@ -143,7 +149,7 @@ const Home = ({ setCategory, setProduct }) => {
               zIndex={2}
               fontSize={['lg', 'xl', '1.3rem', '2xl']}
               p={4}
-              color={'gray.600'}
+              color={'gray.900'}
               width={'300px'}
             >
               {' '}
@@ -152,13 +158,14 @@ const Home = ({ setCategory, setProduct }) => {
             <Button
               fontWeight={400}
               fontSize={'xl'}
-              p={'1.5rem'}
+              p={'1.4rem'}
               width={'200px'}
               bgColor={'white'}
               color={'#00509E'}
+              border={'1px solid white'}
               _hover={{
                 bgColor: 'transparent',
-                outline: '2px solid #00509E',
+                color: 'white',
               }}
             >
               Start Creating
@@ -184,8 +191,8 @@ const Home = ({ setCategory, setProduct }) => {
               position={'absolute'}
               bg="gray.500"
               bgImage={{
-                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661727809/IPRESS/Mockups/STICKER_1_pefvxn.jpg")',
-                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/STICKER_1_pefvxn.jpg")',
+                base: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1000/v1661727809/IPRESS/Mockups/BI_new_whj4ef.jpg")',
+                md: 'url("https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_1500/v1661114449/IPRESS/Mockups/BI_new_whj4ef.jpg")',
               }}
               bgRepeat={'no-repeat'}
               bgSize={'cover'}
@@ -193,7 +200,11 @@ const Home = ({ setCategory, setProduct }) => {
               ref={targetElement}
             ></Box>
             <VStack zIndex={2}>
-              <Text fontSize={['2xl', '4xl', '5xl']}>
+              <Text
+                fontSize={['2xl', '4xl', '5xl']}
+                color={'black'}
+                fontWeight={200}
+              >
                 Create <br />
                 Professioal Print <br />
                 Projects
@@ -201,7 +212,7 @@ const Home = ({ setCategory, setProduct }) => {
             </VStack>
             <Text
               fontSize={['lg', '2xl']}
-              color={'gray.600'}
+              color={'gray.900'}
               width={'330px'}
               zIndex={2}
             >
@@ -211,13 +222,14 @@ const Home = ({ setCategory, setProduct }) => {
             <Button
               fontWeight={400}
               fontSize={'xl'}
-              p={'1.5rem'}
+              p={'1.4rem'}
               width={'200px'}
               bgColor={'white'}
               color={'#00509E'}
+              border={'1px solid white'}
               _hover={{
                 bgColor: 'transparent',
-                outline: '2px solid #00509E',
+                color: 'white',
               }}
             >
               View More
@@ -433,7 +445,7 @@ const Home = ({ setCategory, setProduct }) => {
             <WrapItem>
               <HeroCard
                 title="Flyers"
-                img="https://i0.wp.com/www.graphidpromotion.com/wp-content/uploads/2019/09/stickers-adesivi-personalizzati-graphid.jpg?fit=629%2C835&ssl=1"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1663500903/IPRESS/Mockups/PHOTO-2022-02-24-09-30-55_hdn47c.jpg"
               />
             </WrapItem>
             <WrapItem>
@@ -457,7 +469,7 @@ const Home = ({ setCategory, setProduct }) => {
             <WrapItem>
               <HeroCard
                 title="Stickers"
-                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1661727748/IPRESS/Mockups/STICKER_2_dqt3df.jpg"
+                img="https://res.cloudinary.com/dzofnuhqh/image/upload/q_auto,w_400/v1663500903/IPRESS/Mockups/PHOTO-2022-02-24-09-30-55_2_diatl3.jpg"
               />
             </WrapItem>
           </Wrap>

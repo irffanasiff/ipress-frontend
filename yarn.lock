@@ -1854,6 +1854,11 @@
   "resolved" "https://registry.npmjs.org/@fontsource/karla/-/karla-4.5.3.tgz"
   "version" "4.5.3"
 
+"@fontsource/nunito@^4.5.10":
+  "integrity" "sha512-pxbv8qtPhtA3fTmJ727PsKgUQqhSzJc0wIe4Wt8mYZ73bkM/jWfCr3944D3pz2Er5CfLum+M9Zwq0G7y+Avk3A=="
+  "resolved" "https://registry.npmjs.org/@fontsource/nunito/-/nunito-4.5.10.tgz"
+  "version" "4.5.10"
+
 "@fontsource/space-grotesk@^4.5.3":
   "integrity" "sha512-uhCiGA3DXiT7BLCcbKzSDlgUp6Pct50+WObzLJvee8qnA2ezH/cfWlIU3+3ydc1poxQuR6+jJN2Cd8XjpOB9lg=="
   "resolved" "https://registry.npmjs.org/@fontsource/space-grotesk/-/space-grotesk-4.5.3.tgz"

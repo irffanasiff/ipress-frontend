@@ -1,9 +1,8 @@
 import { extendTheme } from '@chakra-ui/react';
 import '@fontsource/space-grotesk';
 import '@fontsource/karla';
-import { Global } from '@emotion/react';
-
-export const Fonts = () => (
+import '@fontsource/nunito';
+/* export const Fonts = () => (
   <Global
     styles={`@font-face {
         font-family: 'Futura';
@@ -15,7 +14,7 @@ export const Fonts = () => (
       }
       `}
   />
-);
+); */
 
 const config = {
   initialColorMode: 'light',
@@ -41,8 +40,8 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: 'Futura, sans-serif',
-    body: 'Futura, sans-serif',
+    heading: 'sans-serif',
+    body: 'sans-serif',
   },
   styles: {
     global: {

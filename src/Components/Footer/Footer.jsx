@@ -54,6 +54,7 @@ const Footer = () => {
         maxH={{ base: '600px', md: '500px' }}
         position={'relative'}
         direction={{ base: 'column', md: 'row' }}
+        fontFamily={'nunito'}
       >
         <Flex
           w={{ base: '100%', md: '50%' }}
@@ -71,14 +72,10 @@ const Footer = () => {
           >
             Join Our Mailing List
           </Heading>
-          <Heading
-            fontSize={['12px', '1rem', '1.2rem']}
-            fontWeight={400}
-            textAlign={'center'}
-          >
+          <Text fontSize={['12px', '1rem', '1.2rem']} textAlign={'center'}>
             Be the first to know about about our sales, events and exclusive
             offers.
-          </Heading>
+          </Text>
           <Box position={'relative'}>
             <Text
               as={'label'}
@@ -116,6 +113,7 @@ const Footer = () => {
                 _hover={{ bg: '#1D67CD', color: 'white' }}
                 borderRadius={'20px'}
                 fontSize={{ base: '10px', sm: '14px', lg: '16px' }}
+                fontWeight={200}
                 h={{ base: 7, sm: 8, lg: 10 }}
               >
                 Subscribe
