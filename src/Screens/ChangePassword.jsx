@@ -143,8 +143,15 @@ const ChangePassword = ({ close }) => {
         )}
         <VStack w="full">
           {linkSend && success === 'link sent' ? (
-            <Heading>
-              Link has been sent on your email. Follow the instructions.
+            <Heading
+              fontSize={{ base: 'sm', md: 'md' }}
+              textAlign={'center'}
+              bg={'green.200'}
+              py={5}
+              fontWeight={500}
+            >
+              Link has been sent to your email account. Follow the instructions
+              to reset password.
             </Heading>
           ) : !token ? (
             <form onSubmit={handleSubmit(onSubmitEmail)}>
