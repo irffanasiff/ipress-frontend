@@ -93,8 +93,12 @@ export const PlaceOrder = () => {
         status,
         update_time,
         email_address: payer.email_address,
+        name: payer.name['given_name'] + ' ' + payer.name.surname,
       };
     }
+    // id, status, update_time, payer.email_address, bank account
+    // payer:{address:{country_code}, email_address, name:{given_name, surname}, payer_id}
+    // purchase units[0].amount:{currency_code, value}
     dispatch(orderProducts(order, cartItems));
     setOrdering(true);
   };
